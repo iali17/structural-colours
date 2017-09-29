@@ -15,7 +15,7 @@ In /structural-colour
 ## Server
 First source your virtual envronment!!!
 ```
-In In /structural-colour
+In /structural-colour
 > pip install -r requirements.txt
 ```
 
