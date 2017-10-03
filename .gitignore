@@ -5,3 +5,4 @@ assets/bundles/*
 webpack-stats.json
 env/*
 static/
+.DS_Store
