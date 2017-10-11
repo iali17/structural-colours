@@ -1,6 +1,6 @@
 from django.contrib import admin
-from api.models import Species, Kingdom, Phylum, Order, Family, Colour, SpeciesColour, Picture
-# Register your models here.
+from api.models import *
+
 admin.site.register(Species)
 admin.site.register(Kingdom)
 admin.site.register(Phylum)
