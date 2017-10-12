@@ -3,6 +3,6 @@ db.sqlite3
 node_modules/*
 assets/bundles/*
 webpack-stats.json
-env/*
+**/env/**
 static/
 .DS_Store
