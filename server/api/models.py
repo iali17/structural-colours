@@ -34,6 +34,7 @@ class Order(models.Model):
 
     def __str__(self):
         return self.order
+
 # Family class to hold valid family values
 # Foreign key to Order
 class Family(models.Model):
@@ -42,6 +43,7 @@ class Family(models.Model):
 
     def __str__(self):
         return self.family
+
 # Colour class to hold valid colour values
 class Colour(models.Model):
     COLOUR = (
@@ -57,6 +59,7 @@ class Colour(models.Model):
 
     def __str__(self):
         return self.get_colour_display()
+
 # Species class to hold data about each species
 class Species(models.Model):
     GROUP = (
@@ -102,6 +105,7 @@ class Species(models.Model):
         ('Ma', 'Marine'),
         ('Fr', 'Freshwater'),
     )
+    speciesId = models.AutoField(primary_key=True)
     common_name = models.CharField(max_length=50)
     species = models.CharField(max_length=50, blank=True)
     family = models.ForeignKey(Family, blank=True, null=True)
@@ -121,7 +125,8 @@ class Species(models.Model):
 
 
     def __str__(self):
-        return self.common_name
+        return str(self.speciesId) + ' ' + self.species
+
 # Class to connect species with colours (n-to-n)
 # Foreign keys to Colour and Species
 class SpeciesColour(models.Model):
@@ -129,7 +134,12 @@ class SpeciesColour(models.Model):
     species = models.ForeignKey(Species)
 
     def __str__(self):
+<<<<<<< HEAD
         return self.species.species + " " + self.colour.colour
+=======
+        return self.species + ", " + self.colour
+
+>>>>>>> 3cde4843c860e06fbed29532d5709e9358a90eeb
 # Picture class to hold images for species (1-to-n)
 # Foreign key to Species
 class Picture(models.Model):
