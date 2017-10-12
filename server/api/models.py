@@ -104,7 +104,7 @@ class Species(models.Model):
     )
     common_name = models.CharField(max_length=50)
     species = models.CharField(max_length=50, blank=True)
-    family = models.ForeignKey(Family, blank=True)
+    family = models.ForeignKey(Family, blank=True, null=True)
     group = models.CharField(max_length=1, choices=GROUP, blank=True)
     sillouette = models.ImageField(upload_to='sillouettes/', blank=True)
     mechanism = MultiSelectField(choices=MECHANISM, blank=True)
@@ -121,7 +121,7 @@ class Species(models.Model):
 
 
     def __str__(self):
-        return self.species
+        return self.common_name
 # Class to connect species with colours (n-to-n)
 # Foreign keys to Colour and Species
 class SpeciesColour(models.Model):
@@ -129,7 +129,7 @@ class SpeciesColour(models.Model):
     species = models.ForeignKey(Species)
 
     def __str__(self):
-        return self.species + " " + self.colour
+        return self.species.species + " " + self.colour.colour
 # Picture class to hold images for species (1-to-n)
 # Foreign key to Species
 class Picture(models.Model):
