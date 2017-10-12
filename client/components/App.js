@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import TreeAndColourView from './TreeAndColourView';
+import MainView from './MainView';
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -7,7 +10,10 @@ export default class App extends Component {
 
   render() {
     return (
-      <h1>Hello, World!</h1>
+      <div>
+        <TreeAndColourView />
+        <MainView />
+      </div>
     )
   }
 }
