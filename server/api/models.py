@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 # from https://pypi.python.org/pypi/django-multiselectfield accessed Oct. 5, 2017
 # MultiSelectFields store as CharField of comma-seperated values.
 from multiselectfield import MultiSelectField
@@ -134,16 +135,12 @@ class SpeciesColour(models.Model):
     species = models.ForeignKey(Species)
 
     def __str__(self):
-<<<<<<< HEAD
-        return self.species.species + " " + self.colour.colour
-=======
         return self.species + ", " + self.colour
 
->>>>>>> 3cde4843c860e06fbed29532d5709e9358a90eeb
 # Picture class to hold images for species (1-to-n)
 # Foreign key to Species
 class Picture(models.Model):
-    picture = models.ImageField(upload_to='pictures/', blank=True)
+    picture = models.ImageField(upload_to='media/', blank=True)
     species = models.ForeignKey(Species)
 
     def __str__(self):
