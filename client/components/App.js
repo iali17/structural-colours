@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import TreeAndColourView from './TreeAndColourView';
 import MainView from './MainView';
+import ColorBar from './ColorBar';
+import TreeView from './TreeView';
 
 export default class App extends Component {
   constructor(props) {
@@ -12,7 +14,9 @@ export default class App extends Component {
     return (
       <div>
         <TreeAndColourView />
+        <TreeView />
         <MainView />
+        <ColorBar />
       </div>
     )
   }
