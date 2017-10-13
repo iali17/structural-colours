@@ -34,12 +34,17 @@ module.exports = {
                 query: {
                     presets: ['react']
                 }
-            }
+            },
+            {test: /\.css$/,
+                loaders: ['style-loader', 'css-loader']
+            },
         ]
     },
+    
 
     resolve: {
         modules: [__dirname, 'node_modules'],
         extensions: ['.js', '.jsx']
     }
+
 }
