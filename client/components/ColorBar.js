@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
-var styles = {
-
-}
 //https://reactjs.org/docs/conditional-rendering.html
 //https://appendto.com/2017/01/react-events-101/
 //this.state = { big: null};
