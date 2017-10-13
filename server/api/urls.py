@@ -1,7 +1,8 @@
-from django.conf.urls import url
+from django.conf.urls import include, url
 
-from . import views
+from .views import *
 
 urlpatterns = [
-    url(r'^$', views.index, name="root"),
+    url(r'^$', index, name="root"),
+    url(r'^api/', include("api.api.urls"), name="api")
 ]
