@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import TreeAndColourView from './TreeAndColourView';
 import MainView from './MainView';
+import ProfilePage from './ProfilePage';
 
 export default class App extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ export default class App extends Component {
       <div>
         <TreeAndColourView />
         <MainView />
+	<ProfilePage />
       </div>
     )
   }
