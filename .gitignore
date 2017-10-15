@@ -5,3 +5,5 @@ webpack-stats.json
 **/env/**
 static/
 .DS_Store
+db.sqlite3
+media/**

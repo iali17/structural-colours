@@ -30,7 +30,7 @@ class Phylum(models.Model):
 # Order class to hold valid class values
 # Foreign key to Phylum
 class Order(models.Model):
-    order = models.CharField(max_length=50, primary_key=True)
+    order   = models.CharField(max_length=50, primary_key=True)
     phylum = models.ForeignKey(Phylum)
 
     def __str__(self):
@@ -126,7 +126,7 @@ class Species(models.Model):
 
 
     def __str__(self):
-        return str(self.speciesId) + ' ' + self.species
+        return str(self.speciesId) + ' ' + self.common_name
 
 # Class to connect species with colours (n-to-n)
 # Foreign keys to Colour and Species
@@ -135,12 +135,12 @@ class SpeciesColour(models.Model):
     species = models.ForeignKey(Species)
 
     def __str__(self):
-        return self.species + ", " + self.colour
+        return str(self.species) + ", " + str(self.colour)
 
 # Picture class to hold images for species (1-to-n)
 # Foreign key to Species
 class Picture(models.Model):
-    picture = models.ImageField(upload_to='media/', blank=True)
+    picture = models.ImageField(upload_to='pictures/', blank=True)
     species = models.ForeignKey(Species)
 
     def __str__(self):
