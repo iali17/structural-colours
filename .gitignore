@@ -1,8 +1,9 @@
 *.pyc
-db.sqlite3
 node_modules/*
 assets/bundles/*
 webpack-stats.json
 **/env/**
 static/
 .DS_Store
+db.sqlite3
+media/**

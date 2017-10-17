@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 # from https://pypi.python.org/pypi/django-multiselectfield accessed Oct. 5, 2017
 # MultiSelectFields store as CharField of comma-seperated values.
 from multiselectfield import MultiSelectField
@@ -29,7 +30,7 @@ class Phylum(models.Model):
 # Order class to hold valid class values
 # Foreign key to Phylum
 class Order(models.Model):
-    order = models.CharField(max_length=50, primary_key=True)
+    order   = models.CharField(max_length=50, primary_key=True)
     phylum = models.ForeignKey(Phylum)
 
     def __str__(self):
@@ -108,7 +109,7 @@ class Species(models.Model):
     speciesId = models.AutoField(primary_key=True)
     common_name = models.CharField(max_length=50)
     species = models.CharField(max_length=50, blank=True)
-    family = models.ForeignKey(Family, blank=True)
+    family = models.ForeignKey(Family, blank=True, null=True)
     group = models.CharField(max_length=1, choices=GROUP, blank=True)
     sillouette = models.ImageField(upload_to='sillouettes/', blank=True)
     mechanism = MultiSelectField(choices=MECHANISM, blank=True)
@@ -125,7 +126,7 @@ class Species(models.Model):
 
 
     def __str__(self):
-        return str(self.speciesId) + ' ' + self.species
+        return str(self.speciesId) + ' ' + self.common_name
 
 # Class to connect species with colours (n-to-n)
 # Foreign keys to Colour and Species
@@ -134,7 +135,7 @@ class SpeciesColour(models.Model):
     species = models.ForeignKey(Species)
 
     def __str__(self):
-        return self.species + ", " + self.colour
+        return str(self.species) + ", " + str(self.colour)
 
 # Picture class to hold images for species (1-to-n)
 # Foreign key to Species
