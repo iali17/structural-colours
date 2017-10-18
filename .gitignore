@@ -2,8 +2,8 @@
 node_modules/*
 assets/bundles/*
 webpack-stats.json
-**/env/**
+env/
 static/
 .DS_Store
 db.sqlite3
-media/**
+media/
