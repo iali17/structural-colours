@@ -18,7 +18,7 @@ class SpeciesDetailAPIView(RetrieveAPIView):
     queryset = Species.objects.all()
     serializer_class = SpeciesDetailSerializer
 
-class PictureListTemplateAPIView(ListAPIView):
+class PictureListAPIView(ListAPIView):
     serializer_class = PictureSerializer
     pagination_class = PicturePageNumberPagination
 
@@ -37,6 +37,6 @@ class ColourListAPIView(ListAPIView):
     queryset = Colour.objects.all()
     serializer_class = ColourSerializer
 
-class TaxonomyListTemplateAPIView(ListAPIView):
+class TaxonomyListAPIView(ListAPIView):
     queryset = Family.objects.all()
     serializer_class = TaxonomySerializer
