@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import {
+  fetchDetail,
+} from '../actions/detailActions';
+
+@connect((store) => {
+  return {
+    detail: store.detailView.detail,
+    fetching: store.detailView.fetching,
+    fetched: store.detailView.fetched
+  };
+})
 
 /* To be replaced with fetches from django api */
 var DATA = {    
-    name: 'Frog',
-    imgURL: 'https://ichef-1.bbci.co.uk/news/624/cpsprodpb/AA04/production/_87842534_bbc_biswas_7.jpg',
+    name: this.props.dispatch(fetchDetail(id)), /*need a way to get the id of the image clicked by the user to get to this page */
+    imgURL: this.props.dispatch(fetchPicture(id)), /*Replaced in future with picture fetching function */
     datalist: ['Structure', 'wavelength', 'Factor', 'Location']
 }
 
@@ -29,6 +42,8 @@ export default class ProfilePage extends Component {
 /* Loads the name and picture of the speicies */
 var Profile = React.createClass({
 	render: function(){
+		
+
 		return (
 			<div>
 				<h3>{this.props.name}</h3>
