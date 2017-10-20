@@ -10,11 +10,12 @@ class HierarchyTestCase(TestCase):
         Order.objects.create(order='order', phylum=Phylum.objects.get(phylum='phylum'))
         Family.objects.create(family='family', order=Order.objects.get(order='order'))
         Colour.objects.create(colour='R')
+        Colour.objects.create(colour='Y')
         Species.objects.create(common_name='name',iridescense=False)
         SpeciesColour.objects.create(colour=Colour.objects.get(colour='R'), species=Species.objects.get(common_name='name'))
 
-    # Test database contents
-    def test_kingdom_value(self):
+    # Test data was added (UC4)
+    def test_add_data(self):
         k = Kingdom.objects.get(kingdom='Eu')
         p = Phylum.objects.get(phylum='phylum')
         o = Order.objects.get(order='order')
@@ -27,6 +28,21 @@ class HierarchyTestCase(TestCase):
         self.assertEqual(str(f), 'family')
         self.assertEqual(str(s), '1 name')
         self.assertEqual(str(sc), '1 name, Red')
+
+    # Test data was edited (UC7)
+    def test_edit_data(self):
+        f = Species.objects.get(common_name='name')
+        f.iridescense=True
+        f.save()
+        f = Species.objects.get(common_name='name')
+        self.assertTrue(f.iridescense)
+
+
+    # Test data was deleted (UC8)
+    def test_delete_data(self):
+        c = Colour.objects.get(colour='Y')
+        c.delete()
+        self.assertRaisesMessage(Colour.DoesNotExist, Colour.objects.get, colour='Y')
 
     # Test serializer contents
     def test_api_values(self):
