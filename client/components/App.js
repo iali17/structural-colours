@@ -18,12 +18,14 @@ export default class App extends Component {
         <TreeAndColourView />
         <TreeView />
         <MainView />
-
-	<ProfilePage />
-
+	{/*{this.props.children} 
+		<ProfilePage />for profile page */}
         <ColorBar />
 
       </div>
     )
   }
 }
+
+
+

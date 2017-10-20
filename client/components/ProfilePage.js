@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+
 import {
   fetchDetail,
 } from '../actions/detailActions';
+
+import {
+  fetchPicture,
+} from '../actions/pictureActions';
 
 @connect((store) => {
   return {
@@ -13,27 +18,25 @@ import {
   };
 })
 
-/* To be replaced with fetches from django api */
-var DATA = {    
-    name: this.props.dispatch(fetchDetail(id)), /*need a way to get the id of the image clicked by the user to get to this page */
-    imgURL: this.props.dispatch(fetchPicture(id)), /*Replaced in future with picture fetching function */
-    datalist: ['Structure', 'wavelength', 'Factor', 'Location']
-}
+
 
 /* Main component of this page loads two other components  */
 export default class ProfilePage extends Component {
 	constructor(props) {
 		super(props);
 	}
-
+	
 	render(){
+
+		const datalist = ['Structure', 'Wavelength', 'Factor', 'Location']
+		const id = 1
 		return (
 			<div>
 				<Profile
-					name={this.props.profileData.name}
-					imgURL={this.props.profileData.imgURL}/>
+					name={this.props.dispatch(fetchDetail(id))} /*need a way to get the id of the image clicked by the user to get to this page */
+					/*imgURL={this.props.dispatch(fetchPicture(id))}*/ />
 				<Data
-					dataList={this,props.profileData.dataList} />
+					dataList={datalist} />
 			</div>
 		)
 	}
@@ -50,24 +53,28 @@ var Profile = React.createClass({
 				<img src={this.props.imgURL}/>
 			</div>
 		);
+
+		
 	}
 });
 
 /* Loads the data associated with the species */
 var Data = React.createClass({
 	render:function(){
-		var data = this.props.dataList.map(function(data,index){
-			return (<li key={index}>{data}</li>);
-	});
-
+		
+	var data = this.props.dataList.map(function(data,index){
+		return (<li key={index}>{data}</li>);
+	});			
+	
 	return (
 		<div>
 			<ul>
 				{data}
 			</ul>
+
 		</div>
 		);
 	}
+	
 });
-
 

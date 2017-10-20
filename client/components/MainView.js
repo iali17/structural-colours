@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+/*import {Link}	from 'react-router'; For when we have clickable images*/
 
 import {
   fetchDetail,
@@ -29,5 +30,10 @@ export default class MainView extends Component {
     else {
       return <button onClick={() => this.props.dispatch(fetchDetail(1))} />
     }
+
+    /**
+    *To be implemented when we implement pics on page
+    *<Link to = "/ProfilePage">Click me </Link>
+    */
   }
 }
