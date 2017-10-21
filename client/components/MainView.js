@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {Link} from 'react-router'; 
 
 import {
   fetchDetail,
@@ -20,6 +21,7 @@ export default class MainView extends Component {
 
   render() {
 
+    
     if (this.props.fetching) {
       return <h1>IM FETCHING</h1>
     }
@@ -29,5 +31,12 @@ export default class MainView extends Component {
     else {
       return <button onClick={() => this.props.dispatch(fetchDetail(1))} />
     }
+
+     
+    /**
+    *To be implemented when we implement pics on page
+    *<Link to = "/ProfilePage">Click me </Link>
+    */
+    
   }
 }
