@@ -18,6 +18,7 @@ export default class App extends Component {
         <TreeAndColourView />
         <TreeView />
         <MainView />
+	{this.props.children}
 	{/*{this.props.children} 
 		<ProfilePage />for profile page */}
         <ColorBar />
