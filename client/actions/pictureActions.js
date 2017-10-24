@@ -14,3 +14,16 @@ export function fetchPicture(id) {
     })
   }
 }
+
+export function fetchRandomPictures() {
+  return function(dispatch) {
+    dispatch({type: "FETCH_RANDOM_PICTURES"});
+    axios.get(URL_PREFIX + "/api/pictures/random")
+    .then((response) => {
+      dispatch({type: "FETCH_RANDOM_PICTURES_FULFILLED", payload: response.data})
+    })
+    .catch((err) => {
+      dispatch({type: "FETCH_RANDOM_PICTURES_REJECTED", payload: err})
+    })
+  }
+}
