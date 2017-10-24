@@ -19,6 +19,15 @@ import {
 })
 
 
+@connect((store) => {
+  return {
+    detail: store.pictureView.detail,
+    fetching: store.pictureView.fetching,
+    fetched: store.pictureView.fetched
+  };
+})
+
+
 
 /* Main component of this page loads two other components  */
 export default class ProfilePage extends Component {
@@ -30,11 +39,19 @@ export default class ProfilePage extends Component {
 
 		const datalist = ['Structure', 'Wavelength', 'Factor', 'Location']
 		const id = 1
+		if (this.props.fetching) {
+      			imgURL = "IM FETCHING"
+    		} else if (this.props.fetched) {
+      			imgURL = this.props.detail.picture
+    		} else {
+      			imgURL=this.props.dispatch(fetchPicture(id))
+    		}
+
 		return (
 			<div>
 				<Profile
-					name={this.props.dispatch(fetchDetail(id))} /*need a way to get the id of the image clicked by the user to get to this page */
-					/*imgURL={this.props.dispatch(fetchPicture(id))}*/ />
+					name={this.props.dispatch(fetchDetail(id))} /> /*need a way to get the id of the image clicked by the user to get to this page */
+									
 				<Data
 					dataList={datalist} />
 			</div>
