@@ -21,7 +21,7 @@ import {
 
 @connect((store) => {
   return {
-    detail: store.pictureView.detail,
+    picture: store.pictureView.picture,
     fetching: store.pictureView.fetching,
     fetched: store.pictureView.fetched
   };
@@ -42,7 +42,7 @@ export default class ProfilePage extends Component {
 		if (this.props.fetching) {
       			imgURL = "IM FETCHING"
     		} else if (this.props.fetched) {
-      			imgURL = this.props.detail.picture
+      			imgURL = this.props.picture
     		} else {
       			imgURL=this.props.dispatch(fetchPicture(id))
     		}

@@ -1,5 +1,5 @@
 export default function reducer(state={
-  detail: {},
+  picture: {},
   fetching: false,
   fetched: false,
 }, action) {
@@ -15,7 +15,7 @@ export default function reducer(state={
         ...state,
         fetching: false,
         fetched: true,
-        detail: action.payload,
+        picture: action.payload,
       }
     }
   }

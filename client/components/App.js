@@ -15,13 +15,14 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <TreeAndColourView />
+	<ProfilePage />
+        {/*<TreeAndColourView />
         <TreeView />
         <MainView />
 	{this.props.children}
-	{/*{this.props.children} 
-		<ProfilePage />for profile page */}
-        <ColorBar />
+	{this.props.children} 
+		for profile page 
+        <ColorBar />*/}
 
       </div>
     )
