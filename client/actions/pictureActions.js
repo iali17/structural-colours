@@ -5,7 +5,7 @@ import { URL_PREFIX } from '../constants';
 export function fetchPicture(id) {
   return function(dispatch) {
     dispatch({type: "FETCH_PICTURE"});
-    axios.get(URL_PREFIX + "/api/species/" + id)
+    axios.get(URL_PREFIX + "/api/pictures/all/" + id)
     .then((response) => {
       dispatch({type: "FETCH_PICTURE_FULFILLED", payload: response.data})
     })

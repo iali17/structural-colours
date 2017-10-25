@@ -13,10 +13,20 @@ import {
 @connect((store) => {
   return {
     detail: store.detailView.detail,
+    detail: store.detailView.family,
     fetching: store.detailView.fetching,
     fetched: store.detailView.fetched
   };
 })
+
+@connect((store) => {
+  return {
+    pictures: store.profileView.pictures,
+    fetching: store.profileView.fetching,
+    fetched: store.profileView.fetched
+  };
+})
+
 
 
 
@@ -28,13 +38,36 @@ export default class ProfilePage extends Component {
 	
 	render(){
 
-		const datalist = ['Structure', 'Wavelength', 'Factor', 'Location']
+		var imgURL;
+		var name;
+		
 		const id = 1
+		if (this.props.fetching) {
+      			imgURL = "IM FETCHING";
+		}else if (this.props.fetched) {
+      			imgURL = this.props.pictures.pictures;
+		}else {
+      			imgURL = this.props.dispatch(fetchPicture(id));
+		}
+
+		if (this.props.fetching) {
+      			name = "IM FETCHING";
+			
+    		}else if (this.props.fetched) {
+      			name = this.props.detail.common_name;
+			{/*datalist = [this.props.detail.family, this.props.detail.description, this.props.detail.species, this.props.detail.wavelength]*/}
+    		} else {
+      			name = this.props.dispatch(fetchDetail(1));
+    		}
+
+		
+		const datalist = ['Structure', 'Wavelength', 'Factor', 'Location']
 		return (
 			<div>
 				<Profile
-					name={this.props.dispatch(fetchDetail(id))} /*need a way to get the id of the image clicked by the user to get to this page */
-					/*imgURL={this.props.dispatch(fetchPicture(id))}*/ />
+					name = {name}
+					imgURL/>
+					
 				<Data
 					dataList={datalist} />
 			</div>
