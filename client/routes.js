@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-import React, { Component } from 'react';
-import {Route, IndexRoute} from 'react-router';
-=======
+
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 >>>>>>> develop

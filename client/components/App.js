@@ -23,16 +23,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
-<<<<<<< HEAD
-	<ProfilePage />
-        {/*<TreeAndColourView />
-        <TreeView />
-        <MainView />
-	{this.props.children}
-	{this.props.children} 
-		for profile page 
-        <ColorBar />*/}
-=======
+
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <h1>TREE VIEW</h1>
@@ -55,7 +46,7 @@ export default class App extends Component {
       	{this.props.children}
       	{/*{this.props.children}
       		<ProfilePage />for profile page */}
->>>>>>> develop
+
 
       </div>
     )

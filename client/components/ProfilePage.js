@@ -52,20 +52,7 @@ export default class ProfilePage extends Component {
 		
 		const id = 1
 		if (this.props.fetching) {
-<<<<<<< HEAD
-      			imgURL = "IM FETCHING"
-    		} else if (this.props.fetched) {
-      			imgURL = this.props.picture
-    		} else {
-      			imgURL=this.props.dispatch(fetchPicture(id))
-    		}
 
-		return (
-			<div>
-				<Profile
-					name={this.props.dispatch(fetchDetail(id))} /> /*need a way to get the id of the image clicked by the user to get to this page */
-									
-=======
       			imgURL = "IM FETCHING";
 		}else if (this.props.fetched) {
       			imgURL = this.props.pictures.pictures;
