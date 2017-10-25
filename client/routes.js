@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 import React, { Component } from 'react';
 import {Route, IndexRoute} from 'react-router';
+=======
+import React from 'react';
+import { Route, IndexRoute } from 'react-router';
+>>>>>>> develop
 {/* from https://stackoverflow.com/questions/41956465/how-to-create-multiple-page-app-using-react */}
 
-import TreeAndColourView from './components/TreeAndColourView';
 import MainView from './components/MainView';
 import ProfilePage from './components/ProfilePage';
 import ColorBar from './components/ColorBar';

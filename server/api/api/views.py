@@ -1,3 +1,4 @@
+import random
 from rest_framework.generics import (
     RetrieveAPIView,
     ListAPIView,
@@ -30,6 +31,16 @@ class PictureListAPIView(ListAPIView):
         if colour_param is not None and species_param is not None:
             # TODO: This is where we will do the advanced search.
             queryset = Picture.objects.all().order_by('id')
+
+        return queryset
+
+class RandomPictureListAPIView(ListAPIView):
+    serializer_class = PictureSerializer
+
+    def get_queryset(self):
+        count = Picture.objects.all().count()
+        index = random.random() * (count - 4)
+        queryset = Picture.objects.all()[index: index + 4]
 
         return queryset
 
