@@ -21,23 +21,11 @@ import {
 
 @connect((store) => {
   return {
-    pictures: store.profileView.pictures,
+    picture: store.profileView.picture,
     fetching: store.profileView.fetching,
     fetched: store.profileView.fetched
   };
 })
-
-
-
-@connect((store) => {
-  return {
-    picture: store.pictureView.picture,
-    fetching: store.pictureView.fetching,
-    fetched: store.pictureView.fetched
-  };
-})
-
-
 
 /* Main component of this page loads two other components  */
 export default class ProfilePage extends Component {
@@ -45,63 +33,61 @@ export default class ProfilePage extends Component {
 		super(props);
 	}
 	
+	componentWillMount() {
+    		this.props.dispatch(fetchPicture()[1])
+  	}
 	render(){
 
 		var imgURL;
 		var name;
-		
 		const id = 1
-		if (this.props.fetching) {
 
-      			imgURL = "IM FETCHING";
-		}else if (this.props.fetched) {
-      			imgURL = this.props.pictures.pictures;
-		}else {
-      			imgURL = this.props.dispatch(fetchPicture(id));
-		}
-
-		if (this.props.fetching) {
-      			name = "IM FETCHING";
-			
-    		}else if (this.props.fetched) {
-      			name = this.props.detail.common_name;
-			{/*datalist = [this.props.detail.family, this.props.detail.description, this.props.detail.species, this.props.detail.wavelength]*/}
-    		} else {
-      			name = this.props.dispatch(fetchDetail(1));
-    		}
-
-		
 		const datalist = ['Structure', 'Wavelength', 'Factor', 'Location']
 		return (
 			<div>
-				<Profile
-					name = {name}
-					imgURL/>
+				<Profile />
+				
+			
+			
+				<Picture />	
 					
->>>>>>> develop
+			
 				<Data
 					dataList={datalist} />
 			</div>
 		)
+		
 	}
 }
 
 /* Loads the name and picture of the speicies */
 var Profile = React.createClass({
 	render: function(){
-		
 
-		return (
-			<div>
-				<h3>{this.props.name}</h3>
-				<img src={this.props.imgURL}/>
-			</div>
-		);
 
+		if (this.props.fetching) {
+      			return <h1>IM FETCHING</h1>
+    		} else if (this.props.fetched) {
+      			return <h1>{this.props.detail.common_name}</h1>
+    		} else {
+      			this.props.dispatch(fetchDetail(1))
+			return <h1>{'Getting name'}</h1>
+    		}
 		
 	}
 });
 
+var Picture = React.createClass({
+	render:function(){
+	
+	return (
+		<div>
+			<img src = {this.props.picture.picture[id]}/>
+		</div>
+	)
+	}
+	
+});
 /* Loads the data associated with the species */
 var Data = React.createClass({
 	render:function(){
@@ -121,4 +107,3 @@ var Data = React.createClass({
 	}
 	
 });
-

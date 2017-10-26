@@ -2,11 +2,11 @@ import axios from 'axios';
 
 import { URL_PREFIX } from '../constants';
 
-export function fetchPicture(id) {
+export function fetchPicture() {
   return function(dispatch) {
     dispatch({type: "FETCH_PICTURE"});
 
-    axios.get(URL_PREFIX + "/api/pictures/all/" + id)
+    axios.get(URL_PREFIX + "/api/pictures/all")
 
     .then((response) => {
       dispatch({type: "FETCH_PICTURE_FULFILLED", payload: response.data})
