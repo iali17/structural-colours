@@ -13,7 +13,7 @@ import {
 @connect((store) => {
   return {
     detail: store.detailView.detail,
-    detail: store.detailView.family,
+    
     fetching: store.detailView.fetching,
     fetched: store.detailView.fetched
   };
@@ -21,7 +21,7 @@ import {
 
 @connect((store) => {
   return {
-    picture: store.profileView.picture,
+    picture: store.profileView.picture.results,
     fetching: store.profileView.fetching,
     fetched: store.profileView.fetched
   };
@@ -34,7 +34,8 @@ export default class ProfilePage extends Component {
 	}
 	
 	componentWillMount() {
-    		this.props.dispatch(fetchPicture()[1])
+    		this.props.dispatch(fetchPicture())
+		this.props.dispatch(fetchDetail(1))
   	}
 	render(){
 
@@ -45,12 +46,10 @@ export default class ProfilePage extends Component {
 		const datalist = ['Structure', 'Wavelength', 'Factor', 'Location']
 		return (
 			<div>
-				<Profile />
-				
-			
-			
-				<Picture />	
-					
+				<Profile 
+					name = {this.props.detail}/>		
+				<Picture 
+					imgURL = {this.props.picture}/>
 			
 				<Data
 					dataList={datalist} />
@@ -70,8 +69,8 @@ var Profile = React.createClass({
     		} else if (this.props.fetched) {
       			return <h1>{this.props.detail.common_name}</h1>
     		} else {
-      			this.props.dispatch(fetchDetail(1))
-			return <h1>{'Getting name'}</h1>
+      			
+			return <h1>{name}</h1>
     		}
 		
 	}
@@ -82,7 +81,7 @@ var Picture = React.createClass({
 	
 	return (
 		<div>
-			<img src = {this.props.picture.picture[id]}/>
+			<img src = {this.props.imgURL}/>
 		</div>
 	)
 	}

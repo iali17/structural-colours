@@ -15,7 +15,7 @@ export default function reducer(state={
         ...state,
         fetching: false,
         fetched: true,
-        pictures: action.payload,
+        picture: action.payload,
       }
     }
   }
