@@ -13,19 +13,15 @@ import {
 @connect((store) => {
   return {
     detail: store.detailView.detail,
-    
-    fetching: store.detailView.fetching,
-    fetched: store.detailView.fetched
+    dfetching: store.detailView.fetching,
+    dfetched: store.detailView.fetched,
+    picture: store.profileView.picture.results,
+    pfetching: store.profileView.fetching,
+    pfetched: store.profileView.fetched
+
   };
 })
 
-@connect((store) => {
-  return {
-    picture: store.profileView.picture.results,
-    fetching: store.profileView.fetching,
-    fetched: store.profileView.fetched
-  };
-})
 
 /* Main component of this page loads two other components  */
 export default class ProfilePage extends Component {
@@ -42,14 +38,17 @@ export default class ProfilePage extends Component {
 		var imgURL;
 		var name;
 		const id = 1
-
+		console.log(this.pfetching);
 		const datalist = ['Structure', 'Wavelength', 'Factor', 'Location']
 		return (
 			<div>
+				<img src = "http://localhost:8000/media/pictures/BogbaneBeetleP_MG0pOn5.png/"/>
 				<Profile 
+
 					name = {this.props.detail}/>		
 				<Picture 
-					imgURL = {this.props.picture}/>
+					
+						imgURL = {this.props.picture}/>
 			
 				<Data
 					dataList={datalist} />
@@ -61,35 +60,43 @@ export default class ProfilePage extends Component {
 
 /* Loads the name and picture of the speicies */
 var Profile = React.createClass({
-	render: function(){
+	render(){
 
 
-		if (this.props.fetching) {
+		if (this.props.dfetching) {
       			return <h1>IM FETCHING</h1>
-    		} else if (this.props.fetched) {
+    		} else if (this.props.dfetched) {
       			return <h1>{this.props.detail.common_name}</h1>
     		} else {
       			
-			return <h1>{name}</h1>
+			return <h1>{"name"}</h1>
     		}
 		
 	}
 });
 
 var Picture = React.createClass({
-	render:function(){
+     render(){
 	
-	return (
-		<div>
-			<img src = {this.props.imgURL}/>
-		</div>
-	)
+	if (this.props.pfetched) {
+		return (
+			<div>
+				<img src = {this.props.imgURL}/>
+			</div>
+			)
+	} else {
+		return (
+			<div>
+				"not fetched"
+			</div>
+		)
 	}
+    }
 	
 });
 /* Loads the data associated with the species */
 var Data = React.createClass({
-	render:function(){
+	render(){
 		
 	var data = this.props.dataList.map(function(data,index){
 		return (<li key={index}>{data}</li>);
