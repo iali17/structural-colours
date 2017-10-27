@@ -22,11 +22,13 @@ export default class Icicle extends Component {
 		super(props);
 	}
 
+	
+
 	render(){
 		//var jsonObj = this.props.detail;
+		//https://bl.ocks.org/tophtucker/a35c0f4f32400755a6a9b976be834ab3
 
 		console.log("here", readme);
-
 		var width = 960;
 		var height = 500;
 
@@ -44,29 +46,55 @@ export default class Icicle extends Component {
 		var rect = svg.selectAll("rect");
 
 		// My problem is here daniel. I'll post a screenshot of what the error is,
-		var icicle = d3.json(readme, function(root) {
+		//var icicle = d3.json("no", function(root) {
 
-			console.log("root?", d3.entries(root))
+			//console.log("root?", d3.entries(root))
 
-			root = d3.hierarchy(d3.entries(root)[0], function(d) {
-				console.log("d3entries", d3.entries(d.value))
-				return d3.entries(d.value)
-			})
-			.sum(function(d) {return d.value})
-			.sort(function(a,b) { return b.value - a.value; });
+		console.log("entries:", d3.entries(readme)[0])
+		var root = d3.hierarchy(d3.entries(readme)[0], function(d) {
+			console.log("d3entries", d3.entries(d.value))
+			return d3.entries(d.value)
+		}) 
+		.sum(function(d) {return d.value})
+		.sort(function(a,b) { return b.value - a.value; }); 
 
-			partition(root);
+		partition(root);
 
-			rect = rect.data(root.descendants()).enter().append("rect")
-				.attr("x", function(d) {return d.x0;})
-				.attr("y", function(d) {return d.y0;})
-				.attr("width", function(d) {return d.x1 - d.x0;})
-				.attr("height", function(d) {return d.y1 - d.y0;})
-				.attr("fill", function(d) {return color((d.children ? d : d.parent).data.key); })
-		});
+		rect = rect
+	   		.data(root.descendants())
+	   		.enter().append("rect")
+	   		.attr("x", function(d) { return d.x0; })
+	   		.attr("y", function(d) { return d.y0; })
+	   		.attr("width", function(d) { return d.x1 - d.x0; })
+	   		.attr("height", function(d) { return d.y1 - d.y0; })
+	   		.attr("fill", function(d) { return color((d.children ? d : d.parent).data.key); })
+	   		.on("click", clicked);
+
+	   	function clicked(d) {
+			x.domain([d.x, d.x + d.dx]);
+			y.domain([d.y, 1]).range([d.y ? 20 : 0, height]);
+
+			rect.transition()
+			    .duration(750)
+			    .attr("x", function(d) { return x(d.x); })
+			    .attr("y", function(d) { return y(d.y); })
+			    .attr("width", function(d) { return x(d.x + d.dx) - x(d.x); })
+			    .attr("height", function(d) { return y(d.y + d.dy) - y(d.y); });
+		}	
+
+		console.log("rect", rect)
+
+		/* rect = rect.data(partition(d3.entries(readme)[0]))
+			   .enter().append("rect")
+			   .attr("x", function(d) { return x(d.x); })
+			   .attr("y", function(d) { return y(d.y); })s
+			   .attr("width", function(d) { return x(d.dx); })
+			   .attr("height", function(d) { return y(d.dy); })
+			   .attr("fill", function(d) { return color((d.children ? d : d.parent).key); }) */
+		//});
 
 		console.log("rect",{rect})
-		console.log("icicle", {icicle})
+		//console.log("icicle", {icicle})
 
 		return(
 			<p>p</p>
