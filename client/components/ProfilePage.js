@@ -30,86 +30,84 @@ export default class ProfilePage extends Component {
 	}
 	
 	componentWillMount() {
-    		this.props.dispatch(fetchPicture())
+    	this.props.dispatch(fetchPicture())
 		this.props.dispatch(fetchDetail(1))
   	}
+
+  
+
+    if 
 	render(){
 
 		var imgURL;
-		var name;
-		const id = 1
-		console.log(this.pfetching);
-		const datalist = ['Structure', 'Wavelength', 'Factor', 'Location']
-		return (
-			<div>
-				<img src = "http://localhost:8000/media/pictures/BogbaneBeetleP_MG0pOn5.png/"/>
-				<Profile 
+		
 
-					name = {this.props.detail}/>		
-				<Picture 
-					
-						imgURL = {this.props.picture}/>
+		var id = 0
+		
+		var datalist	
+
+		if (this.props.dfetched && this.props.pfetched) {
+			const info = this.props.detail
+			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure]
 			
-				<Data
-					dataList={datalist} />
-			</div>
-		)
+			var data = datalist.map(function(data,index){
+				return (<li key={index}>{data}</li>);
+			});
+			return (
+				<div>
+					
+					<h2>
+					{this.props.detail.common_name}
+					</h2>
+
+					{this.props.detail.family},
+					{this.props.detail.species}
+
+					<p>	
+					<img src = {this.props.detail.sillouette}/>
+					<img src = {this.props.picture[id].picture}/>
+					</p>
+
+					<ul>
+						{data}
+					</ul>
+
+				</div>
+			)
+		} else if(this.props.defetched) {
+			return(
+				<div>
+					
+					{this.props.detail.common_name}
+					<p>
+						<img src = "http://localhost:8000/media/pictures/BogbaneBeetleP_MG0pOn5.png/"/>
+					</p>
+					
+				</div>
+			)
+		} else if(this.props.pfetched) {
+			return(
+				<div>
+					
+					Fetching
+
+					<img src = {this.props.picture[id].picture}/>
+
+					/>
+				</div>
+			)
+		} else {
+			return(
+				<div>
+						
+					{"Fetching name"}
+
+					<img src = "http://localhost:8000/media/pictures/BogbaneBeetleP_MG0pOn5.png/"/>
+					/>
+				</div>
+			)
+		}
+
 		
 	}
 }
-
-/* Loads the name and picture of the speicies */
-var Profile = React.createClass({
-	render(){
-
-
-		if (this.props.dfetching) {
-      			return <h1>IM FETCHING</h1>
-    		} else if (this.props.dfetched) {
-      			return <h1>{this.props.detail.common_name}</h1>
-    		} else {
-      			
-			return <h1>{"name"}</h1>
-    		}
-		
-	}
-});
-
-var Picture = React.createClass({
-     render(){
-	
-	if (this.props.pfetched) {
-		return (
-			<div>
-				<img src = {this.props.imgURL}/>
-			</div>
-			)
-	} else {
-		return (
-			<div>
-				"not fetched"
-			</div>
-		)
-	}
-    }
-	
-});
-/* Loads the data associated with the species */
-var Data = React.createClass({
-	render(){
-		
-	var data = this.props.dataList.map(function(data,index){
-		return (<li key={index}>{data}</li>);
-	});			
-	
-	return (
-		<div>
-			<ul>
-				{data}
-			</ul>
-
-		</div>
-		);
-	}
-	
-});
