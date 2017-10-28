@@ -7,6 +7,7 @@ from rest_framework.generics import (
 from .serializers import (
     SpeciesDetailSerializer,
     PictureSerializer,
+    LandingPictureSerializer,
     TaxonomySerializer,
     ColourSerializer,
     )
@@ -34,13 +35,13 @@ class PictureListAPIView(ListAPIView):
 
         return queryset
 
-class RandomPictureListAPIView(ListAPIView):
-    serializer_class = PictureSerializer
+class RandomLandingPictureListAPIView(ListAPIView):
+    serializer_class = LandingPictureSerializer
 
     def get_queryset(self):
-        count = Picture.objects.all().count()
+        count = LandingPicture.objects.all().count()
         index = random.random() * (count - 4)
-        queryset = Picture.objects.all()[index: index + 4]
+        queryset = LandingPicture.objects.all()[index: index + 4]
 
         return queryset
 
