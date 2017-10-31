@@ -9,7 +9,7 @@ config.entry = [
        './client/index',
 ]
 
-config.output.publicPath = path.resolve('./static/')
+config.output.publicPath = path.resolve('./static/') + '/'
 
 config.plugins = config.plugins.concat([
     new BundleTracker({filename: './webpack-stats-prod.json'}),

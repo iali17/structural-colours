@@ -112,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Edmonton'
 
 USE_I18N = True
 
@@ -126,7 +126,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'pictures'),)
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -143,7 +143,7 @@ WEBPACK_LOADER = {
 
 if not DEBUG:
     WEBPACK_LOADER['DEFAULT'].update({
-        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-prod.json')
+        'STATS_FILE': os.path.join(BASE_DIR, '../webpack-stats-prod.json')
         })
 
 #CSRF_COOKIE_SECURE = True
