@@ -54,8 +54,9 @@ export default class ProfilePage extends Component {
 				return (<li key={index}>{data}</li>);
 			});
 			return (
+
 				<div>
-					
+					<center>
 					<h2>
 					{this.props.detail.common_name}
 					</h2>
@@ -68,9 +69,11 @@ export default class ProfilePage extends Component {
 					<img src = {this.props.picture[id].picture}/>
 					</p>
 
-					<ul>
+					<ul style = {{listStyleType: 'none'}}>
+
 						{data}
 					</ul>
+					</center>
 
 				</div>
 			)
