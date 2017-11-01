@@ -22,8 +22,10 @@ from . import routers
 
 urlpatterns = [
     url(r'^', include('api.urls')),
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(routers.SharedAPIRootRouter.router.urls)),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
