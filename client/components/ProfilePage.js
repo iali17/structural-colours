@@ -13,11 +13,14 @@ import {
 @connect((store) => {
   return {
     detail: store.detailView.detail,
-    fetching: store.detailView.fetching,
-    fetched: store.detailView.fetched
+    dfetching: store.detailView.fetching,
+    dfetched: store.detailView.fetched,
+    picture: store.profileView.picture.results,
+    pfetching: store.profileView.fetching,
+    pfetched: store.profileView.fetched
+
   };
 })
-
 
 
 /* Main component of this page loads two other components  */
@@ -26,55 +29,88 @@ export default class ProfilePage extends Component {
 		super(props);
 	}
 	
+	componentWillMount() {
+    	this.props.dispatch(fetchPicture())
+		this.props.dispatch(fetchDetail(1))
+  	}
+
+  
+
+    if 
 	render(){
 
-		const datalist = ['Structure', 'Wavelength', 'Factor', 'Location']
-		const id = 1
-		return (
-			<div>
-				<Profile
-					name={this.props.dispatch(fetchDetail(id))} /*need a way to get the id of the image clicked by the user to get to this page */
-					/*imgURL={this.props.dispatch(fetchPicture(id))}*/ />
-				<Data
-					dataList={datalist} />
-			</div>
-		)
+		var imgURL;
+		
+
+		var id = 0
+		
+		var datalist	
+
+		if (this.props.dfetched && this.props.pfetched) {
+			const info = this.props.detail
+			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure]
+			
+			var data = datalist.map(function(data,index){
+				return (<li key={index}>{data}</li>);
+			});
+			return (
+
+				<div>
+					<center>
+					<h2>
+					{this.props.detail.common_name}
+					</h2>
+
+					{this.props.detail.family},
+					{this.props.detail.species}
+
+					<p>	
+					<img src = {this.props.detail.sillouette}/>
+					<img src = {this.props.picture[id].picture}/>
+					</p>
+
+					<ul style = {{listStyleType: 'none'}}>
+
+						{data}
+					</ul>
+					</center>
+
+				</div>
+			)
+		} else if(this.props.defetched) {
+			return(
+				<div>
+					
+					{this.props.detail.common_name}
+					<p>
+						<img src = "http://localhost:8000/media/pictures/BogbaneBeetleP_MG0pOn5.png/"/>
+					</p>
+					
+				</div>
+			)
+		} else if(this.props.pfetched) {
+			return(
+				<div>
+					
+					Fetching
+
+					<img src = {this.props.picture[id].picture}/>
+
+					/>
+				</div>
+			)
+		} else {
+			return(
+				<div>
+						
+					{"Fetching name"}
+
+					<img src = "http://localhost:8000/media/pictures/BogbaneBeetleP_MG0pOn5.png/"/>
+					/>
+				</div>
+			)
+		}
+
+		
 	}
 }
-
-/* Loads the name and picture of the speicies */
-var Profile = React.createClass({
-	render: function(){
-		
-
-		return (
-			<div>
-				<h3>{this.props.name}</h3>
-				<img src={this.props.imgURL}/>
-			</div>
-		);
-
-		
-	}
-});
-
-/* Loads the data associated with the species */
-var Data = React.createClass({
-	render:function(){
-		
-	var data = this.props.dataList.map(function(data,index){
-		return (<li key={index}>{data}</li>);
-	});			
-	
-	return (
-		<div>
-			<ul>
-				{data}
-			</ul>
-
-		</div>
-		);
-	}
-	
-});
-

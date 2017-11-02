@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import {Link} from 'react-router'; 
 
 import {
-  fetchDetail,
-} from '../actions/detailActions';
+  fetchPicture,
+} from '../actions/pictureActions';
 
 @connect((store) => {
   return {
-    detail: store.detailView.detail,
-    fetching: store.detailView.fetching,
-    fetched: store.detailView.fetched
+    picture: store.profileView.picture.results,
+    fetching: store.profileView.fetching,
+    fetched: store.profileView.fetched
   };
 })
 export default class MainView extends Component {
@@ -19,17 +19,22 @@ export default class MainView extends Component {
   }
 
 
+  componentWillMount() {
+    this.props.dispatch(fetchPicture())
+  }
+
+  
   render() {
 
-    
+    console.log(this.props.picture);
     if (this.props.fetching) {
       return <h1>IM FETCHING</h1>
     }
     else if (this.props.fetched) {
-      return <p>{this.props.detail.common_name}</p>
+      return <p> <img src = {this.props.picture[0].picture}/> </p>
     }
     else {
-      return <button onClick={() => this.props.dispatch(fetchDetail(1))} />
+      return <h1> NOT WORKING </h1>
     }
 
      
