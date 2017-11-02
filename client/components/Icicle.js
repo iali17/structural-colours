@@ -44,6 +44,7 @@ export default class Icicle extends Component {
 			.attr("height", height);
 
 		var rect = svg.selectAll("rect");
+		var fo  = svg.selectAll("foreignObject");
 
 		// My problem is here daniel. I'll post a screenshot of what the error is,
 		//var icicle = d3.json("no", function(root) {
@@ -52,12 +53,12 @@ export default class Icicle extends Component {
 
 		console.log("entries:", d3.entries(readme)[0])
 		var root = d3.hierarchy(d3.entries(readme)[0], function(d) {
-			console.log("d3entries", d3.entries(d.size))
-			console.log("d3value", d.size)
-			return d3.entries(d.size)
+			console.log("d3entries", d3.entries(d.value))
+			console.log("d3value", d.value)
+			return d3.entries(d.value)
 		}) 
-		.sum(function(d) {return d.size})
-		.sort(function(a,b) { return b.size - a.size; }); 
+		.sum(function(d) {return d.value})
+		.sort(function(a,b) { return b.value - a.value; }); 
 
 		partition(root);
 		console.log("root", root);
@@ -71,6 +72,17 @@ export default class Icicle extends Component {
 	   		.attr("fill", function(d) { return color((d.children ? d : d.parent).data.key); })
 	   		.on("click", clicked);
 
+	   	fo = fo
+			.data(root.descendants())
+			.enter().append("foreignObject")
+	      	.attr("x", function(d) { return d.x0; })
+	      	.attr("y", function(d) { return d.y0; })
+	      	.attr("width", function(d) { return d.x1 - d.x0; })
+	      	.attr("height", function(d) { return d.y1 - d.y0; })
+	     	.style("cursor", "pointer")	
+	     	.text(function(d) { return d.data.key})
+	     	.on("click", clicked);
+
 	   	function clicked(d) {
 			x.domain([d.x0, d.x1]);
 			y.domain([d.y0, height]).range([d.depth ? 20 : 0, height]);
@@ -81,6 +93,13 @@ export default class Icicle extends Component {
 			    .attr("y", function(d) { return y(d.y0); })
 			    .attr("width", function(d) { return x(d.x1) - x(d.x0); })
 			    .attr("height", function(d) { return y(d.y1) - y(d.y0); });
+
+			fo.transition()
+        		.duration(750)
+      			.attr("x", function(d) { return x(d.x0); })
+      			.attr("y", function(d) { return y(d.y0); })
+      			.attr("width", function(d) { return x(d.x1-d.x0); })
+      			.attr("height", function(d) { return y(d.y1-d.y0); });
 		}	
 
 		/* rect = rect.data(partition(d3.entries(readme)[0]))
