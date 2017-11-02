@@ -52,14 +52,15 @@ export default class Icicle extends Component {
 
 		console.log("entries:", d3.entries(readme)[0])
 		var root = d3.hierarchy(d3.entries(readme)[0], function(d) {
-			console.log("d3entries", d3.entries(d.value))
-			return d3.entries(d.value)
+			console.log("d3entries", d3.entries(d.size))
+			console.log("d3value", d.size)
+			return d3.entries(d.size)
 		}) 
-		.sum(function(d) {return d.value})
-		.sort(function(a,b) { return b.value - a.value; }); 
+		.sum(function(d) {return d.size})
+		.sort(function(a,b) { return b.size - a.size; }); 
 
 		partition(root);
-
+		console.log("root", root);
 		rect = rect
 	   		.data(root.descendants())
 	   		.enter().append("rect")
@@ -71,18 +72,16 @@ export default class Icicle extends Component {
 	   		.on("click", clicked);
 
 	   	function clicked(d) {
-			x.domain([d.x, d.x + d.dx]);
-			y.domain([d.y, 1]).range([d.y ? 20 : 0, height]);
+			x.domain([d.x0, d.x1]);
+			y.domain([d.y0, height]).range([d.depth ? 20 : 0, height]);
 
 			rect.transition()
 			    .duration(750)
-			    .attr("x", function(d) { return x(d.x); })
-			    .attr("y", function(d) { return y(d.y); })
-			    .attr("width", function(d) { return x(d.x + d.dx) - x(d.x); })
-			    .attr("height", function(d) { return y(d.y + d.dy) - y(d.y); });
+			    .attr("x", function(d) { return x(d.x0); })
+			    .attr("y", function(d) { return y(d.y0); })
+			    .attr("width", function(d) { return x(d.x1) - x(d.x0); })
+			    .attr("height", function(d) { return y(d.y1) - y(d.y0); });
 		}	
-
-		console.log("rect", rect)
 
 		/* rect = rect.data(partition(d3.entries(readme)[0]))
 			   .enter().append("rect")
@@ -93,11 +92,10 @@ export default class Icicle extends Component {
 			   .attr("fill", function(d) { return color((d.children ? d : d.parent).key); }) */
 		//});
 
-		console.log("rect",{rect})
 		//console.log("icicle", {icicle})
 
 		return(
-			<p>p</p>
+			<p>Something</p>
 		)
 
 		/*
