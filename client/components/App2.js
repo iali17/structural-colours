@@ -13,14 +13,20 @@ import LandingView from './LandingView'
 export default class App extends Component {
   constructor(props) {
     super(props);
+    this.state= {colour: "init"};
   }
 
   // Override base syles on body
   componentDidMount() {
     document.body.style.margin = 0;
+  } 
+  
+  
+  updateColour(colour){
+    this.setState({colour: colour})
   }
-
   render() {
+    console.log("Colour: ", this.state);
     return (
       <div>
 
@@ -29,14 +35,14 @@ export default class App extends Component {
             <h1><TreeView/></h1>
             <p>|</p>
             <p>|</p>
-            <ColorBar/>
+            <ColorBar colour={this.state.colour} updateColour={this.updateColour.bind(this)}/>
             <p>|</p>
             <p>|</p>         
           </Grid>
         </Grid>
         <Grid container spacing={24}>
           <Grid item xs={12}>
-              <MainView />
+              <MainView colour={this.state.colour} updateColour={this.updateColour.bind(this)}/>
           </Grid>
         </Grid>
 

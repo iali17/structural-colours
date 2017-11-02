@@ -6,6 +6,8 @@ import {Link} from 'react-router';
 import { withStyles } from 'material-ui/styles';
 import { GridList, GridListTile } from 'material-ui/GridList';
 
+import ColorBar from './ColorBar';
+
 import {
   fetchPicture,
 } from '../actions/pictureActions';
@@ -42,11 +44,13 @@ const styles = theme => ({
 
 
   componentWillMount() {
-    this.props.dispatch(fetchPicture())
+    var colour = this.props.colour;
+    this.props.dispatch(fetchPicture(colour))
   }
 
 
   render() {
+
 
     /*console.log(this.props.picture);
     if (this.props.fetching) {
@@ -62,7 +66,7 @@ const styles = theme => ({
 }
 */
     const { classes } = this.props;
-    console.log("CLasses: ", this.props);
+   
     if (this.props.fetched) {
       return (
         <div className={classes.root}>

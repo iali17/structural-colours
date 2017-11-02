@@ -2,11 +2,16 @@ import axios from 'axios';
 
 import { URL_PREFIX } from '../constants';
 
-export function fetchPicture() {
+export function fetchPicture(colour) {
   return function(dispatch) {
     dispatch({type: "FETCH_PICTURE"});
 
-    axios.get(URL_PREFIX + "/api/pictures/all")
+    
+    axios.get(URL_PREFIX + "/api/pictures/all", {
+       params: {
+         colour: colour
+        }
+    })
 
     .then((response) => {
       dispatch({type: "FETCH_PICTURE_FULFILLED", payload: response.data})
@@ -16,6 +21,8 @@ export function fetchPicture() {
     })
   }
 }
+
+
 
 export function fetchRandomPictures() {
   return function(dispatch) {
