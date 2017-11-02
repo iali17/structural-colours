@@ -1,0 +1,122 @@
+[
+    {
+        "family": "Chrysomelidae",
+        "order": {
+            "order": "Coleoptera",
+            "phylum": {
+                "phylum": "Arthropoda",
+                "kingdom": {
+                    "kingdom": "An"
+                }
+            }
+        }
+    },
+    {
+        "family": "Scarabaeidae",
+        "order": {
+            "order": "Coleoptera",
+            "phylum": {
+                "phylum": "Arthropoda",
+                "kingdom": {
+                    "kingdom": "An"
+                }
+            }
+        }
+    },
+    {
+        "family": "Chrysididae",
+        "order": {
+            "order": "Hymenoptera",
+            "phylum": {
+                "phylum": "Arthropoda",
+                "kingdom": {
+                    "kingdom": "An"
+                }
+            }
+        }
+    },
+    {
+        "family": "Nymphalidae",
+        "order": {
+            "order": "Lepidoptera",
+            "phylum": {
+                "phylum": "Arthropoda",
+                "kingdom": {
+                    "kingdom": "An"
+                }
+            }
+        }
+    },
+    {
+        "family": "Theraphosidae",
+        "order": {
+            "order": "Chellicerata",
+            "phylum": {
+                "phylum": "Arthropoda",
+                "kingdom": {
+                    "kingdom": "An"
+                }
+            }
+        }
+    },
+    {
+        "family": "Sapphirinidae",
+        "order": {
+            "order": "Crustacea",
+            "phylum": {
+                "phylum": "Arthropoda",
+                "kingdom": {
+                    "kingdom": "An"
+                }
+            }
+        }
+    },
+    {
+        "family": "Hominidae",
+        "order": {
+            "order": "Primate",
+            "phylum": {
+                "phylum": "Mammal",
+                "kingdom": {
+                    "kingdom": "An"
+                }
+            }
+        }
+    },
+    {
+        "family": "Phasianidae",
+        "order": {
+            "order": "Avian",
+            "phylum": {
+                "phylum": "Avian",
+                "kingdom": {
+                    "kingdom": "An"
+                }
+            }
+        }
+    },
+    {
+        "family": "Corvidae",
+        "order": {
+            "order": "Avian",
+            "phylum": {
+                "phylum": "Avian",
+                "kingdom": {
+                    "kingdom": "An"
+                }
+            }
+        }
+    },
+    {
+        "family": "Characidae",
+        "order": {
+            "order": "Fish",
+            "phylum": {
+                "phylum": "Fish",
+                "kingdom": {
+                    "kingdom": "An"
+                }
+            }
+        }
+    }
+]
