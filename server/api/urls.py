@@ -4,5 +4,5 @@ from .views import *
 
 urlpatterns = [
     url(r'^$', index, name="root"),
-    url(r'^api/', include("api.urls"), name="api")
+    url(r'^api/', include("api.api.urls"), name="api")
 ]
