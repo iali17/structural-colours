@@ -22,7 +22,6 @@ import {
   };
 })
 
-
 /* Main component of this page loads two other components  */
 export default class ProfilePage extends Component {
 	constructor(props) {
@@ -34,14 +33,10 @@ export default class ProfilePage extends Component {
 		this.props.dispatch(fetchDetail(1))
   	}
 
-  
-
     if 
 	render(){
 
 		var imgURL;
-		
-
 		var id = 0
 		
 		var datalist	
@@ -113,4 +108,6 @@ export default class ProfilePage extends Component {
 
 		
 	}
+
 }
+

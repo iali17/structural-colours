@@ -1,4 +1,4 @@
-import ReactTestUtils from 'react-dom/test-utils'; 
+import ReactTestUtils from 'react-dom/test-utils';
 import React, { Component } from 'react';
 
 
@@ -9,11 +9,9 @@ import ColorBar from './ColorBar';
 import TreeView from './TreeView';
 
 
-import TreeAndColourView from './TreeAndColourView';
-
 //test that all child components render
 Apptest("Render the app component", function () {
-	
+
 	var App = TestUtils.renderIntoDocument(
 		<App/>
 	);
@@ -24,10 +22,6 @@ Apptest("Render the app component", function () {
 
 	var ColorBar = TestUtils.findRenderedDOMComponentWithClass(
 		App, 'ColorBar'
-	);
-
-	var TreeAndColour = TestUtils.findRenderedDOMComponentWithClass(
-		App, 'TreeAndColourView'
 	);
 
 	var TreeView = TestUtils.findRenderedDOMComponentWithClass(

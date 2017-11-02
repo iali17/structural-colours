@@ -5,13 +5,14 @@ import {Router, Route, IndexRoute, hashHistory} from "react-router";
 import routes from './routes';
 
 import App from './components/App';
+import App2 from './components/App2';
 import ProfilePage from './components/ProfilePage';
 import MainPage from './components/MainView';
 import store from './store/store.js';
 
 render(
   <Provider store={store}>
-    <App />
+    <App2 />
   </Provider>,
   
   document.getElementById('app')

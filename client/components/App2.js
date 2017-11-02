@@ -26,20 +26,17 @@ export default class App extends Component {
 
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <h1>TREE VIEW</h1>
+            <h1><TreeView/></h1>
             <p>|</p>
             <p>|</p>
-            <p>|</p>
-            <p>|</p>
-            <p>|</p>
-            <p>|</p>
+            <ColorBar/>
             <p>|</p>
             <p>|</p>         
           </Grid>
         </Grid>
         <Grid container spacing={24}>
           <Grid item xs={12}>
-              <LandingView />
+              <MainView />
           </Grid>
         </Grid>
 
