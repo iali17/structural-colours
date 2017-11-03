@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 import MainView from './MainView';
 import ProfilePage from './ProfilePage';
 import ColorBar from './ColorBar';
-import TreeView from './TreeView';
+import Icicle from './Icicle';
 import LandingView from './LandingView'
 
 export default class App extends Component {
@@ -25,7 +25,8 @@ export default class App extends Component {
       <div>
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <h1>TREE VIEW</h1>
+            <h1>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
+            <Icicle />
             <p>|</p>
             <p>|</p>
             <p>|</p>
