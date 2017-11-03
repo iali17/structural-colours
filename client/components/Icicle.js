@@ -53,8 +53,6 @@ export default class Icicle extends Component {
 
 		console.log("entries:", d3.entries(readme)[0])
 		var root = d3.hierarchy(d3.entries(readme)[0], function(d) {
-			console.log("d3entries", d3.entries(d.value))
-			console.log("d3value", d.value)
 			return d3.entries(d.value)
 		}) 
 		.sum(function(d) {return d.value})
