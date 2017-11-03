@@ -1,6 +1,9 @@
+
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { withStyles } from 'material-ui/styles';
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+import Typography from 'material-ui/Typography'; 
 
 import {
   fetchDetail,
@@ -9,6 +12,15 @@ import {
 import {
   fetchPicture,
 } from '../actions/pictureActions';
+
+const styles = theme => ({
+  card: {
+    maxWidth: 45,
+  },
+  media: {
+    height: 40,
+  },
+});
 
 @connect((store) => {
   return {
@@ -21,6 +33,8 @@ import {
 
   };
 })
+
+
 
 
 /* Main component of this page loads two other components  */
@@ -41,11 +55,11 @@ export default class ProfilePage extends Component {
 
 		var imgURL;
 		
-
 		var id = 0
 		
-		var datalist	
-
+		var datalist
+		const { classes } = this.props;
+		
 		if (this.props.dfetched && this.props.pfetched) {
 			const info = this.props.detail
 			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure]
@@ -57,22 +71,38 @@ export default class ProfilePage extends Component {
 
 				<div>
 					<center>
-					<h2>
+					<h1>
 					{this.props.detail.common_name}
-					</h2>
+					</h1>
 
-					{this.props.detail.family},
-					{this.props.detail.species}
-
-					<p>	
-					<img src = {this.props.detail.sillouette}/>
-					<img src = {this.props.picture[id].picture}/>
-					</p>
-
-					<ul style = {{listStyleType: 'none'}}>
-
-						{data}
-					</ul>
+					<Card className={this.props.card}>
+						<CardMedia
+							className = {this.props.media}
+							image =  {this.props.detail.sillouette}
+							title = {this.props.detail.common_name}
+							/>
+						<CardContent>
+							<Typography type="headline" component="h3">
+								{this.props.detail.family},
+								{this.props.detail.species}
+								<p>
+								<img src = {this.props.detail.sillouette}/>	
+								<img src = {this.props.picture[id].picture}/>
+								</p>
+          					</Typography>
+        				</CardContent>
+        			</Card>
+					
+					
+					<Card className={this.props.card}>
+						<CardContent>
+							 <Typography component="ul">
+								<ul style = {{listStyleType: 'none'}}>
+									{data}
+								</ul>
+							</Typography>
+        				</CardContent>
+        			</Card>
 					</center>
 
 				</div>
