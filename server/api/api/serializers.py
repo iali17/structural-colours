@@ -14,6 +14,11 @@ class PictureSerializer(ModelSerializer):
         model = Picture
         fields = '__all__'
 
+class LandingPictureSerializer(ModelSerializer):
+    class Meta(object):
+        model = LandingPicture
+        fields = '__all__'
+
 class TaxonomySerializer(ModelSerializer):
     class Meta(object):
         model = Family
