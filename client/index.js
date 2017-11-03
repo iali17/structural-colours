@@ -12,7 +12,7 @@ import store from './store/store.js';
 
 render(
   <Provider store={store}>
-    <MainView />
+    <ProfilePage/>
   </Provider>,
   
   document.getElementById('app')
