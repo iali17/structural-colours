@@ -30,6 +30,9 @@ In /structural-colour/server
 
 # Deployed Site
 [162.246.156.147](162.246.156.147)
+
 [Admin Site](162.246.156.147/admin)
+
 Username: admin
+
 Password: Qwerty12
