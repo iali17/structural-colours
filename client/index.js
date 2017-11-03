@@ -7,11 +7,12 @@ import routes from './routes';
 import App from './components/App';
 import App2 from './components/App2';
 import ProfilePage from './components/ProfilePage';
+import MainPage from './components/MainView';
 import store from './store/store.js';
 
 render(
   <Provider store={store}>
-    <ProfilePage />
+    <App2/>
   </Provider>,
   
   document.getElementById('app')

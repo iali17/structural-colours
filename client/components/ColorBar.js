@@ -33,7 +33,8 @@ class ColorBar extends Component {
 
 	mouseOut(e) {
 		var change = e.target.attributes.fill.value;
-
+		console.log("mouseout ", change)
+    
 		if (change == "red"){
 			this.setState({red: "20"});
 		}else if (change == "orange"){
@@ -51,19 +52,26 @@ class ColorBar extends Component {
 		}
 	}
 
+	setColour(e){
+		console.log("Reeee ", e.target)
+		var newcolour = e.target.attributes.fill.value
+    	this.props.updateColour(newcolour)
+    	
+    }
+
 
 	render() {	
 		return (
 			<svg width="1.5cm" height="5cm" viewBox="0 0 150 500">
 				<rect x="1" y="1" height="498" width="148" fill="grey" />
 				<text x="25" y="70" fontFamily="Verdana" fontSize="25" fill="white"> Choose </text>
-				<circle cx = "75" cy= "100" r= {this.state.red} fill = "red" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} /> 
-				<circle cx = "75" cy= "150" r= {this.state.orange} fill = "orange" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} /> 
-				<circle cx = "75" cy= "200" r= {this.state.yellow} fill = "yellow" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} /> 
-				<circle cx = "75" cy= "250" r= {this.state.greenyellow} fill = "greenyellow" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} /> 
-				<circle cx = "75" cy= "300" r= {this.state.dodgerblue} fill = "dodgerblue" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} /> 
-				<circle cx = "75" cy= "350" r= {this.state.fuchsia} fill = "fuchsia" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} />
-				<circle cx = "75" cy= "400" r= {this.state.darkviolet} fill = "darkviolet" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} /> 
+				<circle cx = "75" cy= "100" r= {this.state.red} fill = "red" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/> 
+				<circle cx = "75" cy= "150" r= {this.state.orange} fill = "orange" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/> 
+				<circle cx = "75" cy= "200" r= {this.state.yellow} fill = "yellow" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/> 
+				<circle cx = "75" cy= "250" r= {this.state.greenyellow} fill = "greenyellow" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/> 
+				<circle cx = "75" cy= "300" r= {this.state.dodgerblue} fill = "dodgerblue" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/> 
+				<circle cx = "75" cy= "350" r= {this.state.fuchsia} fill = "fuchsia" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
+				<circle cx = "75" cy= "400" r= {this.state.darkviolet} fill = "darkviolet" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/> 
 			</svg>
 		);
 	}
