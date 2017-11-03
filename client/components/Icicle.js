@@ -98,8 +98,18 @@ export default class Icicle extends Component {
         		.duration(750)
       			.attr("x", function(d) { return x(d.x0); })
       			.attr("y", function(d) { return y(d.y0); })
-      			.attr("width", function(d) { return x(d.x1-d.x0); })
-      			.attr("height", function(d) { return y(d.y1-d.y0); });
+      			.attr("width", function(d) { 
+      				if (x(d.x1 - d.x0) < 0) {
+      					return 0
+      				}
+      				return x(d.x1-d.x0); 
+      			})
+      			.attr("height", function(d) { 
+      				if (y(d.y1 - d.y0) < 0) {
+      					return 0
+      				}
+      				return y(d.y1-d.y0); 
+      			});
 		}	
 
 		/* rect = rect.data(partition(d3.entries(readme)[0]))
@@ -113,9 +123,7 @@ export default class Icicle extends Component {
 
 		//console.log("icicle", {icicle})
 
-		return(
-			<p>Something</p>
-		)
+		return(<div />)
 
 		/*
 		if (this.props.fetching) {
