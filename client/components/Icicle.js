@@ -20,15 +20,18 @@ export default class Icicle extends Component {
 
 	constructor(props){
 		super(props);
+		this.createIcicle = this.createIcicle.bind(this)
 	}
 
-	
+	componentDidMount(){
+		this.createIcicle()
+	}
 
-	render(){
-		//var jsonObj = this.props.detail;
-		//https://bl.ocks.org/tophtucker/a35c0f4f32400755a6a9b976be834ab3
+	componentDidUpdate(){
+		this.createIcicle()
+	}
 
-		console.log("here", readme);
+	createIcicle() {
 		var width = 960;
 		var height = 500;
 
@@ -39,19 +42,13 @@ export default class Icicle extends Component {
 
 		var partition = d3.partition().size([width, height]).padding(0).round(true);
 
-		var svg = d3.select("body").append("svg")
-			.attr("width", width)
-			.attr("height", height);
+		var svg = d3.select(this.node);
+
+		console.log("svg", svg);
 
 		var rect = svg.selectAll("rect");
 		var fo  = svg.selectAll("foreignObject");
 
-		// My problem is here daniel. I'll post a screenshot of what the error is,
-		//var icicle = d3.json("no", function(root) {
-
-			//console.log("root?", d3.entries(root))
-
-		console.log("entries:", d3.entries(readme)[0])
 		var root = d3.hierarchy(d3.entries(readme)[0], function(d) {
 			return d3.entries(d.value)
 		}) 
@@ -59,7 +56,7 @@ export default class Icicle extends Component {
 		.sort(function(a,b) { return b.value - a.value; }); 
 
 		partition(root);
-		console.log("root", root);
+		
 		rect = rect
 	   		.data(root.descendants())
 	   		.enter().append("rect")
@@ -108,20 +105,14 @@ export default class Icicle extends Component {
       				}
       				return y(d.y1-d.y0); 
       			});
-		}	
+		}
+	}
 
-		/* rect = rect.data(partition(d3.entries(readme)[0]))
-			   .enter().append("rect")
-			   .attr("x", function(d) { return x(d.x); })
-			   .attr("y", function(d) { return y(d.y); })s
-			   .attr("width", function(d) { return x(d.dx); })
-			   .attr("height", function(d) { return y(d.dy); })
-			   .attr("fill", function(d) { return color((d.children ? d : d.parent).key); }) */
-		//});
+	render(){
 
-		//console.log("icicle", {icicle})
-
-		return(<div />)
+		return(<svg ref={node => this.node = node}
+				width={960} height={500}>
+				</svg>)
 
 		/*
 		if (this.props.fetching) {
