@@ -52,11 +52,11 @@ export default class Icicle extends Component {
 		var root = d3.hierarchy(d3.entries(readme)[0], function(d) {
 			return d3.entries(d.value)
 		}) 
-		.sum(function(d) {return d.value})
+		.sum(function(d) {return d.value / d.value})
 		.sort(function(a,b) { return b.value - a.value; }); 
 
 		partition(root);
-		
+
 		rect = rect
 	   		.data(root.descendants())
 	   		.enter().append("rect")
@@ -67,7 +67,7 @@ export default class Icicle extends Component {
 	   		.attr("fill", function(d) { return color((d.children ? d : d.parent).data.key); })
 	   		.on("click", clicked);
 
-	   	fo = fo
+	 	fo = fo
 			.data(root.descendants())
 			.enter().append("foreignObject")
 	      	.attr("x", function(d) { return d.x0; })
@@ -89,7 +89,7 @@ export default class Icicle extends Component {
 			    .attr("width", function(d) { return x(d.x1) - x(d.x0); })
 			    .attr("height", function(d) { return y(d.y1) - y(d.y0); });
 
-			fo.transition()
+   			fo.transition()
         		.duration(750)
       			.attr("x", function(d) { return x(d.x0); })
       			.attr("y", function(d) { return y(d.y0); })
@@ -105,6 +105,11 @@ export default class Icicle extends Component {
       				}
       				return y(d.y1-d.y0); 
       			});
+
+      		if (d.data.value % 1 == 0){
+      			console.log("We want to go to a profile page ", d.data.value)
+      		}
+      		//console.log("D",d.data.value);
 		}
 	}
 
