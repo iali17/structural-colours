@@ -29,9 +29,13 @@ class PictureListAPIView(ListAPIView):
         colour_param = self.request.query_params.get('colour')
         species_param = self.request.query_params.get('species')
 
+        # TODO: This is where we will do the advanced search.
         if colour_param is not None and species_param is not None:
-            # TODO: This is where we will do the advanced search.
             queryset = Picture.objects.all().order_by('id')
+        else if colour_param is not None:
+            pass
+        else if species_param is not None:
+            pass
 
         return queryset
 
