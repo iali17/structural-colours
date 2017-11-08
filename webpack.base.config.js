@@ -4,10 +4,11 @@ var BundleTracker = require('webpack-bundle-tracker')
 
 module.exports = {
     context: __dirname,
-    entry: [
-      'webpack-dev-server/client?http://localhost:3000',
-      './client/index',
-    ],
+    entry: './client/index',
+     //entry: [
+     //  'webpack-dev-server/client?http://localhost:3000',
+     //  './client/index',
+     //],
 
     output: {
       path: path.resolve('./static/'),
@@ -40,7 +41,7 @@ module.exports = {
             },
         ]
     },
-    
+
 
     resolve: {
         modules: [__dirname, 'node_modules'],
