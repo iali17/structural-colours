@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "production": "webpack -p"
+    "production": "webpack -p --config=/var/www/structural-colour/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -24,7 +24,8 @@
     "style-loader": "^0.19.0",
     "webpack": "^2.6.1",
     "webpack-bundle-tracker": "^0.2.0",
-    "webpack-dev-server": "^2.5.0"
+    "webpack-dev-server": "^2.5.0",
+    "webpack-hot-middleware": "^2.20.0"
   },
   "dependencies": {
     "axios": "^0.16.2",
