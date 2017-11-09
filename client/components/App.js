@@ -13,7 +13,6 @@ import ProfilePage from './ProfilePage';
 import ColorBar from './ColorBar';
 import Icicle from './Icicle';
 import LandingView from './LandingView'
-import Main from '../routes.js'
 
 import {
   fetchPicture,
