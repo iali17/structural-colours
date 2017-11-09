@@ -1,9 +1,11 @@
 import random
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.generics import (
     RetrieveAPIView,
     ListAPIView,
     )
-
 from .serializers import (
     SpeciesDetailSerializer,
     PictureSerializer,
@@ -20,6 +22,18 @@ class SpeciesDetailAPIView(RetrieveAPIView):
     queryset = Species.objects.all()
     serializer_class = SpeciesDetailSerializer
 
+class PictureSpeciesDetailAPIView(APIView):
+    def get(self, request, id):
+        try:
+            picture = Picture.objects.filter(species=id).first()
+            if picture:
+                serializer = PictureSerializer(picture)
+                return Response(serializer.data)
+            else:
+                return Response({'detail': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response({'detail': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+
 class PictureListAPIView(ListAPIView):
     serializer_class = PictureSerializer
     pagination_class = PicturePageNumberPagination
@@ -30,8 +44,20 @@ class PictureListAPIView(ListAPIView):
         species_param = self.request.query_params.get('species')
 
         if colour_param is not None and species_param is not None:
-            # TODO: This is where we will do the advanced search.
-            queryset = Picture.objects.all().order_by('id')
+            # One liner to get all the species from SpeciesColour using colour_param and species_param
+            species_list = SpeciesColour.objects.filter(colour__colour=colour_param, species__common_name__icontains=species_param).values_list('species')
+            # Set queryset with species_list
+            queryset = Picture.objects.filter(species__in=species_list).order_by('id')
+        elif colour_param is not None:
+            # Get all the species with colour = colour_param
+            species_list = SpeciesColour.objects.filter(colour__colour=colour_param).values_list('species')
+            ## Set queryset with species_list
+            queryset = Picture.objects.filter(species__in=species_list).order_by('id')
+        elif species_param is not None:
+            # Get all the species with species = species_param
+            species_list = SpeciesColour.objects.filter(species__common_name__icontains=species_param).values_list('species')
+            # Set queryset with species_list
+            queryset = Picture.objects.filter(species__in=species_list).order_by('id')
 
         return queryset
 
@@ -40,8 +66,11 @@ class RandomLandingPictureListAPIView(ListAPIView):
 
     def get_queryset(self):
         count = LandingPicture.objects.all().count()
-        index = random.random() * (count - 4)
-        queryset = LandingPicture.objects.all()[index: index + 4]
+        if (count > 4):
+            index = random.random() * (count - 4)
+            queryset = LandingPicture.objects.all()[index: index + 4]
+        else:
+            queryset = LandingPicture.objects.all()
 
         return queryset
 
