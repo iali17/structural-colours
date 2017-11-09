@@ -1,9 +1,11 @@
 import random
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.generics import (
     RetrieveAPIView,
     ListAPIView,
     )
-
 from .serializers import (
     SpeciesDetailSerializer,
     PictureSerializer,
@@ -19,6 +21,18 @@ from api.models import *
 class SpeciesDetailAPIView(RetrieveAPIView):
     queryset = Species.objects.all()
     serializer_class = SpeciesDetailSerializer
+
+class PictureSpeciesDetailAPIView(APIView):
+    def get(self, request, id):
+        try:
+            picture = Picture.objects.filter(species=id).first()
+            if picture:
+                serializer = PictureSerializer(picture)
+                return Response(serializer.data)
+            else:
+                return Response({'detail': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response({'detail': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
 
 class PictureListAPIView(ListAPIView):
     serializer_class = PictureSerializer
