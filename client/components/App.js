@@ -74,21 +74,17 @@ export default class App extends Component {
               content='Click Here'
               color="#841584"
               onClick={this.changestate.bind(this)}
-            />        
+            />          
           </Grid>
         </Grid>
-        <ColorBar colour={this.state.colour} updateColour={this.updateColour.bind(this)}/>
         <Grid container spacing={24}>
           <Grid item xs={12}>
-             
-              <ViewController page = {this.state.page} colour = {this.state.colour} updateColour={this.updateColour.bind(this)} id={this.state.id} getProfile={this.getProfile.bind(this)}/>
-              
+            <ViewController page = {this.state.page} colour = {this.state.colour} updateColour={this.updateColour.bind(this)} id={this.state.id} getProfile={this.getProfile.bind(this)}/>
           </Grid>
         </Grid>
 
         {this.props.children}
-        {/*{this.props.children}
-          <ProfilePage />for profile page */}
+        
 
 
       </div>

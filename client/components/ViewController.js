@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MainView from './MainView';
 import ProfilePage from './ProfilePage';
 import LandingPage from './LandingView';
+import ColorBar from './ColorBar';
 
 export default class View extends Component {
 	constructor(props) {
@@ -14,7 +15,12 @@ export default class View extends Component {
 		var page= this.props.page;
 		
 		if (page == 'main'){
-			return (<MainView colour={this.props.colour} updateColour={this.props.updateColour.bind(this)} id={this.props.id} getProfile={this.props.getProfile.bind(this)}/>)
+
+			return (
+				<div> 
+					<ColorBar colour={this.props.colour} updateColour={this.props.updateColour.bind(this)}/>
+					<MainView colour={this.props.colour} updateColour={this.props.updateColour.bind(this)} id={this.props.id} getProfile={this.props.getProfile.bind(this)}/>
+				</div>	)
 		}else if (page == 'landing'){
 			return (<LandingPage/>)
 		} else {

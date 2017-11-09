@@ -13,10 +13,6 @@ import {
 } from '../actions/detailActions';
 
 import {
-  fetchPicture,
-} from '../actions/pictureActions';
-
-import {
 	fetchOnePicture,
 } from '../actions/pictureActions';
  
@@ -62,14 +58,13 @@ export default class ProfilePage extends Component {
 		
 		var id = this.props.id
 
-		console.log("picture and id: ", this.props.picture, this.props.id)
 		
 		var datalist
 		const { classes } = this.props;
 		
 		if (this.props.dfetched && this.props.pfetched) {
 			const info = this.props.detail
-			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure]
+			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure + "D"]
 			
 			var data = datalist.map(function(data,index){
 				return (<li key={index}>{data}</li>);
@@ -90,7 +85,8 @@ export default class ProfilePage extends Component {
 							title = {this.props.detail.common_name}
 							/>
 						<CardContent>
-							<Typography type="headline" component="h3">
+							<Typography type="headline" component=
+							"h3">
 								{this.props.detail.family},
 								{this.props.detail.species}
 								<p>
@@ -101,16 +97,15 @@ export default class ProfilePage extends Component {
         				</CardContent>
         			</Card>
 					
-					
-					<Card className={this.props.card}>
-						<CardContent>
-							 <Typography component="ul">
-								<ul style = {{listStyleType: 'none'}}>
-									{data}
-								</ul>
-							</Typography>
-        				</CardContent>
-        			</Card>
+					<ul style = {{listStyleType: 'none'}}>
+						<Card className={this.props.card}>
+							<CardContent>
+								 <Typography>
+										{data}
+								</Typography>
+	        				</CardContent>
+	        			</Card>
+        			</ul>
 					</center>
 
 				</div>
