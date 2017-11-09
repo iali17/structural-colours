@@ -6,6 +6,7 @@ import {Link} from 'react-router';
 import { withStyles } from 'material-ui/styles';
 import { GridList, GridListTile } from 'material-ui/GridList';
 
+import MainPic from './mainPic';
 import ColorBar from './ColorBar';
 
 import {
@@ -39,21 +40,18 @@ const styles = theme => ({
 })
 /*export default*/ class MainView extends Component {
   constructor(props) {
-    super(props);    
-    this.state = {ID: 1}
+    super(props);        
   }
 
 
   componentWillMount( ) {
     var colour = this.props.colour;
-    
+    this.getProfile.bind(this)
     this.props.dispatch(fetchPicture(colour))
   }
 
   getProfile(t) {
-    console.log("T", t);
-    console.log("mainview", this.state.ID);
-    var id2 = this.state.ID;
+    var id2 = 2
     this.props.getProfile(id2 );
   }
 
@@ -66,10 +64,8 @@ const styles = theme => ({
         <div className={classes.root}>
           <GridList cellHeight={'auto'} className={classes.gridList} cols={4}>
             {this.props.picture.map((picture, index) => (
-              <GridListTile key={index} action= {this.setState({ID: picture.id})}>
-                <code> </code>  
-                <img src={picture.picture} onClick =  { this.getProfile.bind(this)} />
-                
+              <GridListTile key={index} > 
+                <MainPic pic = {picture}  getProfile={this.props.getProfile.bind(this)}/>
               </GridListTile>
             ))}
           </GridList>

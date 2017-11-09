@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 
+
 import ViewController from './ViewController';
 import MainView from './MainView';
 import ProfilePage from './ProfilePage';
@@ -24,6 +25,8 @@ import {
   };
 })
 
+
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -33,20 +36,20 @@ export default class App extends Component {
     
 
   }
-
-  // Override base syles on body
+    // Override base syles on body
   componentDidMount() {
     document.body.style.margin = 0;
   } 
   
   changestate(){
-    if (this.state.page == "main"){
+    /*if (this.state.page == "main"){
       this.setState({page: "profile"})
     }else if (this.state.page == "landing") {
       this.setState({page: "main"})
     } else {
       this.setState({page: "main"})
-    }
+    }*/
+    this.setState({page:'main'})
     
   }
   
@@ -58,6 +61,8 @@ export default class App extends Component {
       this.setState({id: id})
       this.setState({page: "profile"})
   }
+
+
   render() {
     
     return (
@@ -67,6 +72,7 @@ export default class App extends Component {
             <h1><TreeView/></h1>
             <button 
               content='Click Here'
+              color="#841584"
               onClick={this.changestate.bind(this)}
             />        
           </Grid>

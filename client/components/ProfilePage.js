@@ -43,19 +43,22 @@ const styles = theme => ({
 export default class ProfilePage extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {ID: 1}
+		
 	}
 	
 	componentWillMount() {
+		
     	this.props.dispatch(fetchPicture())
-		this.props.dispatch(fetchDetail(1))
+		this.props.dispatch(fetchDetail(this.props.id))
   	}
  
 	render(){
 
 		var imgURL;
-		console.log("ID", this.props.id)
+		
 		var id = this.props.id
+
+		console.log("picture and id: ", this.props.picture, this.props.id)
 		
 		var datalist
 		const { classes } = this.props;
@@ -88,7 +91,7 @@ export default class ProfilePage extends Component {
 								{this.props.detail.species}
 								<p>
 								<img src = {this.props.detail.sillouette}/>	
-								<img src = {this.props.picture[id].picture}/>
+								<img src = {this.props.picture[id-1].picture}/>
 								</p>
           					</Typography>
         				</CardContent>
