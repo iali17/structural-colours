@@ -52,8 +52,11 @@ class RandomLandingPictureListAPIView(ListAPIView):
 
     def get_queryset(self):
         count = LandingPicture.objects.all().count()
-        index = random.random() * (count - 4)
-        queryset = LandingPicture.objects.all()[index: index + 4]
+        if (count > 4):
+            index = random.random() * (count - 4)
+            queryset = LandingPicture.objects.all()[index: index + 4]
+        else:
+            queryset = LandingPicture.objects.all()
 
         return queryset
 
