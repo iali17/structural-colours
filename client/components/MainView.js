@@ -45,28 +45,15 @@ const styles = theme => ({
 
   componentWillMount() {
     var colour = this.props.colour;
+    console.log('maincolour', colour);
     this.props.dispatch(fetchPicture(colour))
   }
 
 
   render() {
 
-
-    /*console.log(this.props.picture);
-    if (this.props.fetching) {
-      return <h1>IM FETCHING</h1>
-    }
-    else if (this.props.fetched) {
-      return <p> <img src = {this.props.picture[0].picture}/> </p>
-    }
-    else {
-      return <h1> NOT WORKING </h1>
-    }
-      }
-}
-*/
     const { classes } = this.props;
-   
+    console.log(this.props);
     if (this.props.fetched) {
       return (
         <div className={classes.root}>

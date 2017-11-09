@@ -15,7 +15,7 @@ import {
 import {
   fetchPicture,
 } from '../actions/pictureActions';
-
+ 
 const styles = theme => ({
   
   card: {
@@ -49,8 +49,7 @@ export default class ProfilePage extends Component {
     	this.props.dispatch(fetchPicture())
 		this.props.dispatch(fetchDetail(1))
   	}
-
-    if 
+ 
 	render(){
 
 		var imgURL;

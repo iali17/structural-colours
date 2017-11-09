@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 // Material ui
 import Grid from 'material-ui/Grid';
@@ -10,6 +11,18 @@ import ProfilePage from './ProfilePage';
 import ColorBar from './ColorBar';
 import TreeView from './TreeView';
 import LandingView from './LandingView'
+
+import {
+  fetchPicture,
+} from '../actions/pictureActions';
+
+@connect((store) => {
+  return {
+    picture: store.profileView.picture.results,
+    fetching: store.profileView.fetching,
+    fetched: store.profileView.fetched
+  };
+})
 
 export default class App2 extends Component {
   constructor(props) {
@@ -37,29 +50,26 @@ export default class App2 extends Component {
   
   updateColour(colour){
     this.setState({colour: colour})
+    this.props.dispatch(fetchPicture(colour))
   }
   render() {
-    console.log("Colour: ", this.state);
+    console.log("Colour: ", this);
     return (
       <div>
 
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <h1><TreeView/></h1>
-            <p>|</p>
-            <p>|</p>
-            
             <button 
               content='Click Here'
               onClick={this.changestate.bind(this)}
-            />
-            <p>|</p>
-            <p>|</p>         
+            />        
           </Grid>
         </Grid>
+        <ColorBar colour={this.state.colour} updateColour={this.updateColour.bind(this)}/>
         <Grid container spacing={24}>
           <Grid item xs={12}>
-              <ColorBar colour={this.state.colour} updateColour={this.updateColour.bind(this)}/>
+             
               <ViewController page = {this.state.page} colour = {this.state.colour} updateColour={this.updateColour.bind(this)}/>
               
           </Grid>

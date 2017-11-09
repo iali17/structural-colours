@@ -33,7 +33,7 @@ class ColorBar extends Component {
 
 	mouseOut(e) {
 		var change = e.target.attributes.fill.value;
-		console.log("mouseout ", change)
+		
     
 		if (change == "red"){
 			this.setState({red: "20"});
@@ -53,9 +53,38 @@ class ColorBar extends Component {
 	}
 
 	setColour(e){
-		console.log("Reeee ", e.target)
+		
 		var newcolour = e.target.attributes.fill.value
-    	this.props.updateColour(newcolour)
+		//Set colour to be readable by API
+		var c;
+		switch(newcolour){
+			case 'red':
+				c = 'R';
+				break;
+			case 'orange':
+				c = 'O';
+				break;
+			case 'yellow':
+				c = 'Y';
+				break;
+			case 'greenyellow':
+				c = 'G'
+				break;
+			case 'dodgerblue':
+				c = 'B'
+				break;
+			case 'fuchsia':
+				c = 'I'
+				break;
+			case 'darkviolet':
+				c = 'V'
+				break;
+			default:
+				c = null;
+
+			
+		}
+    	this.props.updateColour(c)
     	
     }
 
