@@ -43,6 +43,7 @@ const styles = theme => ({
 export default class ProfilePage extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {ID: 1}
 	}
 	
 	componentWillMount() {
@@ -53,8 +54,8 @@ export default class ProfilePage extends Component {
 	render(){
 
 		var imgURL;
-		
-		var id = 0
+		console.log("ID", this.props.id)
+		var id = this.props.id
 		
 		var datalist
 		const { classes } = this.props;

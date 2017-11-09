@@ -39,28 +39,37 @@ const styles = theme => ({
 })
 /*export default*/ class MainView extends Component {
   constructor(props) {
-    super(props);
+    super(props);    
+    this.state = {ID: 1}
   }
 
 
-  componentWillMount() {
+  componentWillMount( ) {
     var colour = this.props.colour;
-    console.log('maincolour', colour);
+    
     this.props.dispatch(fetchPicture(colour))
   }
 
+  getProfile(t) {
+    console.log("T", t);
+    console.log("mainview", this.state.ID);
+    var id2 = this.state.ID;
+    this.props.getProfile(id2 );
+  }
 
   render() {
-
+    
     const { classes } = this.props;
-    console.log(this.props);
+    
     if (this.props.fetched) {
       return (
         <div className={classes.root}>
           <GridList cellHeight={'auto'} className={classes.gridList} cols={4}>
             {this.props.picture.map((picture, index) => (
-              <GridListTile key={index}>
-                <img src={picture.picture} />
+              <GridListTile key={index} action= {this.setState({ID: picture.id})}>
+                <code> </code>  
+                <img src={picture.picture} onClick =  { this.getProfile.bind(this)} />
+                
               </GridListTile>
             ))}
           </GridList>

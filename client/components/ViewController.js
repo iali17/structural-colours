@@ -9,16 +9,16 @@ export default class View extends Component {
 	}
 	
     
-  	
+
 	render(){
 		var page= this.props.page;
-		console.log("Page: ", page);
+		
 		if (page == 'main'){
-			return (<MainView colour={this.props.colour} updateColour={this.props.updateColour.bind(this)}/>)
+			return (<MainView colour={this.props.colour} updateColour={this.props.updateColour.bind(this)} id={this.props.id} getProfile={this.props.getProfile.bind(this)}/>)
 		}else if (page == 'landing'){
 			return (<LandingPage/>)
 		} else {
-			return (<ProfilePage/>)
+			return (<ProfilePage id={this.props.id} getProfile={this.props.getProfile.bind(this)}/>)
 		}
 	}
 
