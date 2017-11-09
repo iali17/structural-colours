@@ -7,6 +7,3 @@ static/
 .DS_Store
 db.sqlite3
 media/
-bundle.js
-package-lock.json
-webpack-stats-prod.json
