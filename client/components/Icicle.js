@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom'
 import * as d3 from 'd3';
 import { connect } from 'react-redux';
 import * as readme from './readme.json'
+import {
+	BrowserRouter as Router,
+	Route,
+	Link,
+	Redirect,
+	withRouter} from 'react-router-dom'
 
 import {
   fetchTax,
@@ -39,7 +45,6 @@ export default class Icicle extends Component {
 		var y = d3.scaleLinear().range([0, height]);
 
 		var color = d3.scaleOrdinal(d3.schemeCategory20c);
-
 		var partition = d3.partition().size([width, height]).padding(0).round(true);
 
 		var svg = d3.select(this.node);
@@ -49,7 +54,9 @@ export default class Icicle extends Component {
 		var rect = svg.selectAll("rect");
 		var fo  = svg.selectAll("foreignObject");
 
+
 		var root = d3.hierarchy(d3.entries(readme)[0], function(d) {
+			console.log(d3.entries(d.value))
 			return d3.entries(d.value)
 		}) 
 		.sum(function(d) {return d.value / d.value})
@@ -105,11 +112,13 @@ export default class Icicle extends Component {
       				}
       				return y(d.y1-d.y0); 
       			});
-
+      		console.log(d.data.key, d.depth)
       		if (d.data.value % 1 == 0){
       			console.log("We want to go to a profile page ", d.data.value)
+      			// this is the direct way to do it, we can use hash history or whatever we use here instead
+      			window.location.href = "/api/species/" + d.data.value;
+
       		}
-      		//console.log("D",d.data.value);
 		}
 	}
 

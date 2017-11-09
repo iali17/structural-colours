@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
 {/* from https://stackoverflow.com/questions/41956465/how-to-create-multiple-page-app-using-react */}
 
 import MainView from './components/MainView';
@@ -8,9 +8,13 @@ import ColorBar from './components/ColorBar';
 import TreeView from './components/TreeView';
 import App from './components/App';
 
-export default (
-	<Route path="/" component={App}>
-		<IndexRoute component={App}/>
-		<Route path = "/ProfilePage" component = {ProfilePage} />
-	</Route>
+const Main =() => (
+	<main>
+		<Switch>
+			<Route exact path="/" component={App}/>
+			<Route path = "/ProfilePage" component = {ProfilePage} />
+		</Switch>
+	</main>
 );
+
+export default Main;
