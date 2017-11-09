@@ -19,7 +19,7 @@
         "Mammals": {
           "Primates": {
             "Hominidae": {
-              "Homo Sapiens": 1,
+              "Homo Sapiens": 123,
               "Gorilla": 1
             }
           }

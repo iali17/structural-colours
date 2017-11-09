@@ -3,12 +3,6 @@ import ReactDOM from 'react-dom'
 import * as d3 from 'd3';
 import { connect } from 'react-redux';
 import * as readme from './readme.json'
-import {
-	BrowserRouter as Router,
-	Route,
-	Link,
-	Redirect,
-	withRouter} from 'react-router-dom'
 
 import {
   fetchTax,
@@ -16,9 +10,9 @@ import {
 
 @connect((store) => {
   return {
-    detail: store.detailView.detail,
-    fetching: store.detailView.fetching,
-    fetched: store.detailView.fetched
+    taxonomy: store.icicleView.taxonomy,
+    fetching: store.icicleView.fetching,
+    fetched: store.icicleView.fetched
   };
 })
 
@@ -33,6 +27,10 @@ export default class Icicle extends Component {
 		this.createIcicle()
 	}
 
+	componentWillMount(){
+		this.props.dispatch(fetchTax());
+	}
+
 	componentDidUpdate(){
 		this.createIcicle()
 	}
@@ -40,6 +38,31 @@ export default class Icicle extends Component {
 	createIcicle() {
 		var width = 960;
 		var height = 500;
+
+		var readme2 = {}
+		var info = this.props.taxonomy;
+
+		//since there are no families or anything in these we just get the values where family = fungi or plant respectively.
+		var fungi = {"FunPH": 1}
+		var plants = {"PlaPH": 1}
+
+		var eubacteria = {"EuPH": 3}
+		var archaebacteria = {"ArPH": 2};
+		var vertabrates = {"VertPH": 3};
+		var invertebrates = {"InvertPh": 4};
+
+		readme2.Kingdom = {};
+		readme2.Kingdom.Bacteria = {};
+		readme2.Kingdom.Bacteria.Eubacteria = eubacteria;
+		readme2.Kingdom.Bacteria.Archaebacteria = archaebacteria;
+		readme2.Kingdom.Fungi = fungi;
+		readme2.Kingdom.Plants = plants;
+		readme2.Kingdom.Animals = {};
+		readme2.Kingdom.Animals.Vertabrates = vertabrates;
+		readme2.Kingdom.Animals.Invertebrates = invertebrates;
+
+		console.log("readme", readme);
+		console.log("readme2", readme2);
 
 		var x = d3.scaleLinear().range([0, width]);
 		var y = d3.scaleLinear().range([0, height]);
@@ -122,21 +145,14 @@ export default class Icicle extends Component {
 	}
 
 	render(){
-
-		return(<svg ref={node => this.node = node}
-				width={960} height={500}>
-				</svg>)
-
-		/*
 		if (this.props.fetching) {
 	      return <h1>IM FETCHING</h1>
 	    } else if (this.props.fetched) {
-	      return <p>{this.props.detail}</p>
+	      return(<svg ref={node => this.node = node}
+				width={960} height={500}>
+				</svg>)
 	    }else {
-	      return (
-	      	<button onClick={() => this.props.dispatch(fetchTax())}> Json </button>
-	      )
+	    	return <h1> WTF </h1>
 	    }
-	    */
 	}
 }

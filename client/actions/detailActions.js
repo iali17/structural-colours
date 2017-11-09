@@ -17,13 +17,13 @@ export function fetchDetail(id) {
 
 export function fetchTax() {
   return function(dispatch) {
-    dispatch({type: "FETCH_DETAIL"});
+    dispatch({type: "FETCH_TAXONOMY"});
     axios.get(URL_PREFIX + "/api/taxonomy/all")
     .then((response) => {
-      dispatch({type: "FETCH_DETAIL_FULFILLED", payload: response.data})
+      dispatch({type: "FETCH_TAXONOMY_FULFILLED", payload: response.data})
     })
     .catch((err) => {
-      dispatch({type: "FETCH_DETAIL_REJECTED", payload: err})
+      dispatch({type: "FETCH_TAXONOMY_REJECTED", payload: err})
     })
   }
 }
