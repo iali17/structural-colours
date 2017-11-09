@@ -56,11 +56,10 @@ export default class Icicle extends Component {
 
 
 		var root = d3.hierarchy(d3.entries(readme)[0], function(d) {
-			console.log(d3.entries(d.value))
 			return d3.entries(d.value)
 		}) 
 		.sum(function(d) {return d.value / d.value})
-		.sort(function(a,b) { return b.value - a.value; }); 
+		//.sort(function(a,b) { return b.value - a.value; }); 
 
 		partition(root);
 
@@ -112,7 +111,7 @@ export default class Icicle extends Component {
       				}
       				return y(d.y1-d.y0); 
       			});
-      		console.log(d.data.key, d.depth)
+
       		if (d.data.value % 1 == 0){
       			console.log("We want to go to a profile page ", d.data.value)
       			// this is the direct way to do it, we can use hash history or whatever we use here instead
