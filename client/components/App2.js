@@ -15,7 +15,7 @@ export default class App2 extends Component {
   constructor(props) {
     super(props);
     this.state= {colour: "init"};
-    this.state= {page: "main"};
+    this.state= {page: "landing"};
 
   }
 
@@ -27,6 +27,8 @@ export default class App2 extends Component {
   changestate(){
     if (this.state.page == "main"){
       this.setState({page: "profile"})
+    }else if (this.state.page == "landing") {
+      this.setState({page: "main"})
     } else {
       this.setState({page: "main"})
     }
@@ -46,7 +48,7 @@ export default class App2 extends Component {
             <h1><TreeView/></h1>
             <p>|</p>
             <p>|</p>
-            <ColorBar colour={this.state.colour} updateColour={this.updateColour.bind(this)}/>
+            
             <button 
               content='Click Here'
               onClick={this.changestate.bind(this)}
@@ -57,6 +59,7 @@ export default class App2 extends Component {
         </Grid>
         <Grid container spacing={24}>
           <Grid item xs={12}>
+              <ColorBar colour={this.state.colour} updateColour={this.updateColour.bind(this)}/>
               <ViewController page = {this.state.page} colour = {this.state.colour} updateColour={this.updateColour.bind(this)}/>
               
           </Grid>
