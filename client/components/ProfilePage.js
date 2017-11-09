@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography'; 
+import { blueGrey, brown } from 'material-ui/colors';
+
+
 
 import {
   fetchDetail,
@@ -14,7 +17,9 @@ import {
 } from '../actions/pictureActions';
 
 const styles = theme => ({
+  
   card: {
+  	primary: blueGrey[100],
     maxWidth: 45,
   },
   media: {
@@ -71,6 +76,7 @@ export default class ProfilePage extends Component {
 					</h1>
 
 					<Card className={this.props.card}>
+
 						<CardMedia
 							className = {this.props.media}
 							image =  {this.props.detail.sillouette}
