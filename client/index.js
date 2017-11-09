@@ -1,17 +1,15 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom'
 
 import App from './components/App';
+import ProfilePage from './components/ProfilePage';
+import MainPage from './components/MainView';
 import store from './store/store.js';
 
-render((
-	<BrowserRouter>
-  		<Provider store={store}>
-   			<App />
-  		</Provider>
-  	</BrowserRouter>),
-
+render(
+  <Provider store={store}>
+    <App/>
+  </Provider>,
   document.getElementById('app')
 );
