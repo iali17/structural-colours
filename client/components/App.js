@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 // Material ui
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
+import Drawer from 'material-ui/Drawer'
 
 import MainView from './MainView';
 import ProfilePage from './ProfilePage';
@@ -25,26 +26,18 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <ul>
-          <li><Link to='/profilePage'>Home</Link></li> 
-        </ul>
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <h1>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
-            <Icicle />
-            <p>|</p>
-            <p>|</p>
-            <p>|</p>
-            <p>|</p>
-            <p>|</p>
-            <p>|</p>
-            <p>|</p>
-            <p>|</p>         
+            <Icicle />     
           </Grid>
         </Grid>
         <Grid container spacing={24}>
-          <Grid item xs={12}>
-              <LandingView />
+          <Grid item xs={2} sm = {1}>
+              <ColorBar />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <LandingView />
           </Grid>
         </Grid>
 
