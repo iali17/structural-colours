@@ -145,3 +145,12 @@ class Picture(models.Model):
 
     def __str__(self):
         return self.species.common_name
+
+# Picture class to hold images for species (1-to-n)
+# Foreign key to Species
+class LandingPicture(models.Model):
+    picture = models.ImageField(upload_to='landingPictures/', blank=True)
+    species = models.ForeignKey(Species)
+
+    def __str__(self):
+        return self.species.common_name
