@@ -33,9 +33,9 @@ const styles = theme => ({
 
 @connect((store) => {
   return {
-    picture: store.profileView.picture.results,
-    fetching: store.profileView.fetching,
-    fetched: store.profileView.fetched
+    picture: store.mainView.picture.results,
+    fetching: store.mainView.fetching,
+    fetched: store.mainView.fetched
   };
 })
 /*export default*/ class MainView extends Component {

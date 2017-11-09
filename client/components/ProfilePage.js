@@ -15,6 +15,10 @@ import {
 import {
   fetchPicture,
 } from '../actions/pictureActions';
+
+import {
+	fetchOnePicture,
+} from '../actions/pictureActions';
  
 const styles = theme => ({
   
@@ -32,7 +36,7 @@ const styles = theme => ({
     detail: store.detailView.detail,
     dfetching: store.detailView.fetching,
     dfetched: store.detailView.fetched,
-    picture: store.profileView.picture.results,
+    picture: store.profileView.picture,
     pfetching: store.profileView.fetching,
     pfetched: store.profileView.fetched
 
@@ -47,9 +51,9 @@ export default class ProfilePage extends Component {
 	}
 	
 	componentWillMount() {
-		
-    	this.props.dispatch(fetchPicture())
+    	/*this.props.dispatch(fetchPicture())*/
 		this.props.dispatch(fetchDetail(this.props.id))
+		this.props.dispatch(fetchOnePicture(this.props.id))
   	}
  
 	render(){
@@ -91,7 +95,7 @@ export default class ProfilePage extends Component {
 								{this.props.detail.species}
 								<p>
 								<img src = {this.props.detail.sillouette}/>	
-								<img src = {this.props.picture[id-1].picture}/>
+								<img src = {this.props.picture.picture}/>
 								</p>
           					</Typography>
         				</CardContent>
