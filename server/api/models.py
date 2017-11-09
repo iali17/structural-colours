@@ -11,8 +11,7 @@ class Kingdom(models.Model):
         ('Ar', 'Archaebacteria'),
         ('Fu', 'Fungi'),
         ('Pl', 'Plantae'),
-        ('In', 'Invertebrates'),
-        ('Ve', 'Vertebrates')
+        ('An', 'Animalia'),
     )
     kingdom = models.CharField(primary_key=True, max_length=2, choices=KINGDOM)
 
@@ -64,6 +63,10 @@ class Colour(models.Model):
 
 # Species class to hold data about each species
 class Species(models.Model):
+    GROUP = (
+        ('I', 'Invertebrates'),
+        ('V', 'Vertebrates'),
+    )
     TUNABLE = (
         ('A', 'Active'),
         ('P', 'Passive'),
@@ -107,6 +110,7 @@ class Species(models.Model):
     common_name = models.CharField(max_length=50)
     species = models.CharField(max_length=50, blank=True)
     family = models.ForeignKey(Family, blank=True, null=True)
+    group = models.CharField(max_length=1, choices=GROUP, blank=True)
     sillouette = models.ImageField(upload_to='sillouettes/', blank=True)
     mechanism = MultiSelectField(choices=MECHANISM, blank=True)
     description = models.TextField(blank=True)
