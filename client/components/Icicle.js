@@ -136,9 +136,10 @@ export default class Icicle extends Component {
       			});
 
       		if (d.data.value % 1 == 0){
-      			console.log("We want to go to a profile page ", d.data.value)
+      			console.log("We want to go to a profile page ", this.props)
       			// this is the direct way to do it, we can use hash history or whatever we use here instead
-      			window.location.href = "/api/species/" + d.data.value;
+      			//window.location.href = "/api/species/" + d.data.value;
+      			//this.props.getProfile(1)
 
       		}
 		}
@@ -148,11 +149,11 @@ export default class Icicle extends Component {
 		if (this.props.fetching) {
 	      return <h1>IM FETCHING</h1>
 	    } else if (this.props.fetched) {
-	      return(<svg ref={node => this.node = node}
+	      return(<svg ref={node => this.node = node} 
 				width={960} height={500}>
 				</svg>)
 	    }else {
-	    	return <h1> WTF </h1>
+	    	return <h1> Imran failed to make this functional </h1>
 	    }
 	}
 }

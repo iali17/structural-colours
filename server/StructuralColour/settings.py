@@ -135,8 +135,5 @@ WEBPACK_LOADER = {
         'POLL_INTERVAL': 0.1,
         'IGNORE': ['.+\.hot-update.js', '.+\.map']
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/icicle
+

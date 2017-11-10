@@ -66,7 +66,7 @@ export default class App extends Component {
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <h1>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
-            <Icicle />     
+            <Icicle getProfile = {this.getProfile.bind(this)}/>     
             <button 
               className ="btn btn-default"
               style = {buttonstyle}
@@ -78,9 +78,6 @@ export default class App extends Component {
           </Grid>
         </Grid>
         <Grid container spacing={24}>
-          <Grid item xs={2} sm = {1}>
-            <ColorBar colour={this.state.colour} updateColour={this.updateColour.bind(this)}/>
-          </Grid>
           <Grid item xs={12}>
             <ViewController page = {this.state.page} colour = {this.state.colour} updateColour={this.updateColour.bind(this)} id={this.state.id} getProfile={this.getProfile.bind(this)}/>
           </Grid>
