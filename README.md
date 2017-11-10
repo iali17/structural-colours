@@ -27,3 +27,6 @@ In /structural-colour/server
 
 # Host
 [http://localhost:8000](http://localhost:8000)
+
+# Deployed Site
+ -[162.246.156.147](http://162.246.156.147)
