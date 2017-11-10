@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 // Material ui
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
+import Drawer from 'material-ui/Drawer'
 
 
 import ViewController from './ViewController';
 import MainView from './MainView';
 import ProfilePage from './ProfilePage';
 import ColorBar from './ColorBar';
-import TreeView from './TreeView';
+import Icicle from './Icicle';
 import LandingView from './LandingView'
 
 import {
@@ -42,13 +43,6 @@ export default class App extends Component {
   } 
   
   changestate(){
-    /*if (this.state.page == "main"){
-      this.setState({page: "profile"})
-    }else if (this.state.page == "landing") {
-      this.setState({page: "main"})
-    } else {
-      this.setState({page: "main"})
-    }*/
     this.setState({page:'main'})
     
   }
@@ -64,32 +58,32 @@ export default class App extends Component {
 
 
   render() {
-    
+    var buttonstyle ={
+     margin: '10px 10px 10px 0'
+    };
     return (
       <div>
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <h1><TreeView/></h1>
+            <h1>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
+            <Icicle getProfile = {this.getProfile.bind(this)}/>     
             <button 
+              className ="btn btn-default"
+              style = {buttonstyle}
               content='Click Here'
-              color="#841584"
+              fill="#7fcdbb"
               onClick={this.changestate.bind(this)}
-            />        
+            > Main Page
+            </button>          
           </Grid>
         </Grid>
-        <ColorBar colour={this.state.colour} updateColour={this.updateColour.bind(this)}/>
         <Grid container spacing={24}>
           <Grid item xs={12}>
-             
-              <ViewController page = {this.state.page} colour = {this.state.colour} updateColour={this.updateColour.bind(this)} id={this.state.id} getProfile={this.getProfile.bind(this)}/>
-              
+            <ViewController page = {this.state.page} colour = {this.state.colour} updateColour={this.updateColour.bind(this)} id={this.state.id} getProfile={this.getProfile.bind(this)}/>
           </Grid>
         </Grid>
 
         {this.props.children}
-        {/*{this.props.children}
-          <ProfilePage />for profile page */}
-
 
       </div>
     )
