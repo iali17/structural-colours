@@ -6,13 +6,13 @@ import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import Drawer from 'material-ui/Drawer'
 
-
+import SearchBar from './SearchBar';
 import ViewController from './ViewController';
 import MainView from './MainView';
 import ProfilePage from './ProfilePage';
 import ColorBar from './ColorBar';
 import Icicle from './Icicle';
-import LandingView from './LandingView'
+import LandingView from './LandingView';
 
 import {
   fetchPicture,
@@ -66,6 +66,7 @@ export default class App extends Component {
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <h1>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
+            <SearchBar />
             <Icicle getProfile = {this.getProfile.bind(this)}/>     
             <button 
               className ="btn btn-default"
