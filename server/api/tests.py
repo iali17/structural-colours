@@ -56,7 +56,8 @@ class HierarchyTestCase(TestCase):
         self.assertEqual((TaxonomyListAPIView().queryset[0].order.phylum.phylum), 'phylum')
         self.assertEqual((TaxonomyListAPIView().queryset[0].family), 'family')
         self.assertEqual((TaxonomyListAPIView().queryset[0].order.phylum.kingdom.kingdom), 'Eu')
-
+    # Test adding image
+    # NOTE: Requires test.png image file in server/media/media
     def test_image_insert(self):
         location = os.path.dirname(os.path.realpath(__file__)) + '/../media/media/test.png'
         image = SimpleUploadedFile(name='test.png', content=open(location, 'rb').read(), content_type='image/png')
@@ -72,12 +73,14 @@ class HierarchyTestCase(TestCase):
         self.assertEqual(ValueError, type(raised.exception))
 
 class InvalidInputTestCase(TestCase):
+    # Test adding species with duplicate speciesId (Should fail)
     def test_invalid_species_uniqueness(self):
         Species.objects.create(common_name='name',iridescense=False, speciesId='2')
         with self.assertRaises(Exception) as raised:
             Species.objects.create(common_name='name',iridescense=False, speciesId=2)
         self.assertEqual(IntegrityError, type(raised.exception))
 
+    # Test adding species with a non-existent family name (Should fail)
     def test_invalid_species_family(self):
         with self.assertRaises(Exception) as raised:
             Species.objects.create(common_name='name',iridescense=False, family = 'non-existent')
