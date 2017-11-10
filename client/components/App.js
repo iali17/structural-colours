@@ -42,13 +42,6 @@ export default class App extends Component {
   } 
   
   changestate(){
-    /*if (this.state.page == "main"){
-      this.setState({page: "profile"})
-    }else if (this.state.page == "landing") {
-      this.setState({page: "main"})
-    } else {
-      this.setState({page: "main"})
-    }*/
     this.setState({page:'main'})
     
   }
@@ -64,17 +57,22 @@ export default class App extends Component {
 
 
   render() {
-    
+    var buttonstyle ={
+     margin: '10px 10px 10px 0'
+    };
     return (
       <div>
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <h1><TreeView/></h1>
             <button 
+              className ="btn btn-default"
+              style = {buttonstyle}
               content='Click Here'
-              color="#841584"
+              fill="#7fcdbb"
               onClick={this.changestate.bind(this)}
-            />          
+            > Main Page
+            </button>          
           </Grid>
         </Grid>
         <Grid container spacing={24}>
