@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 // Material ui
 import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
+import Drawer from 'material-ui/Drawer'
 
 
 import ViewController from './ViewController';
 import MainView from './MainView';
 import ProfilePage from './ProfilePage';
 import ColorBar from './ColorBar';
-import TreeView from './TreeView';
+import Icicle from './Icicle';
 import LandingView from './LandingView'
 
 import {
@@ -64,7 +65,8 @@ export default class App extends Component {
       <div>
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <h1><TreeView/></h1>
+            <h1>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
+            <Icicle />     
             <button 
               className ="btn btn-default"
               style = {buttonstyle}
@@ -76,14 +78,15 @@ export default class App extends Component {
           </Grid>
         </Grid>
         <Grid container spacing={24}>
+          <Grid item xs={2} sm = {1}>
+            <ColorBar colour={this.state.colour} updateColour={this.updateColour.bind(this)}/>
+          </Grid>
           <Grid item xs={12}>
             <ViewController page = {this.state.page} colour = {this.state.colour} updateColour={this.updateColour.bind(this)} id={this.state.id} getProfile={this.getProfile.bind(this)}/>
           </Grid>
         </Grid>
 
         {this.props.children}
-        
-
 
       </div>
     )

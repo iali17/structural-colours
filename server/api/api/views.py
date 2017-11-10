@@ -12,6 +12,10 @@ from .serializers import (
     LandingPictureSerializer,
     TaxonomySerializer,
     ColourSerializer,
+    PhylumSerializer,
+    OrderSerializer,
+    FamilySerializer,
+    SpeciesSerializer,
     )
 from .pagination import (
     PicturePageNumberPagination,
@@ -81,3 +85,47 @@ class ColourListAPIView(ListAPIView):
 class TaxonomyListAPIView(ListAPIView):
     queryset = Family.objects.all()
     serializer_class = TaxonomySerializer
+
+class PhylumByKingdomListAPIView(ListAPIView):
+    serializer_class = PhylumSerializer
+
+    def get_queryset(self):
+        queryset = Phylum.objects.all()
+        kingdom_param = self.request.query_params.get('kingdom')
+        if kingdom_param is not None:
+            phylum_list = Phylum.objects.filter(kingdom=kingdom_param).values_list('phylum')
+            queryset = Phylum.objects.filter(phylum__in=phylum_list)
+        return queryset
+
+class OrderByPhylumListAPIView(ListAPIView):
+    serializer_class = OrderSerializer
+
+    def get_queryset(self):
+        queryset = Order.objects.all()
+        phylum_param = self.request.query_params.get('phylum')
+        if phylum_param is not None:
+            order_list = Order.objects.filter(phylum=phylum_param).values_list('order')
+            queryset = Order.objects.filter(order__in=order_list)
+        return queryset
+
+class FamilyByOrderListAPIView(ListAPIView):
+    serializer_class = FamilySerializer
+
+    def get_queryset(self):
+        queryset = Family.objects.all()
+        order_param = self.request.query_params.get('order')
+        if order_param is not None:
+            family_list = Family.objects.filter(order=order_param).values_list('family')
+            queryset = Family.objects.filter(family__in=family_list)
+        return queryset
+
+class SpeciesByFamilyListAPIView(ListAPIView):
+    serializer_class = SpeciesSerializer
+
+    def get_queryset(self):
+        queryset = Species.objects.all()
+        family_param = self.request.query_params.get('family')
+        if family_param is not None:
+            species_list = Species.objects.filter(family=family_param).values_list('species')
+            queryset = Species.objects.filter(species__in=species_list)
+        return queryset

@@ -29,3 +29,23 @@ class ColourSerializer(ModelSerializer):
     class Meta(object):
         model = Colour
         fields = '__all__'
+
+class PhylumSerializer(ModelSerializer):
+    class Meta(object):
+        model = Phylum
+        fields = ['phylum']
+
+class OrderSerializer(ModelSerializer):
+    class Meta(object):
+        model = Order
+        fields = ['order']
+
+class FamilySerializer(ModelSerializer):
+    class Meta(object):
+        model = Family
+        fields = ['family']
+
+class SpeciesSerializer(ModelSerializer):
+    class Meta(object):
+        model = Species
+        fields = ['speciesId', 'species']
