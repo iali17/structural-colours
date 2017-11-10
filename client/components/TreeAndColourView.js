@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Icicle from './Icicle';
 
 export default class TreeAndColourView extends Component {
   constructor(props) {
@@ -7,7 +8,9 @@ export default class TreeAndColourView extends Component {
 
   render() {
     return (
-      <h1>TREE AND COLOUR PICKER</h1>
+      <div>
+        <Icicle />
+      </div>
     )
   }
 }

@@ -14,6 +14,11 @@ class PictureSerializer(ModelSerializer):
         model = Picture
         fields = '__all__'
 
+class LandingPictureSerializer(ModelSerializer):
+    class Meta(object):
+        model = LandingPicture
+        fields = '__all__'
+
 class TaxonomySerializer(ModelSerializer):
     class Meta(object):
         model = Family
@@ -24,3 +29,23 @@ class ColourSerializer(ModelSerializer):
     class Meta(object):
         model = Colour
         fields = '__all__'
+
+class PhylumSerializer(ModelSerializer):
+    class Meta(object):
+        model = Phylum
+        fields = ['phylum']
+
+class OrderSerializer(ModelSerializer):
+    class Meta(object):
+        model = Order
+        fields = ['order']
+
+class FamilySerializer(ModelSerializer):
+    class Meta(object):
+        model = Family
+        fields = ['family']
+
+class SpeciesSerializer(ModelSerializer):
+    class Meta(object):
+        model = Species
+        fields = ['speciesId', 'species']

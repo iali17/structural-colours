@@ -1,25 +1,24 @@
 export default function reducer(state={
-  picture: [],
+  taxonomy: {},
   fetching: false,
   fetched: false,
 }, action) {
   switch (action.type) {
-    case "FETCH_PICTURE": {
+    case "FETCH_TAXONOMY": {
       return {...state, fetching: true}
     }
-    case "FETCH_PICTURE_REJECTED": {
+    case "FETCH_TAXONOMY_REJECTED": {
       return {...state, fetching: false, error: action.payload}
     }
-    case "FETCH_PICTURE_FULFILLED": {
+    case "FETCH_TAXONOMY_FULFILLED": {
       return {
         ...state,
         fetching: false,
         fetched: true,
-        picture: action.payload,
+        taxonomy: action.payload,
       }
     }
   }
-
+  
   return state
 }
-
