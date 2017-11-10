@@ -44,7 +44,7 @@ class LandingView extends Component {
 
   render() {
     const { classes } = this.props;
-
+    
     if (this.props.fetched) {
       return (
         <div className={classes.root}>

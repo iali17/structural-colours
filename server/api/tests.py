@@ -1,6 +1,9 @@
 from django.test import TestCase
 from api.api.views import *
 from api.models import *
+from django.db.utils import IntegrityError
+from django.core.files.uploadedfile import SimpleUploadedFile
+import os
 
 class HierarchyTestCase(TestCase):
     # Create dummy objects for each table
@@ -11,7 +14,7 @@ class HierarchyTestCase(TestCase):
         Family.objects.create(family='family', order=Order.objects.get(order='order'))
         Colour.objects.create(colour='R')
         Colour.objects.create(colour='Y')
-        Species.objects.create(common_name='name',iridescense=False)
+        Species.objects.create(common_name='name',iridescense=False, speciesId=1)
         SpeciesColour.objects.create(colour=Colour.objects.get(colour='R'), species=Species.objects.get(common_name='name'))
 
     # Test data was added (UC4)
@@ -54,4 +57,29 @@ class HierarchyTestCase(TestCase):
         self.assertEqual((TaxonomyListAPIView().queryset[0].family), 'family')
         self.assertEqual((TaxonomyListAPIView().queryset[0].order.phylum.kingdom.kingdom), 'Eu')
 
+    def test_image_insert(self):
+        location = os.path.dirname(os.path.realpath(__file__)) + '/../media/media/test.png'
+        image = SimpleUploadedFile(name='test.png', content=open(location, 'rb').read(), content_type='image/png')
+        Picture.objects.create(picture=image, species=Species.objects.get(speciesId=1))
+        p = Picture.objects.get(species=Species.objects.get(speciesId=1))
+        self.assertEqual(str(p),'name')
+        self.assertTrue('pictures/test' in str(p.picture))
+
+    # Test order with empty order attribute creates Value Error
+    def test_empty_order(self):
+        with self.assertRaises(Exception) as raised:
+            Order.objects.create(phylum = 'phylum')
+        self.assertEqual(ValueError, type(raised.exception))
+
+class InvalidInputTestCase(TestCase):
+    def test_invalid_species_uniqueness(self):
+        Species.objects.create(common_name='name',iridescense=False, speciesId='2')
+        with self.assertRaises(Exception) as raised:
+            Species.objects.create(common_name='name',iridescense=False, speciesId=2)
+        self.assertEqual(IntegrityError, type(raised.exception))
+
+    def test_invalid_species_family(self):
+        with self.assertRaises(Exception) as raised:
+            Species.objects.create(common_name='name',iridescense=False, family = 'non-existent')
+        self.assertEqual(ValueError, type(raised.exception))
 

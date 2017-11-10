@@ -4,6 +4,7 @@ var BundleTracker = require('webpack-bundle-tracker')
 
 module.exports = {
     context: __dirname,
+
     entry: './client/index.js',
 
     output: {
@@ -36,7 +37,6 @@ module.exports = {
             },
         ]
     },
-
 
     resolve: {
         modules: [__dirname, 'node_modules'],
