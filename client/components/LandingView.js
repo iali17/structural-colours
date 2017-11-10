@@ -36,7 +36,8 @@ const styles = theme => ({
 class LandingView extends Component {
   constructor(props) {
     super(props);
-    setInterval(this.getPictures.bind(this), 10000); // calls get pictures every 10 sec
+    var interval = setInterval(this.getPictures.bind(this), 10000); // calls get pictures every 10 sec
+    this.state = {"interval": interval}
   }
 
   getPictures() {
@@ -45,6 +46,10 @@ class LandingView extends Component {
 
   componentWillMount() {
     this.getPictures()
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.interval);
   }
 
   render() {
