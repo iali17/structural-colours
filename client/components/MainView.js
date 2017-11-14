@@ -6,7 +6,7 @@ import {Link} from 'react-router';
 import { withStyles } from 'material-ui/styles';
 import { GridList, GridListTile } from 'material-ui/GridList';
 
-import MainPic from './mainPic';
+import MainPic from './MainPic';
 import ColorBar from './ColorBar';
 
 import {

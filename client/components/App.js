@@ -25,7 +25,6 @@ import {
     activeTab: store.app.activeTab,
   };
 })
-
 export default class App extends Component {
   constructor(props) {
     super(props);

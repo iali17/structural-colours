@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
-class MainPic extends Component {
+export default class MainPic extends Component {
   constructor(props) {
     super(props);
-    console.log('Pic', this.props);
   }
 
   getProfile(t) {
@@ -17,5 +16,3 @@ class MainPic extends Component {
     );
   }
 }
-
-export default (MainPic);

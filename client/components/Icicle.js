@@ -60,9 +60,6 @@ export default class Icicle extends Component {
 		readme2.Kingdom.Animals.Vertabrates = vertabrates;
 		readme2.Kingdom.Animals.Invertebrates = invertebrates;
 
-		console.log("readme", readme);
-		console.log("readme2", readme2);
-
 		var x = d3.scaleLinear().range([0, width]);
 		var y = d3.scaleLinear().range([0, height]);
 
@@ -70,8 +67,6 @@ export default class Icicle extends Component {
 		var partition = d3.partition().size([width, height]).padding(0).round(true);
 
 		var svg = d3.select(this.node);
-
-		console.log("svg", svg);
 
 		var rect = svg.selectAll("rect");
 		var fo  = svg.selectAll("foreignObject");
@@ -134,7 +129,6 @@ export default class Icicle extends Component {
       			});
 
       		if (d.data.value % 1 == 0) {
-      			console.log("We want to go to a profile page ", this.props)
       			// this is the direct way to do it, we can use hash history or whatever we use here instead
       			//window.location.href = "/api/species/" + d.data.value;
       			//this.props.getProfile(1)
