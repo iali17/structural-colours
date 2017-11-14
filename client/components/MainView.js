@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Link} from 'react-router'; 
+import {Link} from 'react-router';
 
 // Material ui
 import { withStyles } from 'material-ui/styles';
@@ -12,7 +12,6 @@ import ColorBar from './ColorBar';
 import {
   fetchPicture,
 } from '../actions/pictureActions';
-
 
 const styles = theme => ({
   root: {
@@ -38,11 +37,10 @@ const styles = theme => ({
     fetched: store.mainView.fetched
   };
 })
-/*export default*/ class MainView extends Component {
+class MainView extends Component {
   constructor(props) {
-    super(props);        
+    super(props);
   }
-
 
   componentWillMount( ) {
     var colour = this.props.colour;
@@ -56,29 +54,28 @@ const styles = theme => ({
   }
 
   render() {
-    
     const { classes } = this.props;
-    
+
     if (this.props.fetched) {
       return (
         <div className={classes.root}>
           <GridList cellHeight={'auto'} className={classes.gridList} cols={4}>
             {this.props.picture.map((picture, index) => (
-              <GridListTile key={index} > 
+              <GridListTile key={index} >
                 <MainPic pic = {picture}  getProfile={this.props.getProfile.bind(this)}/>
               </GridListTile>
             ))}
           </GridList>
         </div>
-      )
+      );
     }
     else {
       return (
         <h1>NO PICTURES :(</h1>
-      )
+      );
     }
   }
-}     
+}
     /**
     *To be implemented when we implement pics on page
     *<Link to = "/ProfilePage">Click me </Link>

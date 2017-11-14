@@ -4,4 +4,4 @@ if (process.env.NODE_ENV === 'production') {
   URL_PREFIX = 'http://' + window.location.hostname;
 }
 
-export {URL_PREFIX};
+export { URL_PREFIX };

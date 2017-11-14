@@ -5,6 +5,7 @@ import icicleView from './icicleViewReducer';
 import landingView from './landingViewReducer';
 import profileView from './profileViewReducer';
 import mainView from './mainViewReducer';
+import app from './appReducer';
 
 export default combineReducers({
   detailView,
@@ -12,4 +13,5 @@ export default combineReducers({
   icicleView,
   profileView,
   mainView,
+  app,
 })
