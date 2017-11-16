@@ -7,3 +7,7 @@ static/
 .DS_Store
 db.sqlite3
 media/
+package-lock.json
+server/StructuralColour/webpack-stats-prod.json
+server/api/templates/index.html
+webpack.config.js

@@ -22,18 +22,18 @@ class LandingPictureSerializer(ModelSerializer):
 class TaxonomySerializer(ModelSerializer):
     class Meta(object):
         model = Family
-        depth = 3
-        fields = '__all__'
-
-class ColourSerializer(ModelSerializer):
-    class Meta(object):
-        model = Colour
+        depth = 4
         fields = '__all__'
 
 class PhylumSerializer(ModelSerializer):
     class Meta(object):
         model = Phylum
         fields = ['phylum']
+
+class ClassSerializer(ModelSerializer):
+    class Meta(object):
+        model = SpeciesClass
+        fields = ['SpeciesClass']
 
 class OrderSerializer(ModelSerializer):
     class Meta(object):

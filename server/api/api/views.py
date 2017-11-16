@@ -11,8 +11,8 @@ from .serializers import (
     PictureSerializer,
     LandingPictureSerializer,
     TaxonomySerializer,
-    ColourSerializer,
     PhylumSerializer,
+    ClassSerializer,
     OrderSerializer,
     FamilySerializer,
     SpeciesSerializer,
@@ -78,10 +78,6 @@ class RandomLandingPictureListAPIView(ListAPIView):
 
         return queryset
 
-class ColourListAPIView(ListAPIView):
-    queryset = Colour.objects.all()
-    serializer_class = ColourSerializer
-
 class TaxonomyListAPIView(ListAPIView):
     queryset = Family.objects.all()
     serializer_class = TaxonomySerializer
@@ -97,14 +93,25 @@ class PhylumByKingdomListAPIView(ListAPIView):
             queryset = Phylum.objects.filter(phylum__in=phylum_list)
         return queryset
 
-class OrderByPhylumListAPIView(ListAPIView):
+class ClassByPhylumListAPIView(ListAPIView):
+    serializer_class = ClassSerializer
+
+    def get_queryset(self):
+        queryset = SpeciesClass.objects.all()
+        phylum_param = self.request.query_params.get('phylum')
+        if phylum_param is not None:
+            class_list = SpeciesClass.objects.filter(phylum=phylum_param).values_list('speciesClass')
+            queryset = Order.objects.filter(order__in=class_list)
+        return queryset
+
+class OrderByClassListAPIView(ListAPIView):
     serializer_class = OrderSerializer
 
     def get_queryset(self):
         queryset = Order.objects.all()
-        phylum_param = self.request.query_params.get('phylum')
-        if phylum_param is not None:
-            order_list = Order.objects.filter(phylum=phylum_param).values_list('order')
+        class_param = self.request.query_params.get('class')
+        if class_param is not None:
+            order_list = Order.objects.filter(speciesClass=class_param).values_list('order')
             queryset = Order.objects.filter(order__in=order_list)
         return queryset
 
