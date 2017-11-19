@@ -6,25 +6,65 @@ import * as readme from './readme.json'
 
 import {
   fetchTax,
-} from '../actions/detailActions';
+  fetchPhylum,
+  fetchOrder,
+  fetchFamily,
+  fetchSpecies,
+} from '../actions/taxonomyActions';
 
 @connect((store) => {
   return {
     taxonomy: store.icicleView.taxonomy,
-    fetching: store.icicleView.fetching,
-    fetched: store.icicleView.fetched
+    Tfetching: store.icicleView.Tfetching,
+    Tfetched: store.icicleView.Tfetched,
+
+    phylum: store.icicleView.phylum,
+    Pfetching: store.icicleView.Pfetching,
+    Pfetched: store.icicleView.Pfetched,
+
+    order: store.icicleView.order,
+    Ofetching: store.icicleView.Ofetching,
+    Ofetched: store.icicleView.Ofetched,
+
+    family: store.icicleView.family,
+    Ffetching: store.icicleView.Ffetching,
+    Ffetched: store.icicleView.Ffetched,
+
+    species: store.icicleView.species,
+    Sfetching: store.icicleView.Sfetching,
+    Sfetched: store.icicleView.Sfetched
   };
 })
 
 export default class Icicle extends Component {
-
 	constructor(props){
 		super(props);
 		this.createIcicle = this.createIcicle.bind(this)
+		this.state = {phylum: false, family: false, order: false, species: false}
 	}
 
 	componentDidMount(){
 		this.createIcicle()
+	}
+
+	getPhylum(kingdom){
+		this.props.dispatch(fetchPhylum(kingdom))
+		this.setState({phylum: true})
+	}
+
+	getOrder(phylum){
+		this.props.dispatch(fetchOrder(phylum))
+		this.setState({order: true})
+	}
+
+	getFamily(order){
+		this.props.dispatch(fetchFamily(order))
+		this.setState({family: true})
+	}
+
+	getSpecies(family){
+		this.props.dispatch(fetchSpecies(family))
+		this.setState({species: true})
 	}
 
 	componentWillMount(){
@@ -42,14 +82,72 @@ export default class Icicle extends Component {
 		var readme2 = {}
 		var info = this.props.taxonomy;
 
+		//console.log("info", info)
+
 		//since there are no families or anything in these we just get the values where family = fungi or plant respectively.
 		var fungi = {"FunPH": 1}
 		var plants = {"PlaPH": 1}
 
-		var eubacteria = {"EuPH": 3}
-		var archaebacteria = {"ArPH": 2};
-		var vertabrates = {"VertPH": 3};
-		var invertebrates = {"InvertPh": 4};
+		var eubacteria = "";// = {"EuPH": 3}
+		var archaebacteria = "";// = {"ArPH": 2};
+
+		var vertabrates;
+
+		//console.log("vert len", vertabrates)
+
+		// if (this.props.Pfetched && !this.props.Pfetching){
+		// 	if(!vertabrates) {
+		// 		vertabrates = this.props.phylum;
+		// 	}
+		// 	this.setState({phylum: false})
+		// }
+
+		if (!this.state.phylum && !vertabrates){
+			console.log("Tried to fetch Vertabrates", vertabrates);
+			this.getPhylum("Ve");
+			//vertabrates = "should fetch"
+		}
+
+		if (!this.props.Pfetching && this.props.Pfetched && this.state.phylum) {
+			//this.setState({phylum: false})
+			if (!vertabrates) {
+				vertabrates = this.props.phylum
+				console.log("We do get here when its done fetching.", vertabrates.length)
+			}
+		}
+
+		//vertabrates = this.props.phylum
+
+
+
+		//vertabrates = this.props.phylum;
+		// if ( (archaebacteria=="") && !this.props.Sfetching){
+		// 	console.log("Tried to fetch archaebacteria");
+		// 	this.getSpecies("Ar");
+		// 	archaebacteria = "should fetch"
+		// }
+
+		archaebacteria = {"ArPH": 3}; // this.props.species; Nothing here yet
+
+		// if (!eubacteria && !this.props.Sfetching) {
+		// 	console.log("Tried to fetch eubacteria");
+		// 	this.getSpecies("Eu");
+		// 	eubacteria = {"EuPH": 2}; // this.props.species; Nothing here yet
+		// }
+
+		
+		var invertebrates = this.props.phylum; // {"InvertPh": 4};
+
+		// if (!invertebrates && !this.props.Pfetching && this.props.Pfetched){
+		// 	console.log("Tried to fetch Invertabrates");
+		// 	this.getPhylum("In");
+		// 	//vertabrates = "should fetch"
+		// }
+
+		console.log("info", info);
+		console.log("Invertabrates", invertebrates);
+
+		// need to get order, family and species
 
 		readme2.Kingdom = {};
 		readme2.Kingdom.Bacteria = {};
@@ -58,8 +156,16 @@ export default class Icicle extends Component {
 		readme2.Kingdom.Fungi = fungi;
 		readme2.Kingdom.Plants = plants;
 		readme2.Kingdom.Animals = {};
-		readme2.Kingdom.Animals.Vertabrates = vertabrates;
-		readme2.Kingdom.Animals.Invertebrates = invertebrates;
+		readme2.Kingdom.Animals.Vertabrates ={};
+		readme2.Kingdom.Animals.Vertabrates.Mammals = {};
+		readme2.Kingdom.Animals.Vertabrates.Avian = {};
+		readme2.Kingdom.Animals.Vertabrates.Reptiles = {};
+		readme2.Kingdom.Animals.Vertabrates.Amphibians = {};
+		readme2.Kingdom.Animals.Vertabrates.Fish = {};
+		readme2.Kingdom.Animals.Invertebrates = {};
+		readme2.Kingdom.Animals.Invertebrates.Arthropods = {};
+		readme2.Kingdom.Animals.Invertebrates.Molluscs = {};
+		readme2.Kingdom.Animals.Invertebrates.Other = {};
 
 		console.log("readme", readme);
 		console.log("readme2", readme2);
@@ -145,14 +251,14 @@ export default class Icicle extends Component {
 	}
 
 	render(){
-		if (this.props.fetching) {
-	      return <h1>IM FETCHING</h1>
-	    } else if (this.props.fetched) {
+		if (this.props.Tfetching) {
+	      return <h2>The icicle view is loading please wait.</h2>
+	    } else if (this.props.Tfetched) {
 	      return(<svg ref={node => this.node = node}
 				width={960} height={500}>
 				</svg>)
 	    }else {
-	    	return <h1> WTF </h1>
+	    	return <h2>Icicle fetching failed.</h2>
 	    }
 	}
 }
