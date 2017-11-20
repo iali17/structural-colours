@@ -19,7 +19,7 @@
         "Mammals": {
           "Primates": {
             "Hominidae": {
-              "Homo Sapiens": 123,
+              "Homo Sapiens": 21,
               "Gorilla": 1
             }
           }
@@ -59,7 +59,7 @@
           },
           "Lepidoptera": {
             "Nymphalidae": {
-              "Acraea petrae": 1
+              "Acraea petrae": 15
             }
           },
           "Diptera": {
@@ -67,7 +67,7 @@
           },
           "Hymenoptera": {
             "Chrysididae": {
-              "Blue Cuckoo Wasp": 1
+              "Blue Cuckoo Wasp": 14
             }
           },
           "Chellicerata": {
@@ -77,7 +77,7 @@
           },
           "Crustacea": {
             "Sapphirinidae": {
-              "Sapphirinidae": 1
+              "Sapphirinidae": 17
             }
           }
         },
