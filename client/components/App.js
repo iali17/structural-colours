@@ -71,7 +71,7 @@ export default class App extends Component {
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <h1>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
-            <Icicle />     
+            <Icicle getProfile = {this.getProfile.bind(this)}/>     
             <button 
               content='Click Here'
               color="#841584"

@@ -62,12 +62,15 @@ export default class ProfilePage extends Component {
 		
 		var id = this.props.id
 
-		console.log("picture and id: ", this.props.picture, this.props.id)
-		
 		var datalist
 		const { classes } = this.props;
-		
-		if (this.props.dfetched && this.props.pfetched) {
+
+		console.log("picture and id: ", this.props.picture, this.props.id)
+
+		if (this.props.dfetched && this.props.pfetched && (this.props.id != this.props.picture.species) && !this.props.dfetching && !this.props.pfetching) {
+			this.props.dispatch(fetchDetail(this.props.id))
+			this.props.dispatch(fetchOnePicture(this.props.id))
+		}else if (this.props.dfetched && this.props.pfetched && !this.props.dfetching && !this.props.pfetching) {
 			const info = this.props.detail
 			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure]
 			
