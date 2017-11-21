@@ -37,6 +37,7 @@ const styles = theme => ({
 export default class ProfilePage extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {needToReFetch: false}
 	}
 
 	componentWillMount() {
@@ -48,10 +49,25 @@ export default class ProfilePage extends Component {
 	render() {
 		var imgURL;
 		var id = this.props.id
+
 		var datalist
 		const { classes } = this.props;
 
-		if (this.props.dfetched && this.props.pfetched) {
+		console.log("picture and id: ", this.props.picture, this.props.id)
+
+		// if (this.props.dfetched && this.props.pfetched && (this.props.id != this.props.picture.species) && !this.props.dfetching && !this.props.pfetching) {
+		// 	this.props.dispatch(fetchDetail(this.props.id))
+		// 	this.props.dispatch(fetchOnePicture(this.props.id))
+		// }else if (this.props.dfetched && this.props.pfetched && !this.props.dfetching && !this.props.pfetching) {
+
+		if (this.props.dfetched && this.props.pfetched && this.props.id != this.props.picture.species && !this.props.dfetching && !this.props.pfetching && !this.state.needToReFetch){
+			this.componentWillMount();
+			this.setState({needToReFetch: true})
+		} else if(this.props.dfetched && this.props.pfetched && this.props.id == this.props.picture.species && !this.props.dfetching && !this.props.pfetching && this.state.needToReFetch) {
+			this.setState({needToReFetch: false})
+		}
+		
+		if (this.props.dfetched && this.props.pfetched && !this.state.needToReFetch) {
 			const info = this.props.detail
 			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure + "D"]
 
@@ -95,10 +111,9 @@ export default class ProfilePage extends Component {
 					</center>
 
 				</div>
-			);
-		}
-    else if (this.props.defetched) {
-			return (
+			)
+		} else if(this.props.dfetched) {
+			return(
 				<div>
 					{this.props.detail.common_name}
 					<p>
@@ -111,8 +126,7 @@ export default class ProfilePage extends Component {
 			return (
 				<div>
 					Fetching
-					<img src = {this.props.picture[id].picture}/>
-					/>
+					<img src = {this.props.picture.species}/>
 				</div>
 			);
 		}
