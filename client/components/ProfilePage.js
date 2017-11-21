@@ -47,7 +47,7 @@ const styles = theme => ({
 export default class ProfilePage extends Component {
 	constructor(props) {
 		super(props);
-		
+		this.state = {needToReFetch: false}
 	}
 	
 	componentWillMount() {
@@ -67,10 +67,19 @@ export default class ProfilePage extends Component {
 
 		console.log("picture and id: ", this.props.picture, this.props.id)
 
-		if (this.props.dfetched && this.props.pfetched && (this.props.id != this.props.picture.species) && !this.props.dfetching && !this.props.pfetching) {
-			this.props.dispatch(fetchDetail(this.props.id))
-			this.props.dispatch(fetchOnePicture(this.props.id))
-		}else if (this.props.dfetched && this.props.pfetched && !this.props.dfetching && !this.props.pfetching) {
+		// if (this.props.dfetched && this.props.pfetched && (this.props.id != this.props.picture.species) && !this.props.dfetching && !this.props.pfetching) {
+		// 	this.props.dispatch(fetchDetail(this.props.id))
+		// 	this.props.dispatch(fetchOnePicture(this.props.id))
+		// }else if (this.props.dfetched && this.props.pfetched && !this.props.dfetching && !this.props.pfetching) {
+
+		if (this.props.dfetched && this.props.pfetched && this.props.id != this.props.picture.species && !this.props.dfetching && !this.props.pfetching && !this.state.needToReFetch){
+			this.componentWillMount();
+			this.setState({needToReFetch: true})
+		} else if(this.props.dfetched && this.props.pfetched && this.props.id == this.props.picture.species && !this.props.dfetching && !this.props.pfetching && this.state.needToReFetch) {
+			this.setState({needToReFetch: false})
+		}
+		
+		if (this.props.dfetched && this.props.pfetched && !this.state.needToReFetch) {
 			const info = this.props.detail
 			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure]
 			
@@ -118,7 +127,7 @@ export default class ProfilePage extends Component {
 
 				</div>
 			)
-		} else if(this.props.defetched) {
+		} else if(this.props.dfetched) {
 			return(
 				<div>
 					
@@ -135,7 +144,7 @@ export default class ProfilePage extends Component {
 					
 					Fetching
 
-					<img src = {this.props.picture[id].picture}/>
+					<img src = {this.props.picture.species}/>
 
 					/>
 				</div>
@@ -145,7 +154,6 @@ export default class ProfilePage extends Component {
 				<div>
 						
 					{"Fetching name"}
-
 					<img src = "http://localhost:8000/media/pictures/BogbaneBeetleP_MG0pOn5.png/"/>
 					/>
 				</div>

@@ -63,6 +63,12 @@ export default class Icicle extends Component {
 		this.createIcicle()
 	}
 
+	getProfile(t) {
+	  	console.log("icicle getProfile");
+	    //var id2 = t
+	    this.props.getProfile(t);
+  	}
+
 	getPhylum(kingdom){
 		this.props.dispatch(fetchPhylum(kingdom))
 		this.setState({phylum: true})
@@ -262,10 +268,10 @@ export default class Icicle extends Component {
 	     	.text(function(d) { return d.data.key})
 	     	.on("click", clicked);
 
-	    var needProfile = this.props.getProfile.bind(this);
+	    var needProfile = this.getProfile.bind(this);
 
 	   	function clicked(d) {
-	   		console.log("because its in a function?", needProfile);
+	   		//console.log("because its in a function?", needProfile);
 			x.domain([d.x0, d.x1]);
 			y.domain([d.y0, height]).range([d.depth ? 20 : 0, height]);
 
