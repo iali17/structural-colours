@@ -37,37 +37,43 @@ const styles = theme => ({
 export default class ProfilePage extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {needToReFetch: false}
 	}
 
 	componentWillMount() {
     /*this.props.dispatch(fetchPicture())*/
 		this.props.dispatch(fetchDetail(this.props.id))
 		this.props.dispatch(fetchOnePicture(this.props.id))
-  }
+  	}
 
 	render() {
-		var imgURL;
-		var id = this.props.id
 
-		var datalist
-		const { classes } = this.props;
+		//if (this.props.dfetched && this.props.pfetched && (this.props.id != this.props.picture.species) && !this.props.dfetching && !this.props.pfetching) {
+			//this.props.dispatch(fetchDetail(this.props.id))
+			//this.props.dispatch(fetchOnePicture(this.props.id))
+		//}//else if (this.props.dfetched && this.props.pfetched && !this.props.dfetching && !this.props.pfetching) {
 
-		console.log("picture and id: ", this.props.picture, this.props.id)
-
-		// if (this.props.dfetched && this.props.pfetched && (this.props.id != this.props.picture.species) && !this.props.dfetching && !this.props.pfetching) {
+		// if (this.props.dfetched && this.props.pfetched && this.props.id != this.props.picture.species && !this.props.dfetching && !this.props.pfetching){
 		// 	this.props.dispatch(fetchDetail(this.props.id))
 		// 	this.props.dispatch(fetchOnePicture(this.props.id))
-		// }else if (this.props.dfetched && this.props.pfetched && !this.props.dfetching && !this.props.pfetching) {
+		// 	//this.setState({needToReFetch: true})
+		// } //else if(this.props.dfetched && this.props.pfetched && this.props.id == this.props.picture.species && !this.props.dfetching && !this.props.pfetching && this.state.needToReFetch) {
+			//this.setState({needToReFetch: false})
+		//}
 
-		if (this.props.dfetched && this.props.pfetched && this.props.id != this.props.picture.species && !this.props.dfetching && !this.props.pfetching && !this.state.needToReFetch){
-			this.componentWillMount();
-			this.setState({needToReFetch: true})
-		} else if(this.props.dfetched && this.props.pfetched && this.props.id == this.props.picture.species && !this.props.dfetching && !this.props.pfetching && this.state.needToReFetch) {
-			this.setState({needToReFetch: false})
-		}
+		// if (this.prevId != id){
+		// 	this.props.dispatch(fetchDetail(this.props.id))
+		// 	this.props.dispatch(fetchOnePicture(this.props.id))
+		// 	this.prevId = id
+		// }
 		
-		if (this.props.dfetched && this.props.pfetched && !this.state.needToReFetch) {
+		if (this.props.dfetched && this.props.pfetched && this.props.id == this.props.picture.species) {
+			var imgURL;
+			var id = this.props.id
+
+			var datalist
+			const { classes } = this.props;
+
+			console.log("picture and id: ", this.props.picture, this.props.id)
 			const info = this.props.detail
 			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure + "D"]
 
@@ -115,18 +121,14 @@ export default class ProfilePage extends Component {
 		} else if(this.props.dfetched) {
 			return(
 				<div>
-					{this.props.detail.common_name}
-					<p>
-						<img src = "http://localhost:8000/media/pictures/BogbaneBeetleP_MG0pOn5.png/"/>
-					</p>
+					Fetched detail, waiting on picture.
 				</div>
 			);
 		}
     else if (this.props.pfetched) {
 			return (
 				<div>
-					Fetching
-					<img src = {this.props.picture.species}/>
+					Fetched picture waiting on detail.
 				</div>
 			);
 		}
@@ -134,8 +136,6 @@ export default class ProfilePage extends Component {
 			return (
 				<div>
 					{"Fetching name"}
-					<img src = "http://localhost:8000/media/pictures/BogbaneBeetleP_MG0pOn5.png/"/>
-					/>
 				</div>
 			);
 		}

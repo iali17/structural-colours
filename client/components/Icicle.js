@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import * as d3 from 'd3';
 import { connect } from 'react-redux';
-import * as readme from './readme.json'
+//import * as readme from './readme.json'
 
 import {
   fetchTax,
@@ -11,6 +11,15 @@ import {
   fetchFamily,
   fetchSpecies,
 } from '../actions/taxonomyActions';
+
+import {
+  fetchDetail,
+} from '../actions/detailActions';
+
+import {
+	fetchOnePicture,
+} from '../actions/pictureActions';
+
 
 @connect((store) => {
   return {
@@ -49,11 +58,11 @@ export default class Icicle extends Component {
 					 			Invertebrates:{}
 					 		},
 					 		Bacteria:{
-					 			Eubacteria:{},
-					 			Archaebacteria:{}
+					 			Eubacteria:{ FakeEuBacteria: 1},
+					 			Archaebacteria:{FakeArBacteria: 1}
 					 		},
-					 		Fungi:{},
-					 		Plants:{}
+					 		Fungi:{FakeFungi: 1},
+					 		Plants:{FakePlant: 1}
 					 	}
 					 }
 					}
@@ -127,19 +136,50 @@ export default class Icicle extends Component {
 		if (this.state.info != null && this.state.building) {
 			console.log("info2", this.state.info)
 			for (var i = this.state.info.length-1; i >= 0; i--) {
-				var tempOrder = this.state.info[i].order.order;
-				var tempPhylum = this.state.info[i].order.phylum.phylum;
+				var tempOrder = this.state.info[i].order;
+				var tempClass = this.state.info[i].speciesClass;
+				var tempPhylum = this.state.info[i].phylum;
 				var tempFamily = this.state.info[i].family;
-				if(this.state.info[i].order.phylum.kingdom.kingdom == "Ve"){					
-					this.state.json.Kingdom.Animals.Vertabrates[tempPhylum] = {};
-					this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempOrder]= {} 
-					this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempOrder][tempFamily]= {}
-				} else if(this.state.info[i].order.phylum.kingdom.kingdom == "In"){
+				var tempSpecies = this.state.info[i].species;
+				var tempSpeciesId = this.state.info[i].speciesId;
+				if(this.state.info[i].kingdom == "Ve"){
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum] = {};
+					}
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass]= {} 
+					}					
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]= {} 
+					}
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					}
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					}
+				} else if(this.state.info[i].kingdom == "In"){
 					//var tempSpecies;// = this.getSpecies(tempFamily)
 					//if (Sfetched && ! Sfetching){
-					this.state.json.Kingdom.Animals.Invertebrates[tempPhylum] = {};
-					this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder]= {} 
-					this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder][tempFamily]= {};					
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum] = {};
+					}
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass]= {} 
+					}					
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder]= {} 
+					}
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					}
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					}
+					// this.state.json.Kingdom.Animals.Invertebrates[tempPhylum] = {};
+					// this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder]= {} 
+					// this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder][tempFamily]= {};
+					// this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;			
 					// console.log("state of species", this.state.species,  this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder][tempFamily]);
 					// if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder][tempFamily]){
 					// 	console.log("sees that its false");
@@ -159,18 +199,54 @@ export default class Icicle extends Component {
 					// }
 					//this.state.json.Kingdom.Animals.Invertebrates[te mpPhylum][tempOrder][tempFamily][tempSpecies.species] = tempSpecies.speciesId
 					//}
-				} else if (this.state.info[i].order.phylum.kingdom.kingdom == "Eu"){
-					this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum] = {};
-					this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempOrder]= {} 
-					this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempOrder][tempFamily]= {};	
-				} else if (this.state.info[i].order.phylum.kingdom.kingdom == "Pl") {
-					this.state.json.Kingdom.Plants[tempPhylum] = {};
-					this.state.json.Kingdom.Plants[tempPhylum][tempOrder]= {} 
-					this.state.json.Kingdom.Plants[tempPhylum][tempOrder][tempFamily]= {};	
-				} else if (this.state.info[i].order.phylum.kingdom.kingdom == "Fu") {
-					this.state.json.Kingdom.Fungi[tempPhylum] = {};
-					this.state.json.Kingdom.Fungi[tempPhylum][tempOrder]= {} 
-					this.state.json.Kingdom.Fungi[tempPhylum][tempOrder][tempFamily]= {};
+				} else if (this.state.info[i].kingdom == "Eu"){
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum] = {};
+					}
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass]= {} 
+					}					
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder]= {} 
+					}
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					}
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					}
+				} else if (this.state.info[i].kingdom == "Pl") {
+					if (!this.state.json.Kingdom.Plants[tempPhylum]){
+						this.state.json.Kingdom.Plants[tempPhylum] = {};
+					}
+					if (!this.state.json.Kingdom.Plants[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Plants[tempPhylum][tempClass]= {} 
+					}					
+					if (!this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder]= {} 
+					}
+					if (!this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					}
+					if (!this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					}
+				} else if (this.state.info[i].kingdom == "Fu") {
+					if (!this.state.json.Kingdom.Fungi[tempPhylum]){
+						this.state.json.Kingdom.Fungi[tempPhylum] = {};
+					}
+					if (!this.state.json.Kingdom.Fungi[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Fungi[tempPhylum][tempClass]= {} 
+					}					
+					if (!this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder]= {} 
+					}
+					if (!this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					}
+					if (!this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					}
 				}
 				//this.state.json.Kingdom.Animals.Vertabrates[this.state.info[i].family.order.phylum.phylum] = {}//this.state.info[i].order.phylum.phylum;
 				//console.log(this.state.info[i].order.phylum.kingdom.kingdom)//.family.order.phylum.kingdom.kingdom)
@@ -215,7 +291,7 @@ export default class Icicle extends Component {
 		var rect = svg.selectAll("rect");
 		var fo  = svg.selectAll("foreignObject");
 
-		var root = d3.hierarchy(d3.entries(readme)[0], function(d) {
+		var root = d3.hierarchy(d3.entries(this.state.json)[0], function(d) {
 			return d3.entries(d.value)
 		})
 		.sum(function(d) {return d.value / d.value})
@@ -241,10 +317,19 @@ export default class Icicle extends Component {
 	      	.attr("width", function(d) { return d.x1 - d.x0; })
 	      	.attr("height", function(d) { return d.y1 - d.y0; })
 	     	.style("cursor", "pointer")
-	     	.text(function(d) { return d.data.key})
+	     	.text(function(d) { 
+	     		// console.log(d.data.key, (8* d.data.key.length), (d.x1-d.x0))
+	     		// if((8 * d.data.key.length) > (d.x1 - d.x0)){
+	     		// 	return ""
+	     		// }else {
+	     		// 	return d.data.key
+	     		// }
+	     		return d.data.key
+	     	})
 	     	.on("click", clicked);
 
 	    var needProfile = this.getProfile.bind(this);
+	    var dispatch = this.props.dispatch.bind(this);
 
 	   	function clicked(d) {
 	   		//console.log("because its in a function?", needProfile);
@@ -273,11 +358,20 @@ export default class Icicle extends Component {
       					return 0
       				}
       				return y(d.y1-d.y0);
-      			});
+      			});//.text(function(d) { 
+		     		// console.log(d.data.key, (8* d.data.key.length), x(d.x1-d.x0))
+		     		// if((8 * d.data.key.length) > x(d.x1 - d.x0)){
+		     		// 	return ""
+		     		// }else {
+		     		// 	return d.data.key
+		     		// }
+	     		//});
 
       		if (d.data.value % 1 == 0){
       			console.log("We want to go to a profile page ", d.data.value)
       			needProfile(d.data.value);
+      			dispatch(fetchDetail(d.data.value))
+				dispatch(fetchOnePicture(d.data.value))
       		}
 
 		}

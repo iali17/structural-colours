@@ -49,8 +49,8 @@ export default class App extends Component {
   }
 
   getProfile(id) {
-      this.setState({id: id})
-      this.setState({page: "profile"})
+    this.setState({id: id})
+    this.setState({page: "profile"})
   }
 
   render() {
@@ -64,15 +64,14 @@ export default class App extends Component {
           <Grid item xs={12}>
             <h1>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
             <Icicle getProfile = {this.getProfile.bind(this)}/>
-            <button
-              className ="btn btn-default"
-              style = {buttonstyle}
-              content='Click Here'
-              fill="#7fcdbb"
-              onClick={this.changestate.bind(this)}
-            > Main Page
-            </button>
           </Grid>
+          <button
+            className ="btn btn-default"
+            style = {buttonstyle}
+            fill="#7fcdbb"
+            onClick={this.changestate.bind(this)}
+          > Main Page
+          </button>
         </Grid>
         <Grid container spacing={24}>
           <Grid item xs={12}>
