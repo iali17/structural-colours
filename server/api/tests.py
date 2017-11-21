@@ -10,27 +10,26 @@ class HierarchyTestCase(TestCase):
     def setUp(self):
         Kingdom.objects.create(kingdom='Eu')
         Phylum.objects.create(phylum='phylum', kingdom=Kingdom.objects.get(kingdom='Eu'))
-        Order.objects.create(order='order', phylum=Phylum.objects.get(phylum='phylum'))
+        SpeciesClass.objects.create(speciesClass='class', phylum=Phylum.objects.get(phylum='phylum'))
+        Order.objects.create(order='order', speciesClass=SpeciesClass.objects.get(speciesClass='class'))
         Family.objects.create(family='family', order=Order.objects.get(order='order'))
-        Colour.objects.create(colour='R')
-        Colour.objects.create(colour='Y')
-        Species.objects.create(common_name='name',iridescense=False, speciesId=1)
-        SpeciesColour.objects.create(colour=Colour.objects.get(colour='R'), species=Species.objects.get(common_name='name'))
+        Species.objects.create(common_name='name',iridescense=False, speciesId=1, colour='R,G')
+        Species.objects.create(common_name='delete',iridescense=False, speciesId=2)
 
     # Test data was added (UC4)
     def test_add_data(self):
         k = Kingdom.objects.get(kingdom='Eu')
         p = Phylum.objects.get(phylum='phylum')
         o = Order.objects.get(order='order')
+        sc = SpeciesClass.objects.get(speciesClass='class')
         f = Family.objects.get(family='family')
         s = Species.objects.get(common_name='name')
-        sc = SpeciesColour.objects.get(colour='R', species='1')
         self.assertEqual(k.get_kingdom_display(), 'Eubacteria')
         self.assertEqual(str(p), 'phylum')
         self.assertEqual(str(o), 'order')
+        self.assertEqual(str(sc), 'class')
         self.assertEqual(str(f), 'family')
         self.assertEqual(str(s), '1 name')
-        self.assertEqual(str(sc), '1 name, Red')
 
     # Test data was edited (UC7)
     def test_edit_data(self):
@@ -43,19 +42,18 @@ class HierarchyTestCase(TestCase):
 
     # Test data was deleted (UC8)
     def test_delete_data(self):
-        c = Colour.objects.get(colour='Y')
-        c.delete()
-        self.assertRaisesMessage(Colour.DoesNotExist, Colour.objects.get, colour='Y')
+        s = Species.objects.get(common_name='delete')
+        s.delete()
+        self.assertRaisesMessage(Species.DoesNotExist, Species.objects.get, common_name='delete')
 
     # Test serializer contents
     def test_api_values(self):
         self.maxDiff =None
         self.assertEqual((SpeciesDetailAPIView().queryset[0].common_name), 'name')
-        self.assertEqual((ColourListAPIView().queryset[0].colour), 'R')
         self.assertEqual((TaxonomyListAPIView().queryset[0].order.order), 'order')
-        self.assertEqual((TaxonomyListAPIView().queryset[0].order.phylum.phylum), 'phylum')
+        self.assertEqual((TaxonomyListAPIView().queryset[0].order.speciesClass.phylum.phylum), 'phylum')
         self.assertEqual((TaxonomyListAPIView().queryset[0].family), 'family')
-        self.assertEqual((TaxonomyListAPIView().queryset[0].order.phylum.kingdom.kingdom), 'Eu')
+        self.assertEqual((TaxonomyListAPIView().queryset[0].order.speciesClass.phylum.kingdom.kingdom), 'Eu')
     # Test adding image
     # NOTE: Requires test.png image file in server/media/media
     def test_image_insert(self):
@@ -69,7 +67,7 @@ class HierarchyTestCase(TestCase):
     # Test order with empty order attribute creates Value Error
     def test_empty_order(self):
         with self.assertRaises(Exception) as raised:
-            Order.objects.create(phylum = 'phylum')
+            SpeciesClass.objects.create(phylum = 'phylum')
         self.assertEqual(ValueError, type(raised.exception))
 
 class InvalidInputTestCase(TestCase):
