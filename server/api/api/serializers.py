@@ -1,5 +1,6 @@
 from rest_framework.serializers import (
     ModelSerializer,
+    SerializerMethodField,
     )
 
 from api.models import *
@@ -19,11 +20,31 @@ class LandingPictureSerializer(ModelSerializer):
         model = LandingPicture
         fields = '__all__'
 
+# class TaxonomySerializer(ModelSerializer):
+#     class Meta(object):
+#         model = Family
+#         depth = 4
+#         fields = '__all__'
+
 class TaxonomySerializer(ModelSerializer):
+    family = SerializerMethodField()
+    order = SerializerMethodField()
+    speciesClass = SerializerMethodField()
+    phylum = SerializerMethodField()
+    kingdom = SerializerMethodField()
     class Meta(object):
-        model = Family
-        depth = 4
-        fields = '__all__'
+        model = Species
+        fields = ['speciesId', 'species', 'family', 'order', 'speciesClass', 'phylum', 'kingdom']
+    def get_family(self,obj):
+        return obj.family.family
+    def get_order(self,obj):
+        return obj.family.order.order
+    def get_speciesClass(self,obj):
+        return obj.family.order.speciesClass.speciesClass
+    def get_phylum(self,obj):
+        return obj.family.order.speciesClass.phylum.phylum
+    def get_kingdom(self,obj):
+        return obj.family.order.speciesClass.phylum.kingdom.kingdom
 
 class PhylumSerializer(ModelSerializer):
     class Meta(object):

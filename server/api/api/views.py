@@ -49,17 +49,17 @@ class PictureListAPIView(ListAPIView):
 
         if colour_param is not None and species_param is not None:
             # One liner to get all the species from SpeciesColour using colour_param and species_param
-            species_list = SpeciesColour.objects.filter(colour__colour=colour_param, species__common_name__icontains=species_param).values_list('species')
+            species_list = Species.objects.filter(colour__icontains=colour_param, common_name__icontains=species_param).values_list('speciesId')
             # Set queryset with species_list
             queryset = Picture.objects.filter(species__in=species_list).order_by('id')
         elif colour_param is not None:
             # Get all the species with colour = colour_param
-            species_list = SpeciesColour.objects.filter(colour__colour=colour_param).values_list('species')
+            species_list = Species.objects.filter(colour__icontains=colour_param).values_list('speciesId')
             ## Set queryset with species_list
             queryset = Picture.objects.filter(species__in=species_list).order_by('id')
         elif species_param is not None:
             # Get all the species with species = species_param
-            species_list = SpeciesColour.objects.filter(species__common_name__icontains=species_param).values_list('species')
+            species_list = Species.objects.filter(common_name__icontains=species_param).values_list('speciesId')
             # Set queryset with species_list
             queryset = Picture.objects.filter(species__in=species_list).order_by('id')
 
@@ -79,7 +79,7 @@ class RandomLandingPictureListAPIView(ListAPIView):
         return queryset
 
 class TaxonomyListAPIView(ListAPIView):
-    queryset = Family.objects.all()
+    queryset = Species.objects.all()
     serializer_class = TaxonomySerializer
 
 class PhylumByKingdomListAPIView(ListAPIView):
