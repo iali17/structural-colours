@@ -36,10 +36,20 @@ const styles = theme => ({
 class LandingView extends Component {
   constructor(props) {
     super(props);
+    var interval = setInterval(this.getPictures.bind(this), 10000); // calls get pictures every 10 sec
+    this.state = {"interval": interval}
+  }
+
+  getPictures() {
+    this.props.dispatch(fetchRandomPictures())
   }
 
   componentWillMount() {
-    this.props.dispatch(fetchRandomPictures())
+    this.getPictures()
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.interval);
   }
 
   render() {
@@ -56,7 +66,7 @@ class LandingView extends Component {
             ))}
           </GridList>
         </div>
-      )
+      );
     }
     else {
       return (

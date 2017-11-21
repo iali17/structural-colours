@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import { URL_PREFIX } from '../constants';
 
 export function fetchDetail(id) {

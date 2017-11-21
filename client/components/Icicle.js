@@ -37,7 +37,7 @@ import {
 })
 
 export default class Icicle extends Component {
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.createIcicle = this.createIcicle.bind(this)
 		this.state = {phylum: false, family: false, order: false, species: false, building: true,
@@ -59,7 +59,7 @@ export default class Icicle extends Component {
 					}
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		this.createIcicle()
 	}
 
@@ -68,32 +68,12 @@ export default class Icicle extends Component {
 	    //var id2 = t
 	    this.props.getProfile(t);
   	}
-
-	getPhylum(kingdom){
-		this.props.dispatch(fetchPhylum(kingdom))
-		this.setState({phylum: true})
-	}
-
-	getOrder(phylum){
-		this.props.dispatch(fetchOrder(phylum))
-		this.setState({order: true})
-	}
-
-	getFamily(order){
-		this.props.dispatch(fetchFamily(order))
-		this.setState({family: true})
-	}
-
-	getSpecies(family){
-		this.props.dispatch(fetchSpecies(family))
-		this.setState({species: true})
-	}
-
-	componentWillMount(){
+    
+	componentWillMount() {
 		this.props.dispatch(fetchTax());
 	}
 
-	componentDidUpdate(){
+	componentDidUpdate() {
 		this.createIcicle()
 	}
 
@@ -224,7 +204,6 @@ export default class Icicle extends Component {
 		// 	//vertabrates = "should fetch"
 		// }
 
-
 		var x = d3.scaleLinear().range([0, width]);
 		var y = d3.scaleLinear().range([0, height]);
 
@@ -233,17 +212,14 @@ export default class Icicle extends Component {
 
 		var svg = d3.select(this.node);
 
-		//console.log("svg", svg);
-
 		var rect = svg.selectAll("rect");
 		var fo  = svg.selectAll("foreignObject");
 
-
 		var root = d3.hierarchy(d3.entries(readme)[0], function(d) {
 			return d3.entries(d.value)
-		}) 
+		})
 		.sum(function(d) {return d.value / d.value})
-		//.sort(function(a,b) { return b.value - a.value; }); 
+		//.sort(function(a,b) { return b.value - a.value; });
 
 		partition(root);
 
@@ -264,7 +240,7 @@ export default class Icicle extends Component {
 	      	.attr("y", function(d) { return d.y0; })
 	      	.attr("width", function(d) { return d.x1 - d.x0; })
 	      	.attr("height", function(d) { return d.y1 - d.y0; })
-	     	.style("cursor", "pointer")	
+	     	.style("cursor", "pointer")
 	     	.text(function(d) { return d.data.key})
 	     	.on("click", clicked);
 
@@ -286,17 +262,17 @@ export default class Icicle extends Component {
         		.duration(750)
       			.attr("x", function(d) { return x(d.x0); })
       			.attr("y", function(d) { return y(d.y0); })
-      			.attr("width", function(d) { 
+      			.attr("width", function(d) {
       				if (x(d.x1 - d.x0) < 0) {
       					return 0
       				}
-      				return x(d.x1-d.x0); 
+      				return x(d.x1-d.x0);
       			})
-      			.attr("height", function(d) { 
+      			.attr("height", function(d) {
       				if (y(d.y1 - d.y0) < 0) {
       					return 0
       				}
-      				return y(d.y1-d.y0); 
+      				return y(d.y1-d.y0);
       			});
 
       		if (d.data.value % 1 == 0){
