@@ -2,36 +2,84 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import * as d3 from 'd3';
 import { connect } from 'react-redux';
-import * as readme from './readme.json'
 
 import {
   fetchTax,
+  fetchPhylum,
+  fetchOrder,
+  fetchFamily,
+  fetchSpecies,
+} from '../actions/taxonomyActions';
+
+import {
+  fetchDetail,
 } from '../actions/detailActions';
+
+import {
+	fetchOnePicture,
+} from '../actions/pictureActions';
+
 
 @connect((store) => {
   return {
     taxonomy: store.icicleView.taxonomy,
-    fetching: store.icicleView.fetching,
-    fetched: store.icicleView.fetched
+    Tfetching: store.icicleView.Tfetching,
+    Tfetched: store.icicleView.Tfetched,
+
+    phylum: store.icicleView.phylum,
+    Pfetching: store.icicleView.Pfetching,
+    Pfetched: store.icicleView.Pfetched,
+
+    order: store.icicleView.order,
+    Ofetching: store.icicleView.Ofetching,
+    Ofetched: store.icicleView.Ofetched,
+
+    family: store.icicleView.family,
+    Ffetching: store.icicleView.Ffetching,
+    Ffetched: store.icicleView.Ffetched,
+
+    species: store.icicleView.species,
+    Sfetching: store.icicleView.Sfetching,
+    Sfetched: store.icicleView.Sfetched
   };
 })
 
 export default class Icicle extends Component {
-
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.createIcicle = this.createIcicle.bind(this)
+		this.state = {phylum: false, family: false, order: false, species: false, building: true,
+					 vertabrates: null, invertebrates: null, info: null, 
+					 json: {
+					 	Kingdom:{
+					 		Animals:{
+					 			Vertabrates:{},
+					 			Invertebrates:{}
+					 		},
+					 		Bacteria:{
+					 			Eubacteria:{ FakeEuBacteria: 1},
+					 			Archaebacteria:{FakeArBacteria: 1}
+					 		},
+					 		Fungi:{FakeFungi: 1},
+					 		Plants:{FakePlant: 1}
+					 	}
+					 }
+					}
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		this.createIcicle()
 	}
 
-	componentWillMount(){
+	getProfile(t) {
+	    this.props.getProfile(t);
+  	}
+    
+	componentWillMount() {
 		this.props.dispatch(fetchTax());
 	}
 
-	componentDidUpdate(){
+	componentDidUpdate() {
 		this.createIcicle()
 	}
 
@@ -39,30 +87,107 @@ export default class Icicle extends Component {
 		var width = 960;
 		var height = 500;
 
-		var readme2 = {}
-		var info = this.props.taxonomy;
+		if (this.props.Tfetched) {
+			this.state.info = this.props.taxonomy;
+		}
+		
+		if (this.state.info != null && this.state.building) {
+			console.log("info2", this.state.info)
+			for (var i = this.state.info.length-1; i >= 0; i--) {
+				var tempOrder = this.state.info[i].order;
+				var tempClass = this.state.info[i].speciesClass;
+				var tempPhylum = this.state.info[i].phylum;
+				var tempFamily = this.state.info[i].family;
+				var tempSpecies = this.state.info[i].species;
+				var tempSpeciesId = this.state.info[i].speciesId;
+				if(this.state.info[i].kingdom == "Ve"){
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum] = {};
+					}
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass]= {} 
+					}					
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]= {} 
+					}
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					}
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					}
+				} else if(this.state.info[i].kingdom == "In"){
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum] = {};
+					}
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass]= {} 
+					}					
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder]= {} 
+					}
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					}
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					}
+				} else if (this.state.info[i].kingdom == "Eu"){
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum] = {};
+					}
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass]= {} 
+					}					
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder]= {} 
+					}
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					}
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					}
+				} else if (this.state.info[i].kingdom == "Pl") {
+					if (!this.state.json.Kingdom.Plants[tempPhylum]){
+						this.state.json.Kingdom.Plants[tempPhylum] = {};
+					}
+					if (!this.state.json.Kingdom.Plants[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Plants[tempPhylum][tempClass]= {} 
+					}					
+					if (!this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder]= {} 
+					}
+					if (!this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					}
+					if (!this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					}
+				} else if (this.state.info[i].kingdom == "Fu") {
+					if (!this.state.json.Kingdom.Fungi[tempPhylum]){
+						this.state.json.Kingdom.Fungi[tempPhylum] = {};
+					}
+					if (!this.state.json.Kingdom.Fungi[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Fungi[tempPhylum][tempClass]= {} 
+					}					
+					if (!this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder]= {} 
+					}
+					if (!this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					}
+					if (!this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					}
+				}
+				//this.state.json.Kingdom.Animals.Vertabrates[this.state.info[i].family.order.phylum.phylum] = {}//this.state.info[i].order.phylum.phylum;
+				//console.log(this.state.info[i].order.phylum.kingdom.kingdom)//.family.order.phylum.kingdom.kingdom)
+			}
+			this.state.building = false;
+			console.log("Json object so far", this.state.json)
+		}
 
-		//since there are no families or anything in these we just get the values where family = fungi or plant respectively.
-		var fungi = {"FunPH": 1}
-		var plants = {"PlaPH": 1}
-
-		var eubacteria = {"EuPH": 3}
-		var archaebacteria = {"ArPH": 2};
-		var vertabrates = {"VertPH": 3};
-		var invertebrates = {"InvertPh": 4};
-
-		readme2.Kingdom = {};
-		readme2.Kingdom.Bacteria = {};
-		readme2.Kingdom.Bacteria.Eubacteria = eubacteria;
-		readme2.Kingdom.Bacteria.Archaebacteria = archaebacteria;
-		readme2.Kingdom.Fungi = fungi;
-		readme2.Kingdom.Plants = plants;
-		readme2.Kingdom.Animals = {};
-		readme2.Kingdom.Animals.Vertabrates = vertabrates;
-		readme2.Kingdom.Animals.Invertebrates = invertebrates;
-
-		console.log("readme", readme);
-		console.log("readme2", readme2);
 
 		var x = d3.scaleLinear().range([0, width]);
 		var y = d3.scaleLinear().range([0, height]);
@@ -72,17 +197,14 @@ export default class Icicle extends Component {
 
 		var svg = d3.select(this.node);
 
-		console.log("svg", svg);
-
 		var rect = svg.selectAll("rect");
 		var fo  = svg.selectAll("foreignObject");
 
-
-		var root = d3.hierarchy(d3.entries(readme)[0], function(d) {
+		var root = d3.hierarchy(d3.entries(this.state.json)[0], function(d) {
 			return d3.entries(d.value)
-		}) 
+		})
 		.sum(function(d) {return d.value / d.value})
-		//.sort(function(a,b) { return b.value - a.value; }); 
+		//.sort(function(a,b) { return b.value - a.value; });
 
 		partition(root);
 
@@ -103,11 +225,23 @@ export default class Icicle extends Component {
 	      	.attr("y", function(d) { return d.y0; })
 	      	.attr("width", function(d) { return d.x1 - d.x0; })
 	      	.attr("height", function(d) { return d.y1 - d.y0; })
-	     	.style("cursor", "pointer")	
-	     	.text(function(d) { return d.data.key})
+	     	.style("cursor", "pointer")
+	     	.text(function(d) { 
+	     		// console.log(d.data.key, (8* d.data.key.length), (d.x1-d.x0))
+	     		// if((8 * d.data.key.length) > (d.x1 - d.x0)){
+	     		// 	return ""
+	     		// }else {
+	     		// 	return d.data.key
+	     		// }
+	     		return d.data.key
+	     	})
 	     	.on("click", clicked);
 
+	    var needProfile = this.getProfile.bind(this);
+	    var dispatch = this.props.dispatch.bind(this);
+
 	   	function clicked(d) {
+	   		//console.log("because its in a function?", needProfile);
 			x.domain([d.x0, d.x1]);
 			y.domain([d.y0, height]).range([d.depth ? 20 : 0, height]);
 
@@ -122,38 +256,45 @@ export default class Icicle extends Component {
         		.duration(750)
       			.attr("x", function(d) { return x(d.x0); })
       			.attr("y", function(d) { return y(d.y0); })
-      			.attr("width", function(d) { 
+      			.attr("width", function(d) {
       				if (x(d.x1 - d.x0) < 0) {
       					return 0
       				}
-      				return x(d.x1-d.x0); 
+      				return x(d.x1-d.x0);
       			})
-      			.attr("height", function(d) { 
+      			.attr("height", function(d) {
       				if (y(d.y1 - d.y0) < 0) {
       					return 0
       				}
-      				return y(d.y1-d.y0); 
-      			});
+      				return y(d.y1-d.y0);
+      			});//.text(function(d) { 
+		     		// console.log(d.data.key, (8* d.data.key.length), x(d.x1-d.x0))
+		     		// if((8 * d.data.key.length) > x(d.x1 - d.x0)){
+		     		// 	return ""
+		     		// }else {
+		     		// 	return d.data.key
+		     		// }
+	     		//});
 
       		if (d.data.value % 1 == 0){
-      			console.log("We want to go to a profile page ", this.props)
-      			// this is the direct way to do it, we can use hash history or whatever we use here instead
-      			//window.location.href = "/api/species/" + d.data.value;
-      			//this.props.getProfile(1)
-
+      			console.log("We want to go to a profile page ", d.data.value)
+      			needProfile(d.data.value);
+      			dispatch(fetchDetail(d.data.value))
+				dispatch(fetchOnePicture(d.data.value))
       		}
+
 		}
 	}
 
 	render(){
-		if (this.props.fetching) {
-	      return <h1>IM FETCHING</h1>
-	    } else if (this.props.fetched) {
-	      return(<svg ref={node => this.node = node} 
+		if (this.props.Tfetching) {
+	      return <h2>The icicle view is loading please wait.</h2>
+	    } else if (this.props.Tfetched) {
+	      return(<svg ref={node => this.node = node}
 				width={960} height={500}>
 				</svg>)
 	    }else {
-	    	return <h1> Imran failed to make this functional </h1>
+	    	return <h2>Icicle fetching failed.</h2>
 	    }
 	}
 }
