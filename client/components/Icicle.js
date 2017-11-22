@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import * as d3 from 'd3';
 import { connect } from 'react-redux';
-//import * as readme from './readme.json'
 
 import {
   fetchTax,
@@ -73,8 +72,6 @@ export default class Icicle extends Component {
 	}
 
 	getProfile(t) {
-	  	console.log("icicle getProfile");
-	    //var id2 = t
 	    this.props.getProfile(t);
   	}
     
@@ -89,45 +86,6 @@ export default class Icicle extends Component {
 	createIcicle() {
 		var width = 960;
 		var height = 500;
-
-		var readme2 = {}
-
-		//var vertabrates;
-		//console.log("resets vertabrates for some reason", vertabrates);
-
-		//console.log("vert len", vertabrates)
-
-		// if (this.props.Pfetched && !this.props.Pfetching){
-		// 	if(!vertabrates) {
-		// 		vertabrates = this.props.phylum;
-		// 	}
-		// 	this.setState({phylum: false})
-		// }
-
-		// if (!this.state.phylum && this.state.vertabrates == null){
-		// 	console.log("Tried to fetch Vertabrates", this.state.vertabrates);
-		// 	this.getPhylum("Ve");
-		// } else if (!this.state.phylum && this.state.invertebrates == null) {
-		// 	console.log("Tried to fetch Vertabrates", this.state.invertebrates);
-		// 	this.getPhylum("In");
-		// }
-
-		// if (!this.props.Pfetching && this.props.Pfetched && this.state.phylum) {
-		// 	this.setState({phylum: false})
-		// 	if (this.state.vertabrates == null) {
-		// 		this.state.vertabrates = this.props.phylum
-		// 		console.log("We do get here when its done fetching ve.")
-		// 	} else if (this.state.invertebrates == null) {
-		// 		this.state.invertebrates = this.props.phylum
-		// 		console.log("We do get here when its done fetching in.")
-		// 	}
-		// }
-
-		// if (this.state.vertabrates != null){
-		// 	for (var i = this.state.vertabrates.length - 1; i >= 0; i--) {
-		// 		console.log(this.state.vertabrates[i].phylum);
-		// 	}
-		// }
 
 		if (this.props.Tfetched) {
 			this.state.info = this.props.taxonomy;
@@ -159,8 +117,6 @@ export default class Icicle extends Component {
 						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
 					}
 				} else if(this.state.info[i].kingdom == "In"){
-					//var tempSpecies;// = this.getSpecies(tempFamily)
-					//if (Sfetched && ! Sfetching){
 					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum]){
 						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum] = {};
 					}
@@ -176,29 +132,6 @@ export default class Icicle extends Component {
 					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
 						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
 					}
-					// this.state.json.Kingdom.Animals.Invertebrates[tempPhylum] = {};
-					// this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder]= {} 
-					// this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder][tempFamily]= {};
-					// this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;			
-					// console.log("state of species", this.state.species,  this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder][tempFamily]);
-					// if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder][tempFamily]){
-					// 	console.log("sees that its false");
-					// }
-					// if (!this.state.species && this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder][tempFamily] == null){
-					// 	console.log("Tried to fetch ", tempFamily);
-					// 	this.getSpecies(tempFamily);
-					// }
-
-					// if (!this.props.Sfetching && this.props.Sfetched && this.state.species) {
-					// 	this.setState({species: false})
-					// 	console.log("sets species state to true")
-					// 	if (this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder][tempFamily] == null){
-					// 		tempSpecies = this.props.species
-					// 		//this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempOrder][tempFamily][tempSpecies.species] = tempSpecies.Id
-					// 	}
-					// }
-					//this.state.json.Kingdom.Animals.Invertebrates[te mpPhylum][tempOrder][tempFamily][tempSpecies.species] = tempSpecies.speciesId
-					//}
 				} else if (this.state.info[i].kingdom == "Eu"){
 					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum]){
 						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum] = {};
@@ -255,30 +188,6 @@ export default class Icicle extends Component {
 			console.log("Json object so far", this.state.json)
 		}
 
-
-		//vertabrates = this.props.phylum;
-		// if ( (archaebacteria=="") && !this.props.Sfetching){
-		// 	console.log("Tried to fetch archaebacteria");
-		// 	this.getSpecies("Ar");
-		// 	archaebacteria = "should fetch"
-		// }
-
-		//archaebacteria = {"ArPH": 3}; // this.props.species; Nothing here yet
-
-		// if (!eubacteria && !this.props.Sfetching) {
-		// 	console.log("Tried to fetch eubacteria");
-		// 	this.getSpecies("Eu");
-		// 	eubacteria = {"EuPH": 2}; // this.props.species; Nothing here yet
-		// }
-
-		
-		//var invertebrates = this.props.phylum; // {"InvertPh": 4};
-
-		// if (!invertebrates && !this.props.Pfetching && this.props.Pfetched){
-		// 	console.log("Tried to fetch Invertabrates");
-		// 	this.getPhylum("In");
-		// 	//vertabrates = "should fetch"
-		// }
 
 		var x = d3.scaleLinear().range([0, width]);
 		var y = d3.scaleLinear().range([0, height]);
