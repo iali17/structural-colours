@@ -33,24 +33,14 @@ const styles = theme => ({
 @connect((store) => {
   return {
     picture: store.mainView.picture.results,
-    fetching: store.mainView.fetching,
-    fetched: store.mainView.fetched
+    fetched: store.mainView.fetched,
+    id: store.app.id,
+    colour: store.app.colour,
   };
 })
 class MainView extends Component {
   constructor(props) {
     super(props);
-  }
-
-  componentWillMount( ) {
-    var colour = this.props.colour;
-    this.getProfile.bind(this)
-    this.props.dispatch(fetchPicture(colour))
-  }
-
-  getProfile(t) {
-    var id2 = 2
-    this.props.getProfile(id2 );
   }
 
   render() {
@@ -62,7 +52,7 @@ class MainView extends Component {
           <GridList cellHeight={'auto'} className={classes.gridList} cols={4}>
             {this.props.picture.map((picture, index) => (
               <GridListTile key={index} >
-                <MainPic pic = {picture}  getProfile={this.props.getProfile.bind(this)}/>
+                <MainPic pic={picture} getProfile={this.props.getProfile}/>
               </GridListTile>
             ))}
           </GridList>

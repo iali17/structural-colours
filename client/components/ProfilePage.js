@@ -65,11 +65,9 @@ export default class ProfilePage extends Component {
 		// 	this.props.dispatch(fetchOnePicture(this.props.id))
 		// 	this.prevId = id
 		// }
-		
+
 		if (this.props.dfetched && this.props.pfetched && this.props.id == this.props.picture.species) {
 			var imgURL;
-			var id = this.props.id
-
 			var datalist
 			const { classes } = this.props;
 
@@ -94,17 +92,16 @@ export default class ProfilePage extends Component {
 							title = {this.props.detail.common_name}
 							/>
 						<CardContent>
-							<Typography type="headline" component=
-							"h3">
+							<Typography type="headline" component="h3">
 								{this.props.detail.family},
 								{this.props.detail.species}
 								<p>
-								<img src = {this.props.detail.sillouette}/>
-								<img src = {this.props.picture.picture}/>
+  								<img src = {this.props.detail.sillouette}/>
+  								<img src = {this.props.picture.picture}/>
 								</p>
-          					</Typography>
-        				</CardContent>
-        			</Card>
+      					</Typography>
+      				</CardContent>
+      			</Card>
 					<ul style = {{listStyleType: 'none'}}>
 						<Card className={this.props.card}>
 							<CardContent>
@@ -115,7 +112,6 @@ export default class ProfilePage extends Component {
 	        			</Card>
         			</ul>
 					</center>
-
 				</div>
 			)
 		} else if(this.props.dfetched) {
