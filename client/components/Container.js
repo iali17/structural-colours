@@ -33,8 +33,8 @@ export default class LandingView extends Component {
         case TABS.main: {
           return (
             <div>
-    					<MainView getProfile={this.props.getProfile}/>
-    				</div>
+              <MainView getProfile={this.props.getProfile}/>
+            </div>
           );
         }
         case TABS.profile: {
