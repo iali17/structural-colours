@@ -1,5 +1,5 @@
 export default function reducer(state={
-  picture: [],
+  picture: {},
   fetching: false,
   fetched: false,
 }, action) {
