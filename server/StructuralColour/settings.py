@@ -132,14 +132,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, '../static/')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-if not debug:
+if not DEBUG:
     STATIC_URL = '/static/'
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
     STATIC_ROOT = os.path.join(BASE_DIR, '../static/')
 
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, '../static', 'media')
-    
+
 # Setup webpack loader
 WEBPACK_LOADER = {
     'DEFAULT': {
