@@ -254,8 +254,7 @@ export default class Icicle extends Component {
 	   				return "#66CDE9";
 	   			} else if (d.depth == 3) {
 	   			 	return "#E5E5E5";
-	   			}
-	   			else {
+	   			}else {
 	   				var newColor = colorLum("#E5E5E5", -0.15 * (d.depth - 3));
 	   				//console.log("parent data", d.parent);
 	   				return newColor;
@@ -281,15 +280,11 @@ export default class Icicle extends Component {
 	      	.attr("height", function(d) { return d.y1 - d.y0; })
 	     	.style("cursor", "pointer")
 	     	.text(function(d) { 
-	     		//console.log(d.data.key, (10* d.data.key.length), (d.x1-d.x0))
 	     		if((10 * d.data.key.length) >= (d.x1 - d.x0)){
 	     			var upTo = ((10* d.data.key.length) - (d.x1 - d.x0)) / 10;
 	     			upTo = d.data.key.length - upTo;
-	     			//console.log("data and what its slicing upTo", d.data.key, upTo)
 	     		 	return d.data.key.slice(0, upTo) + "...";
-	     		}//else {
-	     		// 	return d.data.key
-	     		// }
+	     		}
 	     		return d.data.key
 	     	})
 	     	.on("click", clicked);
@@ -301,8 +296,6 @@ export default class Icicle extends Component {
 	   		//console.log("because its in a function?", needProfile);
 			x.domain([d.x0, d.x1]);
 			y.domain([d.y0, height]).range([d.depth ? 20 : 0, height]);
-
-			console.log('what is this?', d);
 
 			var clickedDep = d.depth;
 			var flag = false;
@@ -321,7 +314,6 @@ export default class Icicle extends Component {
 			    	return y(d.y0); 
 			 	})
 			    .attr("width", function(d) {
-			    	//rectX = x(d.x1) - x(d.x0) 
 			    	return x(d.x1) - x(d.x0); 
 			    })
 			    .attr("height", function(d) {
@@ -347,8 +339,6 @@ export default class Icicle extends Component {
       				return y(d.y0); 
       			})
       			.attr("width", function(d) {
-      				console.log("new width of", d.data.key, x(d.x1 - d.x0))
-      				//rectX = x(d.x1 - d.x0)
       				if (x(d.x1 - d.x0) < 0) {
       					return 0
       				}
@@ -361,20 +351,17 @@ export default class Icicle extends Component {
       				return y(d.y1-d.y0);
       			}).text(function(d) { 
 		     		var dataX = Math.ceil(x(d.x1 - d.x0))
-		     		console.log(d.data.key, (10* d.data.key.length), dataX)
-		     		if (dataX == 0) {
+		     		if (dataX <= 0) {
 		     			return d.data.key
 		     		}else if((10 * d.data.key.length) >= x(d.x1 - d.x0)){
 		     			var upTo = Math.ceil(((10* d.data.key.length) - dataX) / 10);
 		     			upTo = d.data.key.length - upTo;
-		     			console.log("data and what its slicing upTo", d.data.key, upTo)
 		     		 	return d.data.key.slice(0, upTo) + "...";
 		     		}
 		     		return d.data.key
 	     		});
 
       		if (d.data.value % 1 == 0){
-      			console.log("We want to go to a profile page ", d.data.value)
       			needProfile(d.data.value);
       			dispatch(fetchDetail(d.data.value))
 				dispatch(fetchOnePicture(d.data.value))
