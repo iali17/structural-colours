@@ -11,7 +11,6 @@ export default class SearchBar extends Component {
       <div>
         <TextField
           hintText="Search for organism"
-          
         />
       </div>
     )
