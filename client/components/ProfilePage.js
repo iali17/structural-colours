@@ -4,7 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import { blueGrey, brown } from 'material-ui/colors';
-
+import WordCloud from './WordCloud';
 import {
   fetchDetail,
 } from '../actions/detailActions';
@@ -65,7 +65,7 @@ export default class ProfilePage extends Component {
 		// 	this.props.dispatch(fetchOnePicture(this.props.id))
 		// 	this.prevId = id
 		// }
-		
+
 		if (this.props.dfetched && this.props.pfetched && this.props.id == this.props.picture.species) {
 			var imgURL;
 			var id = this.props.id
@@ -87,6 +87,7 @@ export default class ProfilePage extends Component {
 					<h1>
 					{this.props.detail.common_name}
 					</h1>
+                    <WordCloud />
 					<Card className={this.props.card}>
 						<CardMedia
 							className = {this.props.media}
