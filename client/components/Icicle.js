@@ -40,10 +40,10 @@ export default class Icicle extends Component {
 					 			Eubacteria:{ FakeEuBacteria: 1},
 					 			Archaebacteria:{FakeArBacteria: 1}
 					 		},
-					 		Fungi:{FakeFungi: 1},
-					 		Plants:{FakePlant: 1}
+					 		Fungi:{},
+					 		Plants:{}
 					 	}
-					 }, windowWidth: window.innerWidth
+					 }, windowWidth: window.innerWidth - 20
 					}
 	}
 
@@ -69,7 +69,7 @@ export default class Icicle extends Component {
 	}
 
 	updateDimensions() {
-		this.setState({windowWidth: window.innerWidth})
+		this.setState({windowWidth: window.innerWidth - 20})
 	}
 
 	//https://www.sitepoint.com/javascript-generate-lighter-darker-color/
@@ -96,8 +96,6 @@ export default class Icicle extends Component {
 	createIcicle() {
 		var width = this.state.windowWidth;
 		var height = 500;
-
-		console.log("width set", this.state.windowWidth);
 
 		if (this.props.Tfetched) {
 			this.state.info = this.props.taxonomy;
@@ -339,22 +337,11 @@ export default class Icicle extends Component {
 			    	} 
       				return y(d.y0); 
       			})
-      			.attr("width", function(d) {
-      				if (x(d.x1 - d.x0) < 0) {
-      					return 0
-      				}
-      				return x(d.x1-d.x0);
-      			})
-      			.attr("height", function(d) {
-      				if (y(d.y1 - d.y0) < 0) {
-      					return 0
-      				}
-      				return y(d.y1-d.y0);
-      			}).text(function(d) { 
-		     		var dataX = Math.ceil(x(d.x1 - d.x0))
-		     		if (dataX <= 0) {
-		     			return d.data.key
-		     		}else if((10 * d.data.key.length) >= x(d.x1 - d.x0)){
+      			.attr("width", function(d) { return x(d.x1) - x(d.x0); })
+      			.attr("height", function(d) { return y(d.y1) - y(d.y0);})
+      			.text(function(d) { 
+		     		var dataX = Math.ceil(x(d.x1) - x(d.x0))
+		     		if((10 * d.data.key.length) >= dataX){
 		     			var upTo = Math.ceil(((10* d.data.key.length) - dataX) / 10);
 		     			upTo = d.data.key.length - upTo;
 		     		 	return d.data.key.slice(0, upTo) + "...";
