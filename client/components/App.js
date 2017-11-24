@@ -40,18 +40,25 @@ export default class App extends Component {
   }
 
   updateColour(colour) {
-    this.props.dispatch(setCurrentColour(colour));
-    this.props.dispatch(fetchPicture(colour))
-    if (this.props.activeTab != TABS.main) {
-      this.props.dispatch(switchTabs(TABS.main))
-    }
+    var that = this;
+    Promise.resolve(that.props.dispatch(setCurrentColour(colour)))
+    .then(function (response) {
+      that.props.dispatch(fetchPicture(colour))
+      return response;
+    })
+    .then(function(response){
+      if (that.props.activeTab != TABS.main) {
+        that.props.dispatch(switchTabs(TABS.main))
+      }
+    })
   }
 
   getProfile(id) {
-    this.props.dispatch(setCurrentId(id));
-    if (this.props.activeTab != TABS.profile) {
-      this.props.dispatch(switchTabs(TABS.profile))
-    }
+    var that = this;
+    Promise.resolve(that.props.dispatch(setCurrentId(id)))
+    .then(function (response) {
+      that.props.dispatch(switchTabs(TABS.profile))
+    })
   }
 
   render() {
