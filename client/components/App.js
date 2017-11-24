@@ -6,12 +6,17 @@ import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import Drawer from 'material-ui/Drawer'
 
-import ViewController from './ViewController';
-import MainView from './MainView';
-import ProfilePage from './ProfilePage';
+import Container from './Container';
 import ColorBar from './ColorBar';
 import Icicle from './Icicle';
-import LandingView from './LandingView'
+
+import { TABS } from '../constants';
+
+import {
+  switchTabs,
+  setCurrentColour,
+  setCurrentId,
+} from '../actions/appActions';
 
 import {
   fetchPicture,
@@ -19,66 +24,58 @@ import {
 
 @connect((store) => {
   return {
-    picture: store.profileView.picture.results,
-    fetching: store.profileView.fetching,
-    fetched: store.profileView.fetched,
     activeTab: store.app.activeTab,
+    colour: store.app.colour,
   };
 })
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state= {
-      id: "init",
-      colour: "init",
-      page: "landing",
-    };
+    this.updateColour = this.updateColour.bind(this);
+    this.getProfile = this.getProfile.bind(this);
   }
     // Override base syles on body
   componentDidMount() {
     document.body.style.margin = 0;
   }
 
-  changestate() {
-    this.setState({page:'main'})
-  }
-
   updateColour(colour) {
-    this.setState({colour: colour})
-    this.props.dispatch(fetchPicture(colour))
+    var that = this;
+    Promise.resolve(that.props.dispatch(setCurrentColour(colour)))
+    .then(function (response) {
+      that.props.dispatch(fetchPicture(colour))
+      return response;
+    })
+    .then(function(response){
+      if (that.props.activeTab != TABS.main) {
+        that.props.dispatch(switchTabs(TABS.main))
+      }
+    })
   }
 
   getProfile(id) {
-    this.setState({id: id})
-    this.setState({page: "profile"})
+    var that = this;
+    Promise.resolve(that.props.dispatch(setCurrentId(id)))
+    .then(function (response) {
+      that.props.dispatch(switchTabs(TABS.profile))
+    })
   }
 
   render() {
-    var buttonstyle ={
-     margin: '10px 10px 10px 0'
-    };
-
     return (
       <div>
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <h1>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
-            <Icicle getProfile = {this.getProfile.bind(this)}/>
+            <Icicle getProfile={this.getProfile}/>
           </Grid>
-          <button
-            className ="btn btn-default"
-            style = {buttonstyle}
-            fill="#7fcdbb"
-            onClick={this.changestate.bind(this)}
-          > Main Page
-          </button>
         </Grid>
         <Grid container spacing={24}>
           <Grid item xs={12}>
-            <ViewController page = {this.state.page} colour = {this.state.colour} updateColour={this.updateColour.bind(this)} id={this.state.id} getProfile={this.getProfile.bind(this)}/>
+            <ColorBar colour={this.props.colour} updateColour={this.updateColour}/>
+            <Container getProfile={this.getProfile}/>
           </Grid>
         </Grid>
-        {this.props.children}
       </div>
     );
   }

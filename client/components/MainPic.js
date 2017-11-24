@@ -5,14 +5,9 @@ export default class MainPic extends Component {
     super(props);
   }
 
-  getProfile(t) {
-    var id2 = this.props.pic.species
-    this.props.getProfile(id2 );
-  }
-
   render() {
     return (
-      <img src={this.props.pic.picture}  onClick =  { this.getProfile.bind(this)} />
+      <img src={this.props.pic.picture} onClick={() => this.props.getProfile(this.props.pic.species)} />
     );
   }
 }
