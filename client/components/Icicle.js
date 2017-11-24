@@ -40,8 +40,8 @@ export default class Icicle extends Component {
 					 			Invertebrates:{}
 					 		},
 					 		Bacteria:{
-					 			Eubacteria:{ FakeEuBacteria: 1},
-					 			Archaebacteria:{FakeArBacteria: 1}
+					 			Eubacteria:{},
+					 			Archaebacteria:{}
 					 		},
 					 		Fungi:{},
 					 		Plants:{}
@@ -113,6 +113,7 @@ export default class Icicle extends Component {
 				var tempFamily = this.state.info[i].family;
 				var tempSpecies = this.state.info[i].species;
 				var tempSpeciesId = this.state.info[i].speciesId;
+				
 				if(this.state.info[i].kingdom == "Ve"){
 					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum]){
 						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum] = {};
@@ -160,6 +161,22 @@ export default class Icicle extends Component {
 					}
 					if (!this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
 						this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					}
+				} else if (this.state.info[i].kingdom == "Ar"){
+					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum]){
+						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum] = {};
+					}
+					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass]){
+						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass]= {} 
+					}					
+					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder]= {} 
+					}
+					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					}
+					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
 					}
 				} else if (this.state.info[i].kingdom == "Pl") {
 					if (!this.state.json.Taxonomy.Plants[tempPhylum]){
