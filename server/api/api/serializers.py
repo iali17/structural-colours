@@ -70,3 +70,8 @@ class SpeciesSerializer(ModelSerializer):
     class Meta(object):
         model = Species
         fields = ['speciesId', 'species']
+
+class ArticleSerializer(ModelSerializer):
+    class Meta(object):
+        model = Article
+        fields = '__all__'

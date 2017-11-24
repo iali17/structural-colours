@@ -16,6 +16,7 @@ from .serializers import (
     OrderSerializer,
     FamilySerializer,
     SpeciesSerializer,
+    ArticleSerializer,
     )
 from .pagination import (
     PicturePageNumberPagination,
@@ -135,4 +136,16 @@ class SpeciesByFamilyListAPIView(ListAPIView):
         if family_param is not None:
             species_list = Species.objects.filter(family=family_param).values_list('species')
             queryset = Species.objects.filter(species__in=species_list)
+        return queryset
+
+class ArticleBySpeciesListAPIView(ListAPIView):
+    serializer_class = ArticleSerializer
+
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        species_param = self.request.query_params.get('species')
+        if species_param is not None:
+            article_list = Article.objects.filter(species=species_param).values_list('species')
+            print(article_list)
+            queryset = Article.objects.filter(species__in=article_list)
         return queryset
