@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import * as d3 from 'd3';
 import { connect } from 'react-redux';
+import styles from '../css/tooltip.css';
 
 import {
   fetchTax,
@@ -14,6 +15,8 @@ import {
 import {
 	fetchOnePicture,
 } from '../actions/pictureActions';
+
+var d3Tip = require("d3-tip")
 
 
 @connect((store) => {
@@ -204,10 +207,18 @@ export default class Icicle extends Component {
 		var partition = d3.partition().size([this.state.windowWidth, height]).padding(0).round(true);
 
 		var svg = d3.select(this.node);
-		svg.selectAll("*").remove();
+		svg.selectAll("*").remove(); 
 
 		var rect = svg.selectAll("rect")
 		var fo  = svg.selectAll("foreignObject")
+		var tip = d3Tip()
+		.attr('class', 'd3-tip')
+		.html(function(d) {
+			return "<span>" + d.data.key + "</span>";
+		})
+
+		console.log("here?", tip.show)
+		//svg.call(tip);
 
 		var root = d3.hierarchy(d3.entries(this.state.json)[0], function(d) {
 			return d3.entries(d.value)
@@ -263,7 +274,9 @@ export default class Icicle extends Component {
 	   		})
 	   		.on("click", clicked)
 	   		.attr("stroke-width", 0.5)
-	   		.attr("stroke", 'white');
+	   		.attr("stroke", 'white')
+	   		.on("mouseover", tip.show)
+	   		.on("mouseout", tip.hide);
 
 	 	fo = fo
 			.data(root.descendants())
@@ -287,7 +300,14 @@ export default class Icicle extends Component {
 	     		}
 	     		return d.data.key
 	     	})
-	     	.on("click", clicked);
+	     	.on("click", clicked)
+	     	.style("font", "15px 'Helvetica Neue'")
+	     	.style("color", function(d){
+	     		if (d.data.key == "Fungi"){
+	     			return "#ffffff"
+	     		}
+	     		return "#000000"
+	     	});
 
 	    var needProfile = this.getProfile.bind(this);
 	    var dispatch = this.props.dispatch.bind(this);
