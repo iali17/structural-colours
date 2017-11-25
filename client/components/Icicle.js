@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import * as d3 from 'd3';
 import { connect } from 'react-redux';
-import styles from '../css/tooltip.css';
 
 import {
   fetchTax,
@@ -227,7 +226,14 @@ export default class Icicle extends Component {
 		var fo  = svg.selectAll("foreignObject")
 
 		var toolDiv = d3.select("body").append("div")
-					.attr("class", "tooltip")
+					.style("position", "absolute")
+					.style("text-align", "center")
+					.style("padding", "2px")
+					.style("font", "12px sans-serif")
+					.style("background", "lightsteelblue")
+					.style("border", "0px")
+					.style("border-radius", "8px")
+					.style("pointer-events", "none")
 					.style("opacity", 0);
 
 		var root = d3.hierarchy(d3.entries(this.state.json)[0], function(d) {
