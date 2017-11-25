@@ -1,21 +1,21 @@
 export default function reducer(state={
-  pictures: [],
+  picture: {},
   fetching: false,
   fetched: false,
 }, action) {
   switch (action.type) {
-    case "FETCH_RANDOM_PICTURES": {
+    case "FETCH_RANDOM_PICTURE": {
       return {...state, fetching: true}
     }
-    case "FETCH_RANDOM_PICTURES_REJECTED": {
+    case "FETCH_RANDOM_PICTURE_REJECTED": {
       return {...state, fetching: false, error: action.payload}
     }
-    case "FETCH_RANDOM_PICTURES_FULFILLED": {
+    case "FETCH_RANDOM_PICTURE_FULFILLED": {
       return {
         ...state,
         fetching: false,
         fetched: true,
-        pictures: action.payload,
+        picture: action.payload,
       }
     }
   }
