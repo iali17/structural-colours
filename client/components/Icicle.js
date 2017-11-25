@@ -16,9 +16,6 @@ import {
 	fetchOnePicture,
 } from '../actions/pictureActions';
 
-var d3Tip = require("d3-tip")
-
-
 @connect((store) => {
   return {
     taxonomy: store.icicleView.taxonomy,
@@ -228,14 +225,10 @@ export default class Icicle extends Component {
 
 		var rect = svg.selectAll("rect")
 		var fo  = svg.selectAll("foreignObject")
-		var tip = d3Tip()
-		.attr('class', 'd3-tip')
-		.html(function(d) {
-			return "<span>" + d.data.key + "</span>";
-		})
 
-		console.log("here?", tip.show)
-		//svg.call(tip);
+		var toolDiv = d3.select("body").append("div")
+					.attr("class", "tooltip")
+					.style("opacity", 0);
 
 		var root = d3.hierarchy(d3.entries(this.state.json)[0], function(d) {
 			return d3.entries(d.value)
@@ -285,15 +278,30 @@ export default class Icicle extends Component {
 	   			} else if (d.depth == 3) {
 	   			 	return "#E5E5E5";
 	   			}else {
-	   				var newColor = colorLum("#E5E5E5", -0.15 * (d.depth - 3));
+	   				var newColor = colorLum("#E5E5E5", -0.10 * (d.depth - 3));
 	   				return newColor;
 	   			}
 	   		})
 	   		.on("click", clicked)
 	   		.attr("stroke-width", 0.5)
 	   		.attr("stroke", 'white')
-	   		.on("mouseover", tip.show)
-	   		.on("mouseout", tip.hide);
+	   		.on("mouseover", function(d) {
+	   			var data = d.data.key;
+	   			toolDiv.transition()
+	   				   .duration(200)
+	   				   .style("opacity", .9)
+	   				   .attr("x", d.x0)
+	   				   .attr("y", d.y0);
+	   			toolDiv.html(function(d){
+	   				return "<span>" + data + "</span>"
+	   			}).style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+	   		})
+	   		.on("mouseout", function(d){
+	   			toolDiv.transition()
+	   				   .duration(500)
+	   				   .style("opacity", 0);
+	   		});
 
 	 	fo = fo
 			.data(root.descendants())
@@ -311,7 +319,7 @@ export default class Icicle extends Component {
 	     	.style("cursor", "pointer")
 	     	.text(function(d) { 
 	     		if((10 * d.data.key.length) >= (d.x1 - d.x0)){
-	     			var upTo = ((10* d.data.key.length) - (d.x1 - d.x0)) / 10;
+	     			var upTo = Math.ceil(((11* d.data.key.length) - (d.x1 - d.x0)) / 11);
 	     			upTo = d.data.key.length - upTo;
 	     		 	return d.data.key.slice(0, upTo) + "...";
 	     		}
@@ -322,8 +330,11 @@ export default class Icicle extends Component {
 	     	.style("color", function(d){
 	     		if (d.data.key == "Fungi"){
 	     			return "#ffffff"
-	     		}
-	     		return "#000000"
+	     		} //else if (d.depth == 2 && d.parent.data.key == "Fungi"){
+	     		//	return "#ffffff"
+	     		//}
+	     		return "#0000d8"
+	     		//return "#000000"
 	     	});
 
 	    var needProfile = this.getProfile.bind(this);
@@ -379,7 +390,7 @@ export default class Icicle extends Component {
       			.text(function(d) { 
 		     		var dataX = Math.ceil(x(d.x1) - x(d.x0))
 		     		if((10 * d.data.key.length) >= dataX){
-		     			var upTo = Math.ceil(((10* d.data.key.length) - dataX) / 10);
+		     			var upTo = Math.ceil(((11* d.data.key.length) - dataX) / 11);
 		     			upTo = d.data.key.length - upTo;
 		     		 	return d.data.key.slice(0, upTo) + "...";
 		     		}
