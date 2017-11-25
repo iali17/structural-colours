@@ -15,7 +15,6 @@ import {
 	fetchOnePicture,
 } from '../actions/pictureActions';
 
-
 @connect((store) => {
   return {
     taxonomy: store.icicleView.taxonomy,
@@ -37,17 +36,18 @@ export default class Icicle extends Component {
 					 			Invertebrates:{}
 					 		},
 					 		Bacteria:{
-					 			Eubacteria:{ FakeEuBacteria: 1},
-					 			Archaebacteria:{FakeArBacteria: 1}
+					 			Eubacteria:{},
+					 			Archaebacteria:{}
 					 		},
-					 		Fungi:{FakeFungi: 1},
-					 		Plants:{FakePlant: 1}
+					 		Fungi:{},
+					 		Plants:{}
 					 	}
-					 }
+					 }, windowWidth: window.innerWidth - 20
 					}
 	}
 
 	componentDidMount() {
+		window.addEventListener("resize", this.updateDimensions.bind(this));
 		this.createIcicle()
 	}
 
@@ -61,6 +61,14 @@ export default class Icicle extends Component {
 
 	componentDidUpdate() {
 		this.createIcicle()
+	}
+
+	componentWillUnmount(){
+		window.removeEventListener("resize", this.updateDimensions.bind(this));
+	}
+
+	updateDimensions() {
+		this.setState({windowWidth: window.innerWidth - 20})
 	}
 
 	//https://www.sitepoint.com/javascript-generate-lighter-darker-color/
@@ -85,7 +93,7 @@ export default class Icicle extends Component {
 	}
 
 	createIcicle() {
-		var width = 960;
+		var width = this.state.windowWidth;
 		var height = 500;
 
 		if (this.props.Tfetched) {
@@ -101,6 +109,7 @@ export default class Icicle extends Component {
 				var tempFamily = this.state.info[i].family;
 				var tempSpecies = this.state.info[i].species;
 				var tempSpeciesId = this.state.info[i].speciesId;
+				
 				if(this.state.info[i].kingdom == "Ve"){
 					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum]){
 						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum] = {};
@@ -149,6 +158,22 @@ export default class Icicle extends Component {
 					if (!this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
 						this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
 					}
+				} else if (this.state.info[i].kingdom == "Ar"){
+					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum]){
+						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum] = {};
+					}
+					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass]){
+						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass]= {} 
+					}					
+					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder]= {} 
+					}
+					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					}
+					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					}
 				} else if (this.state.info[i].kingdom == "Pl") {
 					if (!this.state.json.Taxonomy.Plants[tempPhylum]){
 						this.state.json.Taxonomy.Plants[tempPhylum] = {};
@@ -182,25 +207,34 @@ export default class Icicle extends Component {
 						this.state.json.Taxonomy.Fungi[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
 					}
 				}
-				//this.state.json.Kingdom.Animals.Vertabrates[this.state.info[i].family.order.phylum.phylum] = {}//this.state.info[i].order.phylum.phylum;
-				//console.log(this.state.info[i].order.phylum.kingdom.kingdom)//.family.order.phylum.kingdom.kingdom)
 			}
 			this.state.building = false;
-			console.log("Json object so far", this.state.json)
 		}
 
 		var colorLum = this.colorLuminance.bind(this);
 
-		var x = d3.scaleLinear().range([0, width]);
+		var x = d3.scaleLinear().range([0, this.state.windowWidth]);
 		var y = d3.scaleLinear().range([0, height]);
 
 		var color = d3.scaleOrdinal(d3.schemeCategory20c);
-		var partition = d3.partition().size([width, height]).padding(0).round(true);
+		var partition = d3.partition().size([this.state.windowWidth, height]).padding(0).round(true);
 
 		var svg = d3.select(this.node);
+		svg.selectAll("*").remove(); 
 
-		var rect = svg.selectAll("rect");
-		var fo  = svg.selectAll("foreignObject");
+		var rect = svg.selectAll("rect")
+		var fo  = svg.selectAll("foreignObject")
+
+		var toolDiv = d3.select("body").append("div")
+					.style("position", "absolute")
+					.style("text-align", "center")
+					.style("padding", "2px")
+					.style("font", "12px sans-serif")
+					.style("background", "lightsteelblue")
+					.style("border", "0px")
+					.style("border-radius", "8px")
+					.style("pointer-events", "none")
+					.style("opacity", 0);
 
 		var root = d3.hierarchy(d3.entries(this.state.json)[0], function(d) {
 			return d3.entries(d.value)
@@ -209,7 +243,6 @@ export default class Icicle extends Component {
 		//.sort(function(a,b) { return b.value - a.value; });
 
 		partition(root);
-
 		rect = rect
 	   		.data(root.descendants())
 	   		.enter().append("rect")
@@ -241,29 +274,40 @@ export default class Icicle extends Component {
 	   			} else if (d.depth == 1 && d.data.key == "Bacteria") {
 	   				return "#8EC0FC";
 	   			} else if (d.depth == 2 && d.parent.data.key == "Animals") {
-	   				//var newColor = colorLum("#EAB536", 0.1) ;
 	   				return "#FAF0C9";
 	   			} else if (d.depth == 2 && d.parent.data.key == "Fungi") {
-	   				//var newColor = colorLum("#6B00F9", 0.1) ;
 	   				return "#AA88EF";
 	   			} else if (d.depth == 2 && d.parent.data.key == "Plants") {
-	   				//var newColor = colorLum("#7DDD78", 0.1) ;
 	   				return "#A7DDBF";
 	   			} else if (d.depth == 2 && d.parent.data.key == "Bacteria") {
-	   				//var newColor = colorLum("#8EC0FC", 0.1) ;
 	   				return "#66CDE9";
 	   			} else if (d.depth == 3) {
 	   			 	return "#E5E5E5";
 	   			}else {
-	   				var newColor = colorLum("#E5E5E5", -0.15 * (d.depth - 3));
-	   				//console.log("parent data", d.parent);
+	   				var newColor = colorLum("#E5E5E5", -0.10 * (d.depth - 3));
 	   				return newColor;
 	   			}
-	   			//return color((d.children ? d : d.parent).data.key); 
 	   		})
 	   		.on("click", clicked)
 	   		.attr("stroke-width", 0.5)
-	   		.attr("stroke", 'white');
+	   		.attr("stroke", 'white')
+	   		.on("mouseover", function(d) {
+	   			var data = d.data.key;
+	   			toolDiv.transition()
+	   				   .duration(200)
+	   				   .style("opacity", .9)
+	   				   .attr("x", d.x0)
+	   				   .attr("y", d.y0);
+	   			toolDiv.html(function(d){
+	   				return "<span>" + data + "</span>"
+	   			}).style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+	   		})
+	   		.on("mouseout", function(d){
+	   			toolDiv.transition()
+	   				   .duration(500)
+	   				   .style("opacity", 0);
+	   		});
 
 	 	fo = fo
 			.data(root.descendants())
@@ -281,19 +325,28 @@ export default class Icicle extends Component {
 	     	.style("cursor", "pointer")
 	     	.text(function(d) { 
 	     		if((10 * d.data.key.length) >= (d.x1 - d.x0)){
-	     			var upTo = ((10* d.data.key.length) - (d.x1 - d.x0)) / 10;
+	     			var upTo = Math.ceil(((11* d.data.key.length) - (d.x1 - d.x0)) / 11);
 	     			upTo = d.data.key.length - upTo;
 	     		 	return d.data.key.slice(0, upTo) + "...";
 	     		}
 	     		return d.data.key
 	     	})
-	     	.on("click", clicked);
+	     	.on("click", clicked)
+	     	.style("font", "15px 'Helvetica Neue'")
+	     	.style("color", function(d){
+	     		if (d.data.key == "Fungi"){
+	     			return "#ffffff"
+	     		} //else if (d.depth == 2 && d.parent.data.key == "Fungi"){
+	     		//	return "#ffffff"
+	     		//}
+	     		return "#0000d8"
+	     		//return "#000000"
+	     	});
 
 	    var needProfile = this.getProfile.bind(this);
 	    var dispatch = this.props.dispatch.bind(this);
 
 	   	function clicked(d) {
-	   		//console.log("because its in a function?", needProfile);
 			x.domain([d.x0, d.x1]);
 			y.domain([d.y0, height]).range([d.depth ? 20 : 0, height]);
 
@@ -338,23 +391,12 @@ export default class Icicle extends Component {
 			    	} 
       				return y(d.y0); 
       			})
-      			.attr("width", function(d) {
-      				if (x(d.x1 - d.x0) < 0) {
-      					return 0
-      				}
-      				return x(d.x1-d.x0);
-      			})
-      			.attr("height", function(d) {
-      				if (y(d.y1 - d.y0) < 0) {
-      					return 0
-      				}
-      				return y(d.y1-d.y0);
-      			}).text(function(d) { 
-		     		var dataX = Math.ceil(x(d.x1 - d.x0))
-		     		if (dataX <= 0) {
-		     			return d.data.key
-		     		}else if((10 * d.data.key.length) >= x(d.x1 - d.x0)){
-		     			var upTo = Math.ceil(((10* d.data.key.length) - dataX) / 10);
+      			.attr("width", function(d) { return x(d.x1) - x(d.x0); })
+      			.attr("height", function(d) { return y(d.y1) - y(d.y0);})
+      			.text(function(d) { 
+		     		var dataX = Math.ceil(x(d.x1) - x(d.x0))
+		     		if((10 * d.data.key.length) >= dataX){
+		     			var upTo = Math.ceil(((11* d.data.key.length) - dataX) / 11);
 		     			upTo = d.data.key.length - upTo;
 		     		 	return d.data.key.slice(0, upTo) + "...";
 		     		}
@@ -372,11 +414,10 @@ export default class Icicle extends Component {
 
 	render(){
 		if (this.props.Tfetching) {
-	      return <h2>The icicle view is loading please wait.</h2>
+	      	return <h2>The icicle view is loading please wait.</h2>
 	    } else if (this.props.Tfetched) {
-	      return(<svg ref={node => this.node = node}
-				width={960} height={500}>
-				</svg>)
+	      	return( <svg ref={node => this.node = node}
+	    			width={this.state.windowWidth} height={500}> </svg>)
 	    }else {
 	    	return <h2>Icicle fetching failed.</h2>
 	    }
