@@ -65,18 +65,22 @@ class PictureListAPIView(ListAPIView):
 
         return queryset
 
-class RandomLandingPictureListAPIView(ListAPIView):
-    serializer_class = LandingPictureSerializer
+class RandomLandingPictureListAPIView(APIView):
+    def get(self, request):
+        try:
+            picture = LandingPicture.objects.all().first()
 
-    def get_queryset(self):
-        count = LandingPicture.objects.all().count()
-        if (count > 4):
-            index = random.random() * (count - 4)
-            queryset = LandingPicture.objects.all()[index: index + 4]
-        else:
-            queryset = LandingPicture.objects.all()
+            count = LandingPicture.objects.all().count()
+            if (count > 1):
+                picture = LandingPicture.objects.all()[random.randint(0, count - 1)] #single random object
 
-        return queryset
+            if picture:
+                serializer = LandingPictureSerializer(picture)
+                return Response(serializer.data)
+            else:
+                return Response({'detail': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response({'detail': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
 
 class TaxonomyListAPIView(ListAPIView):
     queryset = Species.objects.all()
