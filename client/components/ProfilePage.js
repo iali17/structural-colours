@@ -85,7 +85,7 @@ export default class ProfilePage extends Component {
 					<h1>
 					{this.props.detail.common_name}
 					</h1>
-                    <WordCloud />
+                    <WordCloud id = {this.props.picture.species}/>
 					<Card className={this.props.card}>
 						<CardMedia
 							className = {this.props.media}
