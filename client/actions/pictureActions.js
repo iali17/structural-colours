@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { URL_PREFIX } from '../constants';
 
-export function fetchPicture(c) {
+export function fetchPicture(c,s) {
   return function(dispatch) {
     dispatch({type: "FETCH_PICTURE"});
     axios.get(URL_PREFIX + "/api/pictures/all", {
        params: {
+         species: s,
          colour: c
         }
     })
