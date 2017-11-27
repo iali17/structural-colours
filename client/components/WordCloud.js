@@ -22,44 +22,39 @@ export default class WordCloud extends Component {
 
     }
     componentWillMount() {
-        console.log("MOUNT")
         this.props.dispatch(fetchAuthor(this.props.id))
     }
     render(){
         var data=[]
         var authors=[]
+        var counts=[]
         if (this.props.fetched){
             const info = this.props.author
             for (var i = 0; i < info.length; i++) {
-                console.log("LENGTH: " + info.length)
                 var author_list = info[i].author
                 for (var j = 0; j < author_list.length; j++){
                     var name = author_list[j].name;
                     var loc = authors.indexOf(name);
-                    console.log("INDEX: " + loc);
                     if (loc != -1){
-                        var element = authors[loc];
-                        console.log(element)
-                        element[1] = element[1] + 1
-                        authors[loc] = element
+                        counts[loc] = counts[loc] + 1
+                        console.log(counts)
                     } else {
-                        var temp = [];
-                        temp.push(author_list[j].name, 5);
-                        authors.push(temp);
+                        counts.push(1)
+                        authors.push(author_list[j].name);
                     }
                 }
-                console.log(data)
             }
+            console.log(authors)
             for (var k = 0; k < authors.length; k++){
-                data.push({value: authors[k][0], count: (20 + authors[k][1])});
+                data.push({value: authors[k], count: (counts[k])});
             }
         }
         return(
         <TagCloud
-                minSize={12}
+                minSize={15}
                 maxSize={35}
                 tags={data}
-                onClick={tag => alert(`'${tag.value}' was selected!`)} />);
+                onClick={tag => alert(`'${tag.count}' was selected!`)} />);
     }
 }
 
