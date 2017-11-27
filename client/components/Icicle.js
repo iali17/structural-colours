@@ -94,7 +94,7 @@ export default class Icicle extends Component {
 
 	createIcicle() {
 		var width = this.state.windowWidth;
-		var height = 500;
+		var height = 250;
 
 		if (this.props.Tfetched) {
 			this.state.info = this.props.taxonomy;
@@ -251,15 +251,15 @@ export default class Icicle extends Component {
 	   			if (d.depth == 0){
 	   				return d.y0; 
 	   			} else {
-	   				return d.y0 - 45;
-	   			}
+	   				return d.y0 - 15;
+	   			} 
 	   		})
 	   		.attr("width", function(d) { return d.x1 - d.x0; })
 	   		.attr("height", function(d) {
 	   			if (d.depth == 0) {
 	   				return 20;
 	   			} else {
-	   				return d.y1 - d.y0;
+	   				return 35;
 	   			}
 	   		})
 	   		.attr("fill", function(d) { 
@@ -317,14 +317,14 @@ export default class Icicle extends Component {
 	      		if (d.depth == 0){
 	   				return d.y0; 
 	   			} else {
-	   				return d.y0 - 45;
-	   			} 
+	   				return d.y0 - 15;
+	   			}
 	      	})
 	      	.attr("width", function(d) { return d.x1 - d.x0; })
 	      	.attr("height", function(d) { return d.y1 - d.y0; })
 	     	.style("cursor", "pointer")
 	     	.text(function(d) { 
-	     		if((10 * d.data.key.length) >= (d.x1 - d.x0)){
+	     		if((11 * d.data.key.length) >= (d.x1 - d.x0)){
 	     			var upTo = Math.ceil(((11* d.data.key.length) - (d.x1 - d.x0)) / 11);
 	     			upTo = d.data.key.length - upTo;
 	     		 	return d.data.key.slice(0, upTo) + "...";
@@ -339,7 +339,8 @@ export default class Icicle extends Component {
 	     		} //else if (d.depth == 2 && d.parent.data.key == "Fungi"){
 	     		//	return "#ffffff"
 	     		//}
-	     		return "#0000d8"
+	     		return "#302f2f"
+	     		//return "#0000d8"
 	     		//return "#000000"
 	     	});
 
@@ -360,9 +361,9 @@ export default class Icicle extends Component {
 			    .attr("y", function(d) {
 			    	if (clickedDep == 0) {
 			   			if(d.depth == 0){
-			   				return y(d.y0); 
+			   				return y(d.y0) ; 
 			   			}
-			    		return y(d.y0) - 45
+			    		return y(d.y0) - 15
 			    	}
 			    	return y(d.y0); 
 			 	})
@@ -387,13 +388,16 @@ export default class Icicle extends Component {
       					if(d.depth == 0){
 			   				return y(d.y0); 
 			   			}
-			    		return y(d.y0) - 45
+			    		return y(d.y0) - 15
 			    	} 
       				return y(d.y0); 
       			})
       			.attr("width", function(d) { return x(d.x1) - x(d.x0); })
       			.attr("height", function(d) { return y(d.y1) - y(d.y0);})
       			.text(function(d) { 
+      				if (clickedDep > d.depth) {
+      					return ""
+      				}
 		     		var dataX = Math.ceil(x(d.x1) - x(d.x0))
 		     		if((10 * d.data.key.length) >= dataX){
 		     			var upTo = Math.ceil(((11* d.data.key.length) - dataX) / 11);
@@ -417,7 +421,7 @@ export default class Icicle extends Component {
 	      	return <h2>The icicle view is loading please wait.</h2>
 	    } else if (this.props.Tfetched) {
 	      	return( <svg ref={node => this.node = node}
-	    			width={this.state.windowWidth} height={500}> </svg>)
+	    			width={this.state.windowWidth} height={250}> </svg>)
 	    }else {
 	    	return <h2>Icicle fetching failed.</h2>
 	    }
