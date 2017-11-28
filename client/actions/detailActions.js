@@ -30,3 +30,20 @@ export function fetchAuthor(id) {
     })
   }
 }
+
+export function fetchArticle(id) {
+  return function(dispatch) {
+   dispatch({type: "FETCH_ARTICLE"});
+    axios.get(URL_PREFIX + "/api/articles/author/", {
+      params: {
+        author: id
+      }
+    })
+    .then((response) => {
+      dispatch({type: "FETCH_ARTICLE_FULFILLED", payload: response.data})
+    })
+    .catch((err) => {
+      dispatch({type: "FETCH_ARTICLE_REJECTED", payload: err})
+    })
+  }
+}

@@ -11,13 +11,17 @@ import Typography from 'material-ui/Typography';
 
 import {
     fetchAuthor,
+    fetchArticle,
 } from '../actions/detailActions';
 
 @connect((store) => {
     return {
         author: store.wordCloud.author,
         fetching: store.wordCloud.fetching,
-        fetched: store.wordCloud.fetched
+        fetched: store.wordCloud.fetched,
+        article: store.wordCloud.article,
+        article_fetching: store.wordCloud.article_fetching,
+        article_fetched: store.wordCloud.article_fetched,
     };
 })
 
@@ -44,10 +48,12 @@ export default class WordCloud extends Component {
         });
 
         this.handleClickButton = (name, obj) => {
+            this.props.dispatch(fetchArticle(name.value));
+
             this.setState({
                 open: true,
                 anchorEl: findDOMNode(obj),
-                textProp: name.value
+                textProp: 'loading...',
             });
             console.log(name)
         };
@@ -74,9 +80,7 @@ export default class WordCloud extends Component {
             positionTop,
             positionLeft,
             anchorReference,
-            textProp,
         } = this.state;
-
         var data=[]
         var authors=[]
         var counts=[]
@@ -98,6 +102,12 @@ export default class WordCloud extends Component {
             for (var k = 0; k < authors.length; k++){
                 data.push({value: authors[k], count: (counts[k])});
             }
+        }
+        if (this.props.article_fetched){
+            var articles = this.props.article;
+            this.textProp = "";
+            this.textProp = this.textProp + articles[0].title;
+            this.textProp = this.textProp + '\n' + articles[0].abstract;
         }
         return(
             <div>
@@ -121,7 +131,7 @@ export default class WordCloud extends Component {
                       horizontal: transformOriginHorizontal,
                     }}
                 >
-                    <Typography className={this.styles.typography}>{textProp}</Typography>
+                    <Typography className={this.styles.typography}>{this.textProp}</Typography>
                 </Popover>
             </div>
 

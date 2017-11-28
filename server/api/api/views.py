@@ -146,6 +146,16 @@ class ArticleBySpeciesListAPIView(ListAPIView):
         species_param = self.request.query_params.get('species')
         if species_param is not None:
             article_list = Article.objects.filter(species=species_param).values_list('species')
-            print(article_list)
             queryset = Article.objects.filter(species__in=article_list)
+        return queryset
+
+class ArticleByAuthorListAPIView(ListAPIView):
+    serializer_class = ArticleSerializer
+
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        author_param = self.request.query_params.get('author')
+        if author_param is not None:
+            article_list = Article.objects.filter(author__name__icontains=author_param).values_list('title')
+            queryset = Article.objects.filter(title__in=article_list)
         return queryset

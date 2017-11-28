@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^taxonomy/order/$', FamilyByOrderListAPIView.as_view(), name='order-all'),
     url(r'^taxonomy/family/$', SpeciesByFamilyListAPIView.as_view(), name='family-all'),
     url(r'^articles/all/$', ArticleBySpeciesListAPIView.as_view(), name='articles'),
+    url(r'^articles/author/$', ArticleByAuthorListAPIView.as_view(), name='articles'),
 
 ]
