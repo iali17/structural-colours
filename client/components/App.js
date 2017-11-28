@@ -10,6 +10,8 @@ import Container from './Container';
 import ColorBar from './ColorBar';
 import Icicle from './Icicle';
 import SearchBar from './SearchBar';
+import TitleBar from './TitleBar'
+
 
 import { TABS } from '../constants';
 
@@ -41,18 +43,25 @@ export default class App extends Component {
   }
 
   updateColour(colour) {
-    this.props.dispatch(setCurrentColour(colour));
-    this.props.dispatch(fetchPicture(colour))
-    if (this.props.activeTab != TABS.main) {
-      this.props.dispatch(switchTabs(TABS.main))
-    }
+    var that = this;
+    Promise.resolve(that.props.dispatch(setCurrentColour(colour)))
+    .then(function (response) {
+      that.props.dispatch(fetchPicture(colour))
+      return response;
+    })
+    .then(function(response){
+      if (that.props.activeTab != TABS.main) {
+        that.props.dispatch(switchTabs(TABS.main))
+      }
+    })
   }
 
   getProfile(id) {
-    this.props.dispatch(setCurrentId(id));
-    if (this.props.activeTab != TABS.profile) {
-      this.props.dispatch(switchTabs(TABS.profile))
-    }
+    var that = this;
+    Promise.resolve(that.props.dispatch(setCurrentId(id)))
+    .then(function (response) {
+      that.props.dispatch(switchTabs(TABS.profile))
+    })
   }
 
   render() {
@@ -60,9 +69,9 @@ export default class App extends Component {
       <div>
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <h1>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
+            <TitleBar />
             <SearchBar/>
-            <Icicle getProfile={this.getProfile}/>   
+            <Icicle getProfile={this.getProfile}/>
           </Grid>
         </Grid>
         <Grid container spacing={24}>

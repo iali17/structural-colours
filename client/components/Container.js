@@ -27,7 +27,7 @@ export default class LandingView extends Component {
       switch(this.props.activeTab) {
         case TABS.landing: {
           return (
-            <LandingPage/>
+            <LandingPage getProfile={this.props.getProfile}/>
           );
         }
         case TABS.main: {
