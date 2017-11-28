@@ -41,8 +41,11 @@ export default class SearchBar extends React.Component {
     return (
        <div>
         <TextField
-          defaultValue="Search here"
+          id="search"
+          label="Search field"
+          type="search"
           value={this.state.textFieldValue}
+          
           onChange={this.handleChange.bind(this)}
         />
         <button
