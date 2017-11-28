@@ -9,7 +9,9 @@ import Drawer from 'material-ui/Drawer'
 import Container from './Container';
 import ColorBar from './ColorBar';
 import Icicle from './Icicle';
+import SearchBar from './SearchBar';
 import TitleBar from './TitleBar'
+
 
 import { TABS } from '../constants';
 
@@ -68,6 +70,7 @@ export default class App extends Component {
         <Grid container spacing={0}>
           <Grid item xs={12}>
             <TitleBar />
+            <SearchBar/>
             <Icicle getProfile={this.getProfile}/>
           </Grid>
         </Grid>
