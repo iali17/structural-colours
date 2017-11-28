@@ -6,6 +6,7 @@ import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import Drawer from 'material-ui/Drawer'
 
+
 import Container from './Container';
 import ColorBar from './ColorBar';
 import Icicle from './Icicle';
@@ -24,6 +25,7 @@ import {
 import {
   fetchPicture,
 } from '../actions/pictureActions';
+
 
 @connect((store) => {
   return {
@@ -74,12 +76,14 @@ export default class App extends Component {
             <Icicle getProfile={this.getProfile}/>
           </Grid>
         </Grid>
-        <Grid container spacing={24}>
-          <Grid item xs={12}>
-            <ColorBar colour={this.props.colour} updateColour={this.updateColour}/>
-            <Container getProfile={this.getProfile}/>
+        <Grid container spacing={0}>
+          <Grid item xs = {1}>
+           <ColorBar colour={this.props.colour} updateColour={this.updateColour}/>
           </Grid>
-        </Grid>
+            <Grid item xs>
+              <Container getProfile={this.getProfile}/>
+            </Grid>
+        </Grid> 
       </div>
     );
   }

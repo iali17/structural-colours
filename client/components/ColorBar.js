@@ -4,17 +4,20 @@ import ReactDOM from 'react-dom'
 //https://reactjs.org/docs/conditional-rendering.html
 //https://appendto.com/2017/01/react-events-101/
 //this.state = { big: null};
+const size1 = 60;
+const size2 = 80;
+
 class ColorBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			red: "20",
-			orange: "20",
-			yellow: "20",
-			greenyellow: "20",
-			dodgerblue: "20",
-			fuchsia: "20",
-			darkviolet: "20",
+			red: size1,
+			orange: size1,
+			yellow: size1,
+			greenyellow: size1,
+			dodgerblue: size1,
+			fuchsia: size1,
+			darkviolet: size1,
 		};
 	}
 
@@ -23,25 +26,25 @@ class ColorBar extends Component {
 
 		switch(change) {
 			case "red":
-        this.setState({red: "30"});
+        this.setState({red: size2});
         break;
 			case "orange":
-				this.setState({orange: "30"});
+				this.setState({orange: size2});
 				break;
 			case "yellow":
-        this.setState({yellow: "30"});
+        this.setState({yellow: size2});
         break;
 			case "greenyellow":
-				this.setState({greenyellow: "30"});
+				this.setState({greenyellow: size2});
 				break;
 			case "dodgerblue":
-				this.setState({dodgerblue: "30"});
+				this.setState({dodgerblue: size2});
 				break;
 			case "fuchsia":
-				this.setState({fuchsia: "30"});
+				this.setState({fuchsia: size2});
 				break;
 			case "darkviolet":
-				this.setState({darkviolet: "30"});
+				this.setState({darkviolet: size2});
 				break;
 			}
 		}
@@ -51,25 +54,25 @@ class ColorBar extends Component {
 
 		switch(change) {
 			case "red":
-				this.setState({red: "20"});
+				this.setState({red: size1});
 				break;
 			case "orange":
-				this.setState({orange: "20"});
+				this.setState({orange: size1});
 				break;
 			case "yellow":
-				this.setState({yellow: "20"});
+				this.setState({yellow: size1});
 				break;
 			case "greenyellow":
-				this.setState({greenyellow: "20"});
+				this.setState({greenyellow: size1});
 				break;
 			case "dodgerblue":
-				this.setState({dodgerblue: "20"});
+				this.setState({dodgerblue: size1});
 				break;
 			case "fuchsia":
-				this.setState({fuchsia: "20"});
+				this.setState({fuchsia: size1});
 				break;
 			case "darkviolet":
-				this.setState({darkviolet: "20"});
+				this.setState({darkviolet: size1});
 				break;
 		}
 	}
@@ -110,16 +113,16 @@ class ColorBar extends Component {
 
 	render() {
 		return (
-			<svg style={{position: 'fixed'}} width="1.5cm" height="5cm" viewBox="0 0 150 500">
-				<rect x="1" y="1" height="498" width="148" fill="grey" />
-				<text x="15" y="70" fontFamily="Verdana" fontSize="35" fill="white"> Choose </text>
-				<circle cx = "75" cy= "100" r= {this.state.red} fill = "red" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
-				<circle cx = "75" cy= "150" r= {this.state.orange} fill = "orange" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
-				<circle cx = "75" cy= "200" r= {this.state.yellow} fill = "yellow" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
-				<circle cx = "75" cy= "250" r= {this.state.greenyellow} fill = "greenyellow" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
-				<circle cx = "75" cy= "300" r= {this.state.dodgerblue} fill = "dodgerblue" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
-				<circle cx = "75" cy= "350" r= {this.state.fuchsia} fill = "fuchsia" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
-				<circle cx = "75" cy= "400" r= {this.state.darkviolet} fill = "darkviolet" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
+			<svg style={{position: 'fixed'}} width="1.5cm" height="5cm" viewBox="0 0 350 1200">
+				<rect x="1" y="1" height="1198" width="348" fill="grey" />
+				<text x="40" y="70" fontFamily="Verdana" fontSize="75" fill="white"> Choose </text>
+				<circle cx = "175" cy= "200" r= {this.state.red} fill = "red" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
+				<circle cx = "175" cy= "350" r= {this.state.orange} fill = "orange" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
+				<circle cx = "175" cy= "500" r= {this.state.yellow} fill = "yellow" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
+				<circle cx = "175" cy= "650" r= {this.state.greenyellow} fill = "greenyellow" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
+				<circle cx = "175" cy= "800" r= {this.state.dodgerblue} fill = "dodgerblue" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
+				<circle cx = "175" cy= "950" r= {this.state.fuchsia} fill = "fuchsia" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
+				<circle cx = "175" cy= "1100" r= {this.state.darkviolet} fill = "darkviolet" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
 			</svg>
 		);
 	}
