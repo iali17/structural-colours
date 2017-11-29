@@ -4,7 +4,7 @@ import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import { blueGrey, brown } from 'material-ui/colors';
-
+import WordCloud from './WordCloud';
 import {
   fetchDetail,
 } from '../actions/detailActions';
@@ -85,6 +85,7 @@ export default class ProfilePage extends Component {
 					<h1>
 					{this.props.detail.common_name}
 					</h1>
+                    <WordCloud id = {this.props.picture.species}/>
 					<Card className={this.props.card}>
 						<CardMedia
 							className = {this.props.media}

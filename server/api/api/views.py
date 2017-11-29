@@ -16,6 +16,7 @@ from .serializers import (
     OrderSerializer,
     FamilySerializer,
     SpeciesSerializer,
+    ArticleSerializer,
     )
 from .pagination import (
     PicturePageNumberPagination,
@@ -65,18 +66,22 @@ class PictureListAPIView(ListAPIView):
 
         return queryset
 
-class RandomLandingPictureListAPIView(ListAPIView):
-    serializer_class = LandingPictureSerializer
+class RandomLandingPictureListAPIView(APIView):
+    def get(self, request):
+        try:
+            picture = LandingPicture.objects.all().first()
 
-    def get_queryset(self):
-        count = LandingPicture.objects.all().count()
-        if (count > 4):
-            index = random.random() * (count - 4)
-            queryset = LandingPicture.objects.all()[index: index + 4]
-        else:
-            queryset = LandingPicture.objects.all()
+            count = LandingPicture.objects.all().count()
+            if (count > 1):
+                picture = LandingPicture.objects.all()[random.randint(0, count - 1)] #single random object
 
-        return queryset
+            if picture:
+                serializer = LandingPictureSerializer(picture)
+                return Response(serializer.data)
+            else:
+                return Response({'detail': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+        except:
+            return Response({'detail': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
 
 class TaxonomyListAPIView(ListAPIView):
     queryset = Species.objects.all()
@@ -135,4 +140,26 @@ class SpeciesByFamilyListAPIView(ListAPIView):
         if family_param is not None:
             species_list = Species.objects.filter(family=family_param).values_list('species')
             queryset = Species.objects.filter(species__in=species_list)
+        return queryset
+
+class ArticleBySpeciesListAPIView(ListAPIView):
+    serializer_class = ArticleSerializer
+
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        species_param = self.request.query_params.get('species')
+        if species_param is not None:
+            article_list = Article.objects.filter(species=species_param).values_list('species')
+            queryset = Article.objects.filter(species__in=article_list)
+        return queryset
+
+class ArticleByAuthorListAPIView(ListAPIView):
+    serializer_class = ArticleSerializer
+
+    def get_queryset(self):
+        queryset = Article.objects.all()
+        author_param = self.request.query_params.get('author')
+        if author_param is not None:
+            article_list = Article.objects.filter(author__name__icontains=author_param).values_list('title')
+            queryset = Article.objects.filter(title__in=article_list)
         return queryset

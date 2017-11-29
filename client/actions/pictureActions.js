@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { URL_PREFIX } from '../constants';
 
-export function fetchPicture(c) {
+export function fetchPicture(c,s) {
   return function(dispatch) {
     dispatch({type: "FETCH_PICTURE"});
     axios.get(URL_PREFIX + "/api/pictures/all", {
        params: {
+         species: s,
          colour: c
         }
     })
@@ -31,15 +32,15 @@ export function fetchOnePicture(id) {
   }
 }
 
-export function fetchRandomPictures() {
+export function fetchRandomPicture() {
   return function(dispatch) {
-    dispatch({type: "FETCH_RANDOM_PICTURES"});
+    dispatch({type: "FETCH_RANDOM_PICTURE"});
     axios.get(URL_PREFIX + "/api/pictures/random")
     .then((response) => {
-      dispatch({type: "FETCH_RANDOM_PICTURES_FULFILLED", payload: response.data})
+      dispatch({type: "FETCH_RANDOM_PICTURE_FULFILLED", payload: response.data})
     })
     .catch((err) => {
-      dispatch({type: "FETCH_RANDOM_PICTURES_REJECTED", payload: err})
+      dispatch({type: "FETCH_RANDOM_PICTURE_REJECTED", payload: err})
     })
   }
 }
