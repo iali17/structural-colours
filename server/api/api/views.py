@@ -155,7 +155,8 @@ class ArticleByAuthorListAPIView(ListAPIView):
     def get_queryset(self):
         queryset = Article.objects.all()
         author_param = self.request.query_params.get('author')
-        if author_param is not None:
-            article_list = Article.objects.filter(author__name__icontains=author_param).values_list('title')
+        species_param = self.request.query_params.get('species')
+        if author_param is not None and species_param is not None:
+            article_list = Article.objects.filter(author__name__icontains=author_param, species=species_param).values_list('title')
             queryset = Article.objects.filter(title__in=article_list)
         return queryset
