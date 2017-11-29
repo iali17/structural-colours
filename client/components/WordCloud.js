@@ -1,13 +1,17 @@
 import React, { Component } from 'react'
 import ReactDOM, { findDOMNode } from 'react-dom'
 import * as d3 from 'd3';
-import PropTypes from 'prop-types'
-import{ withStyles } from 'material-ui/styles';
-import Popover from 'material-ui/Popover';
 import { connect } from 'react-redux';
 import { TagCloud } from "react-tagcloud";
-import Input, { InputLabel } from 'material-ui/Input';
 import Typography from 'material-ui/Typography';
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
+import Slide from 'material-ui/transitions/Slide';
+import Button from 'material-ui/Button';
 
 import {
     fetchAuthor,
@@ -25,62 +29,78 @@ import {
     };
 })
 
-
 export default class WordCloud extends Component {
+    // Set state and define handle functions.
     constructor(props) {
         super(props);
         this.state = {
             open: false,
-            anchorEl: null,
-            anchorOriginVertical: 'bottom',
-            anchorOriginHorizontal: 'center',
-            transformOriginVertical: 'top',
-            transformOriginHorizontal: 'center',
-            positionTop: 200, // Just so the popover can be spotted more easily
-            positionLeft: 400, // Same as above
-            anchorReference: 'anchorEl',
-            textProp: 'TEST',
+            next: false,
+            articles: [],
+            dialogTitle: 'loading...',
+            dialogAbstract: 'loading...',
+            index: 0,
         };
+
+        this.transition = (props) => {
+            return <Slide direction="up" {...props} />;
+        };
+
+        // Close dialog when clicked away or press ok
+        this.handleRequestClose = () => {
+            this.setState({ open: false });
+        };
+
+        // Gets the next article and sets the state
+        this.handleNext = () => {
+            if (this.props.fetched){
+                if (this.state.index < this.state.articles.length-1){
+                    this.setState({
+                        open: true,
+                        next: true,
+                        articles: this.state.articles,
+                        dialogTitle: this.state.articles[this.state.index].title,
+                        dialogAbstract: this.state.articles[this.state.index].abstract,
+                        index: this.state.index+1,
+                    })
+                } else {
+                    this.setState({
+                        open: true,
+                        next: false,
+                        articles: this.state.articles,
+                        dialogTitle: this.state.articles[0].title,
+                        dialogAbstract: this.state.articles[0].abstract,
+                        index: this.state.index+1,
+                    })
+                }
+            }
+        }
+
+        // Gets the articles related to the clicked author
+        this.handleClickButton = (name, obj) => {
+            this.props.dispatch(fetchArticle(name.value));
+            this.setState({
+                open: true,
+                dialogTitle: 'loading...',
+                dialogAbstract: 'loading...',
+                index: 0,
+            });
+        };
+
         this.styles = theme => ({
             typography: {
                 margin: theme.spacing.unit * 2,
             },
         });
-
-        this.handleClickButton = (name, obj) => {
-            this.props.dispatch(fetchArticle(name.value));
-
-            this.setState({
-                open: true,
-                anchorEl: findDOMNode(obj),
-                textProp: 'loading...',
-            });
-            console.log(name)
-        };
-
-        this.handleRequestClose = () => {
-            this.setState({
-                open: false,
-            });
-        };
     }
 
+    // Gets all authors who wrote an article about the species
     componentWillMount() {
         this.props.dispatch(fetchAuthor(this.props.id))
     }
+
     render(){
-        const { classes } = this.props;
-        const {
-            open,
-            anchorEl,
-            anchorOriginVertical,
-            anchorOriginHorizontal,
-            transformOriginVertical,
-            transformOriginHorizontal,
-            positionTop,
-            positionLeft,
-            anchorReference,
-        } = this.state;
+        // Compile the list of authors. Each article the author has on the species adds 1 to its weight (thus increasing its size in the wordcloud)
         var data=[]
         var authors=[]
         var counts=[]
@@ -103,38 +123,50 @@ export default class WordCloud extends Component {
                 data.push({value: authors[k], count: (counts[k])});
             }
         }
+
+        // Get the article(s) for the clicked author
         if (this.props.article_fetched){
-            var articles = this.props.article;
-            this.textProp = "";
-            this.textProp = this.textProp + articles[0].title;
-            this.textProp = this.textProp + '\n' + articles[0].abstract;
+            this.state.articles = this.props.article;
+            this.state.dialogTitle = this.state.articles[this.state.index].title;
+            this.state.dialogAbstract = this.state.articles[this.state.index].abstract;
+            if (this.state.index < this.state.articles.length-1){
+                this.state.next = true;
+            } else {
+                this.state.next = false;
+            }
         }
+
         return(
             <div>
+                //WordCloud format
                 <TagCloud
                     minSize={15}
                     maxSize={35}
                     tags={data}
                     onClick={tag => this.handleClickButton(tag)} />
-                <Popover
-                    open={open}
-                    anchorEl={anchorEl}
-                    // anchorReference={anchorReference}
-                    // anchorPosition={{ top: positionTop, left: positionLeft }}
+                //Dialog Box Format
+                <Dialog
+                    open={this.state.open}
+                    transition={this.transition}
+                    keepMounted
                     onRequestClose={this.handleRequestClose}
-                    anchorOrigin={{
-                      vertical: anchorOriginVertical,
-                      horizontal: anchorOriginHorizontal,
-                    }}
-                    transformOrigin={{
-                      vertical: transformOriginVertical,
-                      horizontal: transformOriginHorizontal,
-                    }}
                 >
-                    <Typography className={this.styles.typography}>{this.textProp}</Typography>
-                </Popover>
+                    <DialogTitle>{this.state.dialogTitle}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            {this.state.dialogAbstract}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleRequestClose} color="primary">
+                            OK
+                        </Button>
+                        <Button onClick={this.handleNext} disabled={!this.state.next} color="primary">
+                            Next Article
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
-
-                        );
+        );
     }
 }
