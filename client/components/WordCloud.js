@@ -138,13 +138,11 @@ export default class WordCloud extends Component {
 
         return(
             <div>
-                //WordCloud format
                 <TagCloud
                     minSize={15}
                     maxSize={35}
                     tags={data}
                     onClick={tag => this.handleClickButton(tag)} />
-                //Dialog Box Format
                 <Dialog
                     open={this.state.open}
                     transition={this.transition}
