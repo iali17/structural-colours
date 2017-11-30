@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class MainPic extends Component {
+export default class LandingPic extends Component {
   constructor(props) {
     super(props);
   }
