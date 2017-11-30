@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import TextField from 'material-ui/TextField';  
+import TextField from 'material-ui/TextField';
 import { TABS } from '../constants';
 
 import {
@@ -25,11 +25,10 @@ export default class SearchBar extends React.Component {
   }
 
   handleChange(e) {
-    console.log("Event search:", e.target.value)
     this.setState({
             value: e.target.value
     });
-    
+
   };
 
   searchText() {
@@ -45,12 +44,12 @@ export default class SearchBar extends React.Component {
           label="Search field"
           type="search"
           value={this.state.textFieldValue}
-          
+
           onChange={this.handleChange.bind(this)}
         />
         <button
           onClick={this.searchText.bind(this)}
-        >  
+        >
           Search
         </button>
       </div>
