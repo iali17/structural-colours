@@ -39,6 +39,7 @@ export default class WordCloud extends Component {
             articles: [],
             dialogTitle: 'loading...',
             dialogAbstract: 'loading...',
+            dialogDetail: 'loading...',
             index: 0,
         };
 
@@ -61,16 +62,14 @@ export default class WordCloud extends Component {
                         articles: this.state.articles,
                         dialogTitle: this.state.articles[this.state.index].title,
                         dialogAbstract: this.state.articles[this.state.index].abstract,
+                        dialogDetail: this.state.articles[this.state.index].detail,
                         index: this.state.index+1,
                     })
                 } else {
                     this.setState({
                         open: true,
                         next: false,
-                        articles: this.state.articles,
-                        dialogTitle: this.state.articles[0].title,
-                        dialogAbstract: this.state.articles[0].abstract,
-                        index: this.state.index+1,
+                        index: 0,
                     })
                 }
             }
@@ -83,6 +82,7 @@ export default class WordCloud extends Component {
                 open: true,
                 dialogTitle: 'loading...',
                 dialogAbstract: 'loading...',
+                dialogDetail: 'loading...',
                 index: 0,
             });
         };
@@ -129,6 +129,7 @@ export default class WordCloud extends Component {
             this.state.articles = this.props.article;
             this.state.dialogTitle = this.state.articles[this.state.index].title;
             this.state.dialogAbstract = this.state.articles[this.state.index].abstract;
+            this.state.dialogDetail = this.state.articles[this.state.index].detail;
             if (this.state.index < this.state.articles.length-1){
                 this.state.next = true;
             } else {
@@ -153,6 +154,8 @@ export default class WordCloud extends Component {
                     <DialogContent>
                         <DialogContentText>
                             {this.state.dialogAbstract}
+                            <hr/>
+                            {this.state.dialogDetail}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

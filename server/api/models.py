@@ -153,6 +153,7 @@ class Article(models.Model):
     title = models.CharField(max_length=200)
     author = models.ManyToManyField(Author)
     abstract = models.TextField(blank=True)
+    detail = models.TextField(blank=True)
     species = models.ForeignKey(Species)
 
     def __str__(self):
