@@ -49,7 +49,7 @@ class MainView extends Component {
     if (this.props.fetched) {
       return (
         <div className={classes.root}>
-          <GridList cellHeight={'auto'} className={classes.gridList} cols={4}>
+          <GridList cellHeight={'auto'} className={classes.gridList} cols = {'auto'} spacing = {0}>
             {this.props.picture.map((picture, index) => (
               <GridListTile key={index} >
                 <MainPic pic={picture} getProfile={this.props.getProfile}/>
@@ -66,8 +66,4 @@ class MainView extends Component {
     }
   }
 }
-    /**
-    *To be implemented when we implement pics on page
-    *<Link to = "/ProfilePage">Click me </Link>
-    */
 export default withStyles(styles)(MainView);
