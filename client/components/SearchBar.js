@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
+
 import { TABS } from '../constants';
 
 import {
@@ -11,49 +15,62 @@ import {
   switchTabs
 } from '../actions/appActions'
 
+const styles = theme => ({
+  textField: {
+    marginRight: '15px',
+  },
+});
+
 @connect((store) => {
 })
-
-export default class SearchBar extends React.Component {
-
+class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       value: '',
     };
   }
 
   handleChange(e) {
-    console.log("Event search:", e.target.value)
     this.setState({
-            value: e.target.value
+      value: e.target.value
     });
+  }
 
-  };
+  handleKeyPress(target) {
+    if (target.charCode == 13) {
+      this.searchText()
+    }
+  }
 
   searchText() {
-    this.props.dispatch(switchTabs(TABS.main))
-    this.props.dispatch(fetchPictures("", this.state.value))
+    var that = this;
+    Promise.resolve(that.props.dispatch(switchTabs(TABS.main)))
+    .then(function (response) {
+      that.props.dispatch(fetchPictures("", that.state.value))
+    })
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
        <div>
         <TextField
+          className={classes.textField}
           id="search"
-          label="Search field"
+          label="Search"
           type="search"
           value={this.state.textFieldValue}
-
           onChange={this.handleChange.bind(this)}
+          onKeyPress={this.handleKeyPress.bind(this)}
         />
-        <button
-          onClick={this.searchText.bind(this)}
-        >
+        <Button raised color="contrast" onClick={this.searchText.bind(this)}>
           Search
-        </button>
+        </Button>
       </div>
     );
   }
 }
+
+export default withStyles(styles)(SearchBar);

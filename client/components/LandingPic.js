@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
 
-export default class LandingPic extends Component {
+import { withStyles } from 'material-ui/styles';
+
+const styles = theme => ({
+  container: {
+  },
+  img: {
+  },
+});
+
+class LandingPic extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
-      <img src={this.props.pic.picture} onClick={() => this.props.getProfile(this.props.pic.species)} />
+      <div className={classes.container}>
+        <img className={classes.img} src={this.props.pic.picture} onClick={() => this.props.getProfile(this.props.pic.species)} />
+      </div>
     );
   }
 }
+
+export default withStyles(styles)(LandingPic);
