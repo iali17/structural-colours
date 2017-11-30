@@ -6,13 +6,11 @@ import Grid from 'material-ui/Grid';
 import Paper from 'material-ui/Paper';
 import Drawer from 'material-ui/Drawer'
 
-
 import Container from './Container';
 import ColorBar from './ColorBar';
 import Icicle from './Icicle';
 import SearchBar from './SearchBar';
 import TitleBar from './TitleBar'
-
 
 import { TABS } from '../constants';
 
@@ -23,7 +21,7 @@ import {
 } from '../actions/appActions';
 
 import {
-  fetchPicture,
+  fetchPictures,
 } from '../actions/pictureActions';
 
 
@@ -48,7 +46,7 @@ export default class App extends Component {
     var that = this;
     Promise.resolve(that.props.dispatch(setCurrentColour(colour)))
     .then(function (response) {
-      that.props.dispatch(fetchPicture(colour))
+      that.props.dispatch(fetchPictures(colour))
       return response;
     })
     .then(function(response){
@@ -83,7 +81,7 @@ export default class App extends Component {
             <Grid item xs>
               <Container getProfile={this.getProfile}/>
             </Grid>
-        </Grid> 
+        </Grid>
       </div>
     );
   }
