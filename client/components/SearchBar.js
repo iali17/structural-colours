@@ -25,7 +25,6 @@ export default class SearchBar extends React.Component {
   }
 
   handleChange(e) {
-    console.log("Event search:", e.target.value)
     this.setState({
             value: e.target.value
     });

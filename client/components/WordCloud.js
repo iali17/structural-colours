@@ -29,6 +29,7 @@ import {
     };
 })
 
+// TagCloud from https://www.npmjs.com/package/react-tagcloud
 export default class WordCloud extends Component {
     // Set state and define handle functions.
     constructor(props) {
