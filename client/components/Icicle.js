@@ -383,7 +383,24 @@ export default class Icicle extends Component {
 	     		return "#302f2f"
 	     		//return "#0000d8"
 	     		//return "#000000"
-	     	});
+	     	})
+	     	.on("mouseover", function(d) {
+	   			var data = d.data.key;
+	   			toolDiv.transition()
+	   				   .duration(200)
+	   				   .style("opacity", .9)
+	   				   .attr("x", d.x0)
+	   				   .attr("y", d.y0);
+	   			toolDiv.html(function(d){
+	   				return "<span>" + data + "</span>"
+	   			}).style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+	   		})
+	   		.on("mouseout", function(d){
+	   			toolDiv.transition()
+	   				   .duration(500)
+	   				   .style("opacity", 0);
+	   		});
 
 	    var needProfile = this.getProfile.bind(this);
 	    var dispatch = this.props.dispatch.bind(this);
