@@ -7,6 +7,9 @@ import { debounce } from 'lodash';
 // Material ui
 import { withStyles } from 'material-ui/styles';
 import { GridList, GridListTile } from 'material-ui/GridList';
+import { LinearProgress } from 'material-ui/Progress';
+import { CircularProgress } from 'material-ui/Progress';
+import { grey } from 'material-ui/colors';
 
 import MainPic from './MainPic';
 import ColorBar from './ColorBar';
@@ -30,11 +33,15 @@ const styles = theme => ({
   subheader: {
     width: '100%',
   },
+  linearProgress: {
+    clear: "both",
+  },
 });
 
 @connect((store) => {
   return {
     pictures: store.mainView.pictures,
+    fetching: store.mainView.fetching,
     fetched: store.mainView.fetched,
     id: store.app.id,
     colour: store.app.colour,
@@ -46,7 +53,7 @@ class MainView extends Component {
     this.isAtBottom = this.isAtBottom.bind(this);
     this.trackScrolling = this.trackScrolling.bind(this);
     this.getNextPictures = this.getNextPictures.bind(this);
-    this.getNextPictures = debounce(this.getNextPictures, 500);
+    this.getNextPictures = debounce(this.getNextPictures, 100);
   }
 
   componentDidMount() {
@@ -58,7 +65,9 @@ class MainView extends Component {
   }
 
   getNextPictures() {
-    this.props.dispatch(fetchNextPictures(this.props.pictures.next))
+    if (this.props.pictures.next) {
+      this.props.dispatch(fetchNextPictures(this.props.pictures.next))
+    }
   }
 
   isAtBottom(el) {
@@ -75,6 +84,8 @@ class MainView extends Component {
   render() {
     const { classes } = this.props;
 
+    const primary = grey[800];
+
     if (this.props.fetched) {
       return (
         <div>
@@ -90,12 +101,17 @@ class MainView extends Component {
           <div style={{ float:"left", clear: "both" }}
                ref={(el) => { this.picturesEnd = el; }}>
           </div>
+          <div>
+            {this.props.fetching &&
+              <LinearProgress color="primary" className={classes.linearProgress}/>
+            }
+          </div>
         </div>
       );
     }
     else {
       return (
-        <h1>NO PICTURES :(</h1>
+        <LinearProgress color="primary" className={classes.linearProgress}/>
       );
     }
   }
