@@ -3,6 +3,8 @@ from rest_framework.serializers import (
     SerializerMethodField,
     )
 
+from rest_framework import serializers
+
 from api.models import *
 
 class SpeciesDetailSerializer(ModelSerializer):
@@ -70,3 +72,14 @@ class SpeciesSerializer(ModelSerializer):
     class Meta(object):
         model = Species
         fields = ['speciesId', 'species']
+
+class AuthorSerializer(ModelSerializer):
+    class Meta(object):
+        model = Author
+        fields = ['name']
+
+class ArticleSerializer(ModelSerializer):
+    author = AuthorSerializer(read_only=True, many=True)
+    class Meta(object):
+        model = Article
+        fields = ['title', 'author', 'abstract', 'species', 'detail']
