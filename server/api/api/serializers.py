@@ -51,4 +51,4 @@ class ArticleSerializer(ModelSerializer):
     author = AuthorSerializer(read_only=True, many=True)
     class Meta(object):
         model = Article
-        fields = ['title', 'author', 'abstract', 'species']
+        fields = ['title', 'author', 'abstract', 'species', 'detail']

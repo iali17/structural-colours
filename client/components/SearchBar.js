@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField';
 import { TABS } from '../constants';
 
 import {
-  fetchPicture,
+  fetchPictures,
 } from '../actions/pictureActions';
 
 import {
@@ -33,7 +33,7 @@ export default class SearchBar extends React.Component {
 
   searchText() {
     this.props.dispatch(switchTabs(TABS.main))
-    this.props.dispatch(fetchPicture("", this.state.value))
+    this.props.dispatch(fetchPictures("", this.state.value))
   }
 
   render() {

@@ -23,7 +23,18 @@ import {
   };
 })
 
+
+/**
+* The icicle component is a taxonomy of all the species that are
+* currently in the database. It provies a clickable interface for you to be
+* able to scroll through the taxonomy.
+*
+* The highest levels of the taxonomy the kingdom and it becomes more specific
+* as you delve deeper into the taxonomy. To go back up in the taxa, please click the
+* top bar above the thing you are currently viewing and it will push it up.
+**/
 export default class Icicle extends Component {
+	// The constructor class initializes all the props and all the states we will need.
 	constructor(props) {
 		super(props);
 		this.createIcicle = this.createIcicle.bind(this)
@@ -42,36 +53,55 @@ export default class Icicle extends Component {
 					 		Fungi:{},
 					 		Plants:{}
 					 	}
-					 }, windowWidth: window.innerWidth - 20
+					 }, windowWidth: window.innerWidth
 					}
 	}
 
+	// This function is automatically called by react when after the component has mounted.
+	// It also creates an event listener if, so if the browser is resized the updateDimensions
+	// function will be called.
 	componentDidMount() {
 		window.addEventListener("resize", this.updateDimensions.bind(this));
 		this.createIcicle()
 	}
 
+
+	// This function is used to load the profile page.
+	// Please see profile page to see the implimentation
 	getProfile(t) {
 	    this.props.getProfile(t);
   	}
+    
+    // this function is automatically called by react before the component has mounted
+    // but this component has been called.
+    // It dispatches a call to get the taxonomy so we can use it within the component.
+    // This is a good place to call it because this will only happen once.
 
 	componentWillMount() {
 		this.props.dispatch(fetchTax());
 	}
 
+	// this function is automatically called by react as soon as something in the component
+	// would cause it to change.
 	componentDidUpdate() {
 		this.createIcicle()
 	}
 
+	// this function is automatically called by react when the component is no longer in use.
+	// It also removes the event listener that was added when the component mounted.
 	componentWillUnmount(){
 		window.removeEventListener("resize", this.updateDimensions.bind(this));
 	}
 
 	updateDimensions() {
-		this.setState({windowWidth: window.innerWidth - 20})
+		this.setState({windowWidth: window.innerWidth })
 	}
 
-	//https://www.sitepoint.com/javascript-generate-lighter-darker-color/
+	// https://www.sitepoint.com/javascript-generate-lighter-darker-color/
+	// Taken off the website above, this function takes in a hex value and will
+	// return it "lum" amounts darker.
+	// Ex: If you give if "#ffffffff", 0.l0 it will return the hec value
+	// of the color but 10 percent lighter.
 	colorLuminance(hex, lum) {
 		// validate hex string
 		hex = String(hex).replace(/[^0-9a-f]/gi, '');
@@ -92,9 +122,21 @@ export default class Icicle extends Component {
 
 	}
 
+	/**
+	* This is where the icicle is created. This function will take the taxonomy
+	* returned from the dispatch and convert that value into a json friendly 
+	* variable we can use. After it is done creating this variable, it will
+	* take it and create rect's and foriegnObjects(the object that holds the text)
+	* and display them on the screen. There is an implict function that handles the 
+	* click events.
+	*
+	* References:
+	* https://bl.ocks.org/tophtucker/a35c0f4f32400755a6a9b976be834ab3
+	* http://blockbuilder.org/lorenzopub/4a0c57efdc65cfd532e88d83c10b1737
+	**/
 	createIcicle() {
 		var width = this.state.windowWidth;
-		var height = 500;
+		var height = 250;
 
 		if (this.props.Tfetched) {
 			this.state.info = this.props.taxonomy;
@@ -250,15 +292,15 @@ export default class Icicle extends Component {
 	   			if (d.depth == 0){
 	   				return d.y0;
 	   			} else {
-	   				return d.y0 - 45;
-	   			}
+	   				return d.y0 - 15;
+	   			} 
 	   		})
 	   		.attr("width", function(d) { return d.x1 - d.x0; })
 	   		.attr("height", function(d) {
 	   			if (d.depth == 0) {
 	   				return 20;
 	   			} else {
-	   				return d.y1 - d.y0;
+	   				return 35;
 	   			}
 	   		})
 	   		.attr("fill", function(d) {
@@ -316,14 +358,14 @@ export default class Icicle extends Component {
 	      		if (d.depth == 0){
 	   				return d.y0;
 	   			} else {
-	   				return d.y0 - 45;
+	   				return d.y0 - 15;
 	   			}
 	      	})
 	      	.attr("width", function(d) { return d.x1 - d.x0; })
 	      	.attr("height", function(d) { return d.y1 - d.y0; })
 	     	.style("cursor", "pointer")
-	     	.text(function(d) {
-	     		if((10 * d.data.key.length) >= (d.x1 - d.x0)){
+	     	.text(function(d) { 
+	     		if((11 * d.data.key.length) >= (d.x1 - d.x0)){
 	     			var upTo = Math.ceil(((11* d.data.key.length) - (d.x1 - d.x0)) / 11);
 	     			upTo = d.data.key.length - upTo;
 	     		 	return d.data.key.slice(0, upTo) + "...";
@@ -338,7 +380,8 @@ export default class Icicle extends Component {
 	     		} //else if (d.depth == 2 && d.parent.data.key == "Fungi"){
 	     		//	return "#ffffff"
 	     		//}
-	     		return "#0000d8"
+	     		return "#302f2f"
+	     		//return "#0000d8"
 	     		//return "#000000"
 	     	});
 
@@ -361,7 +404,7 @@ export default class Icicle extends Component {
 			   			if(d.depth == 0){
 			   				return y(d.y0);
 			   			}
-			    		return y(d.y0) - 45
+			    		return y(d.y0) - 15
 			    	}
 			    	return y(d.y0);
 			 	})
@@ -386,15 +429,18 @@ export default class Icicle extends Component {
       					if(d.depth == 0){
 			   				return y(d.y0);
 			   			}
-			    		return y(d.y0) - 45
-			    	}
-      				return y(d.y0);
+			    		return y(d.y0) - 15
+			    	} 
+      				return y(d.y0); 
       			})
       			.attr("width", function(d) { return x(d.x1) - x(d.x0); })
       			.attr("height", function(d) { return y(d.y1) - y(d.y0);})
-      			.text(function(d) {
+      			.text(function(d) { 
+      				if (clickedDep > d.depth) {
+      					return ""
+      				}
 		     		var dataX = Math.ceil(x(d.x1) - x(d.x0))
-		     		if((10 * d.data.key.length) >= dataX){
+		     		if((11 * d.data.key.length) >= dataX){
 		     			var upTo = Math.ceil(((11* d.data.key.length) - dataX) / 11);
 		     			upTo = d.data.key.length - upTo;
 		     		 	return d.data.key.slice(0, upTo) + "...";
@@ -416,7 +462,7 @@ export default class Icicle extends Component {
 	      	return <h2>The icicle view is loading please wait.</h2>
 	    } else if (this.props.Tfetched) {
 	      	return( <svg ref={node => this.node = node}
-	    			width={this.state.windowWidth} height={500}> </svg>)
+	    			width={this.state.windowWidth} height={250}> </svg>)
 	    }else {
 	    	return <h2>Icicle fetching failed.</h2>
 	    }

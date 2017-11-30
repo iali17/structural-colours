@@ -12,7 +12,6 @@ import Icicle from './Icicle';
 import SearchBar from './SearchBar';
 import TitleBar from './TitleBar'
 
-
 import { TABS } from '../constants';
 
 import {
@@ -22,8 +21,9 @@ import {
 } from '../actions/appActions';
 
 import {
-  fetchPicture,
+  fetchPictures,
 } from '../actions/pictureActions';
+
 
 @connect((store) => {
   return {
@@ -46,7 +46,7 @@ export default class App extends Component {
     var that = this;
     Promise.resolve(that.props.dispatch(setCurrentColour(colour)))
     .then(function (response) {
-      that.props.dispatch(fetchPicture(colour))
+      that.props.dispatch(fetchPictures(colour))
       return response;
     })
     .then(function(response){
@@ -74,11 +74,13 @@ export default class App extends Component {
             <Icicle getProfile={this.getProfile}/>
           </Grid>
         </Grid>
-        <Grid container spacing={24}>
-          <Grid item xs={12}>
-            <ColorBar colour={this.props.colour} updateColour={this.updateColour}/>
-            <Container getProfile={this.getProfile}/>
+        <Grid container spacing={0}>
+          <Grid item xs = {1}>
+           <ColorBar colour={this.props.colour} updateColour={this.updateColour}/>
           </Grid>
+            <Grid item xs>
+              <Container getProfile={this.getProfile}/>
+            </Grid>
         </Grid>
       </div>
     );

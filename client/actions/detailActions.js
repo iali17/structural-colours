@@ -31,12 +31,13 @@ export function fetchAuthor(id) {
   }
 }
 
-export function fetchArticle(id) {
+export function fetchArticle([author_id, species_id]) {
   return function(dispatch) {
    dispatch({type: "FETCH_ARTICLE"});
     axios.get(URL_PREFIX + "/api/articles/author/", {
       params: {
-        author: id
+        author: author_id,
+        species: species_id
       }
     })
     .then((response) => {
