@@ -36,6 +36,10 @@ const styles = theme => ({
   linearProgress: {
     clear: "both",
   },
+  setWidth: {
+    width:'150px',
+    height: '150px',
+  },
 });
 
 @connect((store) => {
@@ -65,7 +69,7 @@ class MainView extends Component {
   }
 
   getNextPictures() {
-    if (this.props.pictures.next) {
+    if (this.props.pictures.next && !this.props.fetching) {
       this.props.dispatch(fetchNextPictures(this.props.pictures.next))
     }
   }
@@ -90,10 +94,12 @@ class MainView extends Component {
       return (
         <div>
           <div className={classes.root}>
-            <GridList cellHeight={'auto'} className={classes.gridList} cols = {'auto'} spacing = {0}>
+            <GridList cellHeight={'auto'} className={classes.gridList} cols={'auto'} spacing={0}>
               {this.props.pictures.results.map((picture, index) => (
                 <GridListTile key={index} >
-                  <MainPic pic={picture} getProfile={this.props.getProfile}/>
+                  <div className={classes.setWidth}>
+                    <MainPic pic={picture} getProfile={this.props.getProfile}/>
+                  </div>
                 </GridListTile>
               ))}
             </GridList>
@@ -116,4 +122,5 @@ class MainView extends Component {
     }
   }
 }
+
 export default withStyles(styles)(MainView);
