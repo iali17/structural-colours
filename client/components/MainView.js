@@ -36,6 +36,10 @@ const styles = theme => ({
   linearProgress: {
     clear: "both",
   },
+  setWidth: {
+    width:'150px',
+    height: '150px',
+  },
 });
 
 @connect((store) => {
@@ -93,7 +97,7 @@ class MainView extends Component {
             <GridList cellHeight={'auto'} className={classes.gridList} cols={'auto'} spacing={0}>
               {this.props.pictures.results.map((picture, index) => (
                 <GridListTile key={index} >
-                  <div style={{width:'100px', height: '100px'}}>
+                  <div className={classes.setWidth}>
                     <MainPic pic={picture} getProfile={this.props.getProfile}/>
                   </div>
                 </GridListTile>
