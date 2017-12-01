@@ -5,7 +5,7 @@ import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import { blueGrey, brown } from 'material-ui/colors';
 import WordCloud from './WordCloud';
-
+import {LinearProgress} from 'material-ui/Progress';
 
 
 import {
@@ -18,8 +18,9 @@ import {
 
 const styles = theme => ({
   card: {
-  	backgroundColor: '#f1f1f1',
+  	palette: '#f1f1f1',
     maxWidth: 45,
+    fontfamily: 'Helvetica'
   },
   media: {
     height: 40,
@@ -39,6 +40,8 @@ const styles = theme => ({
     pfetched: store.profileView.fetched
   };
 })
+
+
 /* Main component of this page loads two other components  */
 export default class ProfilePage extends Component {
 	constructor(props) {
@@ -57,6 +60,7 @@ export default class ProfilePage extends Component {
 			var imgURL;
 			var datalist
 			const { classes } = this.props;
+			console.log(classes)
 			var eco = [];
 			var geo = [];
 			var fun = [];
@@ -182,7 +186,7 @@ export default class ProfilePage extends Component {
 			}
 
 			
-			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure + "D",
+			datalist = [info.description, "Wavelength = " + info.wavelength, "Structure = " + info.structure + "D",
 			"Ecosystem: " + eco, "Geography: " + geo, "Mechanism: " + mec,
 			 "Presumable function: " + fun, "Tunable: " + tun, "Invisable Signals: " + inv]
 
@@ -210,10 +214,10 @@ export default class ProfilePage extends Component {
   								<img src = {this.props.detail.sillouette}/>
   								<img src = {this.props.picture.picture}/>
 								</p>
-      					</Typography>
-      				</CardContent>
-      			</Card>
-					<ul style = {{listStyleType: 'none'}}>
+      						</Typography>
+      					</CardContent>
+      				</Card>
+					<ul style = {{listStyleType: 'none'}} font-family = "Arial">
 						<Card className={this.props.card} color="default">
 							<CardContent>
 								 <Typography>
@@ -228,21 +232,23 @@ export default class ProfilePage extends Component {
 		} else if(this.props.dfetched) {
 			return(
 				<div>
-					Fetched detail, waiting on picture.
+					<LinearProgress mode="indeterminate" />
+					
 				</div>
 			);
 		}
     else if (this.props.pfetched) {
 			return (
 				<div>
-					Fetched picture waiting on detail.
+					<LinearProgress mode="indeterminate" />
+					
 				</div>
 			);
 		}
     else {
 			return (
 				<div>
-					{"Fetching name"}
+					<LinearProgress mode="indeterminate" />
 				</div>
 			);
 		}
