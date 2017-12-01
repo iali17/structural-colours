@@ -8,7 +8,7 @@ import Adapter from 'enzyme-adapter-react-15';
 import { createMockStore } from 'redux-test-utils';
 import { createMockDispatch } from 'redux-test-utils';
 import thunk from 'redux-thunk'
-import reducer from '../reducers/profileViewReducer'
+import reducer from '../reducers/landingViewReducer'
 
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -26,19 +26,19 @@ describe('test the reducer for ProfilePage', () => {
         })
     })
 
-    it('should handle FETCH_ONE_PICTURE', () => {
+    it('should handle FETCH_RANDOM_PICTURE', () => {
         expect(
             reducer({}, {
-                type: "FETCH_ONE_PICTURE"
+                type: "FETCH_RANDOM_PICTURE"
             })).to.deep.equal(
         {
             fetching: true,
         })
     })
-    it('should handle FETCH_ONE_PICTURE_REJECTED', () => {
+    it('should handle FETCH_RANDOM_PICTURE_REJECTED', () => {
         expect(
             reducer({}, {
-                type: "FETCH_ONE_PICTURE_REJECTED"
+                type: "FETCH_RANDOM_PICTURE_REJECTED"
             }).fetching).to.deep.equal(false)
     })
 })

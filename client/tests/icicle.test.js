@@ -7,6 +7,7 @@ import Adapter from 'enzyme-adapter-react-15';
 
 import { createMockStore } from 'redux-test-utils';
 import { createMockDispatch } from 'redux-test-utils';
+import reducer from '../reducers/icicleViewReducer'
 
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -33,9 +34,28 @@ describe('<Icicle />', () => {
 		dispatchMock.dispatch(action)
 		//const component = shallowWithStore(<Icicle />, store);
 		//expect(component.contains(<svg />).to.equal(true));
-		console.log(dispatchMock.getAction(), "action", action, "store",store);
 
-		
 		expect(dispatchMock.getAction(action.type)).to.equal(action);
 	})
+});
+
+describe('test the reducer for Icicle', () => {
+    it('should return to intial state', () => {
+        expect(reducer(undefined, {})).to.deep.equal(
+        {
+            taxonomy: {},
+            Tfetching: false,
+            Tfetched: false,
+        })
+    })
+
+    it('should handle FETCH_TAXONOMY', () => {
+        expect(
+            reducer({}, {
+                type: "FETCH_TAXONOMY"
+            })).to.deep.equal(
+        {
+            Tfetching: true,
+        })
+    })
 });

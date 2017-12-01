@@ -89,4 +89,16 @@ describe('test the reducer for WordCloud', () => {
             article_fetching: true,
         })
     })
-})
+    it('should handle FETCH_AUTHOR_REJECTED', () => {
+        expect(
+            reducer({}, {
+                type: "FETCH_AUTHOR_REJECTED"
+            }).fetching).to.deep.equal(false)
+    })
+    it('should handle FETCH_ARTICLE_REJECTED', () => {
+        expect(
+            reducer({}, {
+                type: "FETCH_ARTICLE_REJECTED"
+            }).article_fetching).to.deep.equal(false)
+    })
+});
