@@ -200,10 +200,6 @@ export default class ProfilePage extends Component {
 					</h1>
           			<WordCloud id = {this.props.picture.species}/>
 					<Card className={this.props.card} style = {{width: '550px'}}>
-						<CardMedia>
-							image =  {this.props.detail.sillouette}
-							title = {this.props.detail.common_name}
-						</CardMedia>
 						<CardContent>
 							<Typography type="headline" component="h3">
 								{this.props.detail.family},
@@ -242,7 +238,7 @@ export default class ProfilePage extends Component {
     else {
 			return (
 				<div>
-					<LinearProgress mode="indeterminate" color="primary">
+					<LinearProgress mode="indeterminate" color="primary"/>
 				</div>
 			);
 		}
