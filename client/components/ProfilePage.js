@@ -65,13 +65,13 @@ export default class ProfilePage extends Component {
 			var mec = [];
 			var inv = [];
 			var tun;
-			
+
 
 			const info = this.props.detail
 			var i;
-			
+
 			for (i = 0; i < info.ecosystem.length; i++) {
-				
+
 				switch (info.ecosystem[i]) {
 
 					case "Fo":
@@ -93,11 +93,11 @@ export default class ProfilePage extends Component {
 						eco.push("Marine");
 						break;
 					default:
-						eco = null; 
+						eco = null;
 					}
 			}
 			for (i = 0; i < info.geography.length; i++) {
-				
+
 				switch (info.geography[i]) {
 
 					case "As":
@@ -116,12 +116,12 @@ export default class ProfilePage extends Component {
 						geo.push("Oceania");
 						break;
 					default:
-						eco = null; 
+						eco = null;
 					}
 			}
 
 			for (i = 0; i < info.mechanism.length; i++) {
-				
+
 				switch (info.mechanism[i]) {
 
 					case "I":
@@ -133,13 +133,13 @@ export default class ProfilePage extends Component {
 					case 'D':
 						mec.push("Diffraction");
 						break;
-					
+
 					default:
-						eco = null; 
+						eco = null;
 					}
 			}
 			for (i = 0; i < info.presumable_Functions.length; i++) {
-				
+
 				switch (info.presumable_Functions[i]) {
 
 					case "A":
@@ -154,24 +154,24 @@ export default class ProfilePage extends Component {
 					case 'O':
 						fun.push("Other");
 						break;
-					
+
 					default:
-						eco = null; 
+						eco = null;
 					}
 			}
 
 			for (i = 0; i < info.invisable_Signals.length; i++) {
-				
+
 				switch (info.invisable_Signals[i]) {
 
-					case "I": 
+					case "I":
 						inv.push("Infrared");
 						break;
 					case 'U':
 						inv.push("Ultraviolet");
 						break;
 					default:
-						eco = null; 
+						eco = null;
 					}
 			}
 
@@ -183,70 +183,62 @@ export default class ProfilePage extends Component {
 				tun = ""
 			}
 
-			
+
 			datalist = [info.description, "Wavelength = " + info.wavelength, "Structure = " + info.structure + "D",
 			"Ecosystem: " + eco, "Geography: " + geo, "Mechanism: " + mec,
-			 "Presumable function: " + fun, "Tunable: " + tun, "Invisable Signals: " + inv]
+			"Presumable function: " + fun, "Tunable: " + tun, "Invisable Signals: " + inv]
 
 			var data = datalist.map(function(data,index) {
 				return (<li key={index}>{data}</li>);
 			});
 
 			return (
-				<div style = {{fontFamily: "Arial"}}>
+				<div style = {{fontFamily: "Arial",}}>
 					<center>
 					<h1>
 					{this.props.detail.common_name}
 					</h1>
-                    <WordCloud id = {this.props.picture.species}/>
-
-					<Card className={this.props.card} style = {{backgroundColor: "#A9A9A9", width: '550px'}}>
-						<CardMedia
-							image =  {this.props.detail.sillouette}
-							title = {this.props.detail.common_name}
-							/>
+          			<WordCloud id = {this.props.picture.species}/>
+					<Card className={this.props.card} style = {{width: '550px'}}>
 						<CardContent>
 							<Typography type="headline" component="h3">
 								{this.props.detail.family},
 								{this.props.detail.species}
-								<p>
-  								<img src = {this.props.detail.sillouette}/>
-  								<img src = {this.props.picture.picture}/>
-								</p>
-      						</Typography>
-      					</CardContent>
-						<ul style = {{listStyleType: 'none'}}>
+      				</Typography>
+              <p>
+                <img src = {this.props.detail.sillouette}/>
+                <img src = {this.props.picture.picture}/>
+              </p>
+      			</CardContent>
+						<ul style = {{listStyleType: 'none', fontSize: "Larger"}} >
 							<CardContent>
 								 <Typography>
-										{data}
+									{data}
 								</Typography>
 	        				</CardContent>
 	        			</ul>
 	        		</Card>
-        			
 					</center>
 				</div>
 			)
 		} else if(this.props.dfetched) {
 			return(
 				<div>
-					<LinearProgress mode="indeterminate" />
-					
+					<LinearProgress mode="indeterminate" color="primary"/>
 				</div>
 			);
 		}
     else if (this.props.pfetched) {
 			return (
 				<div>
-					<LinearProgress mode="indeterminate" />
-					
+					<LinearProgress mode="indeterminate" color="primary"/>
 				</div>
 			);
 		}
     else {
 			return (
 				<div>
-					<LinearProgress mode="indeterminate" />
+					<LinearProgress mode="indeterminate" color="primary"/>
 				</div>
 			);
 		}

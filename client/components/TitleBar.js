@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 
+import Button from 'material-ui/Button';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 
@@ -20,14 +21,17 @@ const styles = theme => ({
   appBar: {
     backgroundColor: '#f1f1f1',
   },
+  button: {
+    marginTop: '15px',
+  },
+  title: {
+    flex: '1',
+  },
 });
 
 
 @connect((store) => {
-
 })
-
-
 class TitleBar extends Component {
   constructor(props) {
     super(props);
@@ -43,9 +47,12 @@ class TitleBar extends Component {
     return (
       <div className={classes.root}>
         <AppBar className={classes.appBar} position="static" color="default" >
-          <Toolbar onClick = {this.resetIcicle.bind(this)}> 
-            <h1 style={{flex: 1}}>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
+          <Toolbar>
+            <h1 className={classes.title} onClick = {this.resetIcicle.bind(this)}>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
             <SearchBar/>
+            <Button disabled className={classes.button}>
+              Edit/Contribute
+            </Button>
           </Toolbar>
         </AppBar>
       </div>

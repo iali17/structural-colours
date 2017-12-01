@@ -29,6 +29,7 @@ const styles = theme => ({
   gridList: {
     width: '100%',
     height: '100%',
+    backgroundColor: '#ececec',
   },
   subheader: {
     width: '100%',
@@ -94,7 +95,7 @@ class MainView extends Component {
       return (
         <div>
           <div className={classes.root}>
-            <GridList cellHeight={'auto'} className={classes.gridList} cols={'auto'} spacing={0}>
+            <GridList cellHeight={'auto'} className={classes.gridList} cols={'auto'} spacing={2}>
               {this.props.pictures.results.map((picture, index) => (
                 <GridListTile key={index} >
                   <div className={classes.setWidth}>
