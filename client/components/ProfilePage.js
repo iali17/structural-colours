@@ -186,14 +186,14 @@ export default class ProfilePage extends Component {
 			
 			datalist = [info.description, "Wavelength = " + info.wavelength, "Structure = " + info.structure + "D",
 			"Ecosystem: " + eco, "Geography: " + geo, "Mechanism: " + mec,
-			 "Presumable function: " + fun, "Tunable: " + tun, "Invisable Signals: " + inv]
+			"Presumable function: " + fun, "Tunable: " + tun, "Invisable Signals: " + inv]
 
 			var data = datalist.map(function(data,index) {
 				return (<li key={index}>{data}</li>);
 			});
 
 			return (
-				<div style = {{fontFamily: "Arial",}}>
+				<div style = {{fontFamily: "Myriad",}}>
 					<center>
 					<h1>
 					{this.props.detail.common_name}
@@ -204,7 +204,7 @@ export default class ProfilePage extends Component {
 						<CardMedia
 							image =  {this.props.detail.sillouette}
 							title = {this.props.detail.common_name}
-							/>
+						/>
 						<CardContent>
 							<Typography type="headline" component="h3">
 								{this.props.detail.family},
@@ -215,15 +215,14 @@ export default class ProfilePage extends Component {
 								</p>
       						</Typography>
       					</CardContent>
-						<ul style = {{listStyleType: 'none', fontSize: "Large"}}>
+						<ul style = {{listStyleType: 'none', fontSize: "Larger"}} >
 							<CardContent>
-								 <Typography>
+								 	<Typography>
 										{data}
-								</Typography>
+									</Typography>
 	        				</CardContent>
 	        			</ul>
 	        		</Card>
-        			
 					</center>
 				</div>
 			)
