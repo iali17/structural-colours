@@ -121,17 +121,3 @@ describe('icicle', () => {
    		expect(wrapper).to.be.a('object');
 	})
 })
-
-// describe('icicle dispatch', () => {
-// 	it('fetchtax', () => {
-// 		const state = 'state';
-	    
-<<<<<<< HEAD
-	})
-})
-=======
-// 	})
-// })
-
-
->>>>>>> 7970c2c47efb2bc4af612c468f14901c9c65b914

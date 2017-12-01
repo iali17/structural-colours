@@ -6,8 +6,9 @@ import MainPic from '../components/MainPic.js'
 
 describe('<MainPic />', () => {
 	it('Should have an img component', () => {
-		const fakeID = sinon.spy();
-		const wrapper = shallow(<MainPic pic = {fakeID}/>);
+		const fakeId = sinon.spy();
+		const wrapper = shallow(<MainPic id={fakeId} />);
+		console.log(fakeId)
 		expect(wrapper.find("img")).to.have.length(1);
 	})
 })
