@@ -103,74 +103,80 @@ export default class WordCloud extends Component {
     }
 
     render(){
-        // Compile the list of authors. Each article the author has on the species adds 1 to its weight (thus increasing its size in the wordcloud)
-        var data=[]
-        var authors=[]
-        var counts=[]
-        if (this.props.fetched){
-            const info = this.props.author
-            for (var i = 0; i < info.length; i++) {
-                var author_list = info[i].author
-                for (var j = 0; j < author_list.length; j++){
-                    var name = author_list[j].name;
-                    var loc = authors.indexOf(name);
-                    if (loc != -1){
-                        counts[loc] = counts[loc] + 1
-                    } else {
-                        counts.push(1)
-                        authors.push(author_list[j].name);
+        if (this.props.fetching) {
+            return <LinearProgress color="primary" />
+        } else if (this.props.fetched){
+            // Compile the list of authors. Each article the author has on the species adds 1 to its weight (thus increasing its size in the wordcloud)
+            var data=[]
+            var authors=[]
+            var counts=[]
+            if (this.props.fetched){
+                const info = this.props.author
+                for (var i = 0; i < info.length; i++) {
+                    var author_list = info[i].author
+                    for (var j = 0; j < author_list.length; j++){
+                        var name = author_list[j].name;
+                        var loc = authors.indexOf(name);
+                        if (loc != -1){
+                            counts[loc] = counts[loc] + 1
+                        } else {
+                            counts.push(1)
+                            authors.push(author_list[j].name);
+                        }
                     }
                 }
+                for (var k = 0; k < authors.length; k++){
+                    data.push({value: authors[k], count: (counts[k])});
+                }
             }
-            for (var k = 0; k < authors.length; k++){
-                data.push({value: authors[k], count: (counts[k])});
-            }
-        }
 
-        // Get the article(s) for the clicked author
-        if (this.props.article_fetched){
-            this.state.articles = this.props.article;
-            this.state.dialogTitle = this.state.articles[this.state.index].title;
-            this.state.dialogAbstract = this.state.articles[this.state.index].abstract;
-            this.state.dialogDetail = this.state.articles[this.state.index].detail;
-            if (this.state.index < this.state.articles.length-1){
-                this.state.next = true;
-            } else {
-                this.state.next = false;
+            // Get the article(s) for the clicked author
+            if (this.props.article_fetched){
+                this.state.articles = this.props.article;
+                this.state.dialogTitle = this.state.articles[this.state.index].title;
+                this.state.dialogAbstract = this.state.articles[this.state.index].abstract;
+                this.state.dialogDetail = this.state.articles[this.state.index].detail;
+                if (this.state.index < this.state.articles.length-1){
+                    this.state.next = true;
+                } else {
+                    this.state.next = false;
+                }
             }
-        }
 
-        return(
-            <div>
-                <TagCloud
-                    minSize={15}
-                    maxSize={35}
-                    tags={data}
-                    onClick={tag => this.handleClickButton(tag)} />
-                <Dialog
-                    open={this.state.open}
-                    transition={this.transition}
-                    keepMounted
-                    onRequestClose={this.handleRequestClose}
-                >
-                    <DialogTitle>{this.state.dialogTitle}</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            {this.state.dialogAbstract}
-                            <hr/>
-                            {this.state.dialogDetail}
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.handleRequestClose} color="primary">
-                            OK
-                        </Button>
-                        <Button onClick={this.handleNext} disabled={!this.state.next} color="primary">
-                            Next Article
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-            </div>
-        );
+            return(
+                <div>
+                    <TagCloud
+                        minSize={15}
+                        maxSize={35}
+                        tags={data}
+                        onClick={tag => this.handleClickButton(tag)} />
+                    <Dialog
+                        open={this.state.open}
+                        transition={this.transition}
+                        keepMounted
+                        onRequestClose={this.handleRequestClose}
+                    >
+                        <DialogTitle>{this.state.dialogTitle}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                {this.state.dialogAbstract}
+                                <hr/>
+                                {this.state.dialogDetail}
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.handleRequestClose} color="primary">
+                                OK
+                            </Button>
+                            <Button onClick={this.handleNext} disabled={!this.state.next} color="primary">
+                                Next Article
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                </div>
+            );
+        } else {
+            return <h2> WordCloud failed to load </h2>
+        }
     }
 }
