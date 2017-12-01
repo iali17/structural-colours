@@ -365,7 +365,12 @@ export default class Icicle extends Component {
 	      	.attr("height", function(d) { return d.y1 - d.y0; })
 	     	.style("cursor", "pointer")
 	     	.text(function(d) { 
-	     		if((11 * d.data.key.length) >= (d.x1 - d.x0)){
+	     		if (d.depth > 3) {
+	     			return ""
+	     		}
+
+	     		if((11 * d.data.key.length) >= (d.x1 - d.x0)) {
+
 	     			var upTo = Math.ceil(((11* d.data.key.length) - (d.x1 - d.x0)) / 11);
 	     			upTo = d.data.key.length - upTo;
 	     		 	return d.data.key.slice(0, upTo) + "...";
@@ -453,9 +458,12 @@ export default class Icicle extends Component {
       			.attr("width", function(d) { return x(d.x1) - x(d.x0); })
       			.attr("height", function(d) { return y(d.y1) - y(d.y0);})
       			.text(function(d) { 
-      				if (clickedDep > d.depth) {
+      				if (clickedDep > d.depth ) {
       					return ""
       				}
+      				if (d.depth > 3 && clickedDep < 2) {
+	     				return ""
+	     			}
 		     		var dataX = Math.ceil(x(d.x1) - x(d.x0))
 		     		if((11 * d.data.key.length) >= dataX){
 		     			var upTo = Math.ceil(((11* d.data.key.length) - dataX) / 11);
