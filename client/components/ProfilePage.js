@@ -186,24 +186,20 @@ export default class ProfilePage extends Component {
 
 			datalist = [info.description, "Wavelength = " + info.wavelength, "Structure = " + info.structure + "D",
 			"Ecosystem: " + eco, "Geography: " + geo, "Mechanism: " + mec,
-			 "Presumable function: " + fun, "Tunable: " + tun, "Invisable Signals: " + inv]
+			"Presumable function: " + fun, "Tunable: " + tun, "Invisable Signals: " + inv]
 
 			var data = datalist.map(function(data,index) {
 				return (<li key={index}>{data}</li>);
 			});
 
 			return (
-				<div style = {{fontFamily: "Arial"}}>
+				<div style = {{fontFamily: "Arial",}}>
 					<center>
 					<h1>
 					{this.props.detail.common_name}
 					</h1>
-          <WordCloud id = {this.props.picture.species}/>
+          			<WordCloud id = {this.props.picture.species}/>
 					<Card className={this.props.card} style = {{width: '550px'}}>
-						<CardMedia
-  						image =  {this.props.detail.sillouette}
-  						title = {this.props.detail.common_name}
-						/>
 						<CardContent>
 							<Typography type="headline" component="h3">
 								{this.props.detail.family},
@@ -217,33 +213,32 @@ export default class ProfilePage extends Component {
 						<ul style = {{listStyleType: 'none', fontSize: "Larger"}} >
 							<CardContent>
 								 <Typography>
-										{data}
+									{data}
 								</Typography>
 	        				</CardContent>
 	        			</ul>
 	        		</Card>
-
 					</center>
 				</div>
 			)
 		} else if(this.props.dfetched) {
 			return(
 				<div>
-					<LinearProgress mode="indeterminate" />
+					<LinearProgress mode="indeterminate" color="primary"/>
 				</div>
 			);
 		}
     else if (this.props.pfetched) {
 			return (
 				<div>
-					<LinearProgress mode="indeterminate" />
+					<LinearProgress mode="indeterminate" color="primary"/>
 				</div>
 			);
 		}
     else {
 			return (
 				<div>
-					<LinearProgress mode="indeterminate" />
+					<LinearProgress mode="indeterminate" color="primary"/>
 				</div>
 			);
 		}
