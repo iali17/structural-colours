@@ -17,7 +17,7 @@ const styles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    background: theme.palette.background.paper,
+    backgroundColor: '#ececec',
   },
 });
 
@@ -59,7 +59,7 @@ class LandingView extends Component {
     }
     else {
       return (
-        <h1>NO PICTURES :(</h1>
+        <div></div>
       )
     }
   }

@@ -39,6 +39,7 @@ export default class App extends Component {
     // Override base syles on body
   componentDidMount() {
     document.body.style.margin = 0;
+    document.body.style.background = "#ECECEC";
   }
 
   updateColour(colour) {
@@ -66,13 +67,13 @@ export default class App extends Component {
   render() {
     return (
       <div style={{overflowX:'hidden'}}>
-        <Grid container spacing={0} style = {{backgroundColor: "#ECECEC"}}>
+        <Grid container spacing={0}>
           <Grid item xs={12}>
             <TitleBar />
             <Icicle getProfile={this.getProfile}/>
           </Grid>
         </Grid>
-        <Grid container spacing={0} style = {{backgroundColor: "#ECECEC"}}>
+        <Grid container spacing={0}>
           <Grid item xs = {1}>
            <ColorBar colour={this.props.colour} updateColour={this.updateColour}/>
           </Grid>

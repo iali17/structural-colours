@@ -65,13 +65,13 @@ export default class ProfilePage extends Component {
 			var mec = [];
 			var inv = [];
 			var tun;
-			
+
 
 			const info = this.props.detail
 			var i;
-			
+
 			for (i = 0; i < info.ecosystem.length; i++) {
-				
+
 				switch (info.ecosystem[i]) {
 
 					case "Fo":
@@ -93,11 +93,11 @@ export default class ProfilePage extends Component {
 						eco.push("Marine");
 						break;
 					default:
-						eco = null; 
+						eco = null;
 					}
 			}
 			for (i = 0; i < info.geography.length; i++) {
-				
+
 				switch (info.geography[i]) {
 
 					case "As":
@@ -116,12 +116,12 @@ export default class ProfilePage extends Component {
 						geo.push("Oceania");
 						break;
 					default:
-						eco = null; 
+						eco = null;
 					}
 			}
 
 			for (i = 0; i < info.mechanism.length; i++) {
-				
+
 				switch (info.mechanism[i]) {
 
 					case "I":
@@ -133,13 +133,13 @@ export default class ProfilePage extends Component {
 					case 'D':
 						mec.push("Diffraction");
 						break;
-					
+
 					default:
-						eco = null; 
+						eco = null;
 					}
 			}
 			for (i = 0; i < info.presumable_Functions.length; i++) {
-				
+
 				switch (info.presumable_Functions[i]) {
 
 					case "A":
@@ -154,24 +154,24 @@ export default class ProfilePage extends Component {
 					case 'O':
 						fun.push("Other");
 						break;
-					
+
 					default:
-						eco = null; 
+						eco = null;
 					}
 			}
 
 			for (i = 0; i < info.invisable_Signals.length; i++) {
-				
+
 				switch (info.invisable_Signals[i]) {
 
-					case "I": 
+					case "I":
 						inv.push("Infrared");
 						break;
 					case 'U':
 						inv.push("Ultraviolet");
 						break;
 					default:
-						eco = null; 
+						eco = null;
 					}
 			}
 
@@ -183,7 +183,7 @@ export default class ProfilePage extends Component {
 				tun = ""
 			}
 
-			
+
 			datalist = [info.description, "Wavelength = " + info.wavelength, "Structure = " + info.structure + "D",
 			"Ecosystem: " + eco, "Geography: " + geo, "Mechanism: " + mec,
 			 "Presumable function: " + fun, "Tunable: " + tun, "Invisable Signals: " + inv]
@@ -198,13 +198,12 @@ export default class ProfilePage extends Component {
 					<h1>
 					{this.props.detail.common_name}
 					</h1>
-                    <WordCloud id = {this.props.picture.species}/>
-
-					<Card className={this.props.card} style = {{backgroundColor: "#A9A9A9", width: '550px'}}>
+          <WordCloud id = {this.props.picture.species}/>
+					<Card className={this.props.card} style = {{width: '550px'}}>
 						<CardMedia
-							image =  {this.props.detail.sillouette}
-							title = {this.props.detail.common_name}
-							/>
+  						image =  {this.props.detail.sillouette}
+  						title = {this.props.detail.common_name}
+						/>
 						<CardContent>
 							<Typography type="headline" component="h3">
 								{this.props.detail.family},
@@ -223,7 +222,7 @@ export default class ProfilePage extends Component {
 	        				</CardContent>
 	        			</ul>
 	        		</Card>
-        			
+
 					</center>
 				</div>
 			)
@@ -231,7 +230,6 @@ export default class ProfilePage extends Component {
 			return(
 				<div>
 					<LinearProgress mode="indeterminate" />
-					
 				</div>
 			);
 		}
@@ -239,7 +237,6 @@ export default class ProfilePage extends Component {
 			return (
 				<div>
 					<LinearProgress mode="indeterminate" />
-					
 				</div>
 			);
 		}

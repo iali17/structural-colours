@@ -29,6 +29,7 @@ const styles = theme => ({
   gridList: {
     width: '100%',
     height: '100%',
+    backgroundColor: '#ececec',
   },
   subheader: {
     width: '100%',
