@@ -153,16 +153,16 @@ export default class Icicle extends Component {
 
 				if(this.state.info[i].kingdom == "Ve"){
 					if (!this.state.json.Kingdom.Animals.Vertebrates[tempPhylum]){
-						this.state.json.Kingdom.Animals.Vertabretes[tempPhylum] = {};
+						this.state.json.Kingdom.Animals.Vertebrates[tempPhylum] = {};
 					}
 					if (!this.state.json.Kingdom.Animals.Vertebrates[tempPhylum][tempClass]){
-						this.state.json.Kingdom.Animals.Vertabretes[tempPhylum][tempClass]= {}
+						this.state.json.Kingdom.Animals.Vertebrates[tempPhylum][tempClass]= {}
 					}
 					if (!this.state.json.Kingdom.Animals.Vertebrates[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Kingdom.Animals.Vertabretes[tempPhylum][tempClass][tempOrder]= {}
+						this.state.json.Kingdom.Animals.Vertebrates[tempPhylum][tempClass][tempOrder]= {}
 					}
 					if (!this.state.json.Kingdom.Animals.Vertebrates[tempPhylum][tempClass][tempOrder][tempFamily]){
-						this.state.json.Kingdom.Animals.Vertabretes[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+						this.state.json.Kingdom.Animals.Vertebrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
 					}
 					if (!this.state.json.Kingdom.Animals.Vertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
 						this.state.json.Kingdom.Animals.Vertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
