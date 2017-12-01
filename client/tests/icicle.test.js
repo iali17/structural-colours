@@ -14,6 +14,7 @@ import { fetchTax, } from '../actions/taxonomyActions'
 import reducer from '../reducers/icicleViewReducer'
 import promise from 'redux-promise-middleware';
 import { applyMiddleware } from 'redux';
+import reducer from '../reducers/icicleViewReducer'
 
 
 Enzyme.configure({ adapter: new Adapter() });
