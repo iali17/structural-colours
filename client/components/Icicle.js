@@ -42,7 +42,7 @@ export default class Icicle extends Component {
 		this.state = {phylum: false, family: false, order: false, species: false, building: true,
 					 vertabrates: null, invertebrates: null, info: null,
 					 json: {
-					 	Taxonomy:{
+					 	Kingdom:{
 					 		Animals:{
 					 			Vertabrates:{},
 					 			Invertebrates:{}
@@ -152,100 +152,100 @@ export default class Icicle extends Component {
 				var tempSpeciesId = this.state.info[i].speciesId;
 
 				if(this.state.info[i].kingdom == "Ve"){
-					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum]){
-						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum] = {};
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum] = {};
 					}
-					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass]){
-						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass]= {}
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass]= {}
 					}
-					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]= {}
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]= {}
 					}
-					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]){
-						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
 					}
-					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
-						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
 					}
 				} else if(this.state.info[i].kingdom == "In"){
-					if (!this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum]){
-						this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum] = {};
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum] = {};
 					}
-					if (!this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass]){
-						this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass]= {}
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass]= {}
 					}
-					if (!this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass][tempOrder]= {}
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder]= {}
 					}
-					if (!this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily]){
-						this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
 					}
-					if (!this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
-						this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
 					}
 				} else if (this.state.info[i].kingdom == "Eu"){
-					if (!this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum]){
-						this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum] = {};
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum] = {};
 					}
-					if (!this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass]){
-						this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass]= {}
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass]= {}
 					}
-					if (!this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder]= {}
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder]= {}
 					}
-					if (!this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily]){
-						this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily]= {}
 					}
-					if (!this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
-						this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					if (!this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
 					}
 				} else if (this.state.info[i].kingdom == "Ar"){
-					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum]){
-						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum] = {};
+					if (!this.state.json.Kingdom.Bacteria.Archaebacteria[tempPhylum]){
+						this.state.json.Kingdom.Bacteria.Archaebacteria[tempPhylum] = {};
 					}
-					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass]){
-						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass]= {}
+					if (!this.state.json.Kingdom.Bacteria.Archaebacteria[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Bacteria.Archaebacteria[tempPhylum][tempClass]= {}
 					}
-					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder]= {}
+					if (!this.state.json.Kingdom.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder]= {}
 					}
-					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily]){
-						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					if (!this.state.json.Kingdom.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily]= {}
 					}
-					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
-						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					if (!this.state.json.Kingdom.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
 					}
 				} else if (this.state.info[i].kingdom == "Pl") {
-					if (!this.state.json.Taxonomy.Plants[tempPhylum]){
-						this.state.json.Taxonomy.Plants[tempPhylum] = {};
+					if (!this.state.json.Kingdom.Plants[tempPhylum]){
+						this.state.json.Kingdom.Plants[tempPhylum] = {};
 					}
-					if (!this.state.json.Taxonomy.Plants[tempPhylum][tempClass]){
-						this.state.json.Taxonomy.Plants[tempPhylum][tempClass]= {}
+					if (!this.state.json.Kingdom.Plants[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Plants[tempPhylum][tempClass]= {}
 					}
-					if (!this.state.json.Taxonomy.Plants[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Taxonomy.Plants[tempPhylum][tempClass][tempOrder]= {}
+					if (!this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder]= {}
 					}
-					if (!this.state.json.Taxonomy.Plants[tempPhylum][tempClass][tempOrder][tempFamily]){
-						this.state.json.Taxonomy.Plants[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					if (!this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder][tempFamily]= {}
 					}
-					if (!this.state.json.Taxonomy.Plants[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
-						this.state.json.Taxonomy.Plants[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					if (!this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Plants[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
 					}
 				} else if (this.state.info[i].kingdom == "Fu") {
-					if (!this.state.json.Taxonomy.Fungi[tempPhylum]){
-						this.state.json.Taxonomy.Fungi[tempPhylum] = {};
+					if (!this.state.json.Kingdom.Fungi[tempPhylum]){
+						this.state.json.Kingdom.Fungi[tempPhylum] = {};
 					}
-					if (!this.state.json.Taxonomy.Fungi[tempPhylum][tempClass]){
-						this.state.json.Taxonomy.Fungi[tempPhylum][tempClass]= {}
+					if (!this.state.json.Kingdom.Fungi[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Fungi[tempPhylum][tempClass]= {}
 					}
-					if (!this.state.json.Taxonomy.Fungi[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Taxonomy.Fungi[tempPhylum][tempClass][tempOrder]= {}
+					if (!this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder]= {}
 					}
-					if (!this.state.json.Taxonomy.Fungi[tempPhylum][tempClass][tempOrder][tempFamily]){
-						this.state.json.Taxonomy.Fungi[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					if (!this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder][tempFamily]= {}
 					}
-					if (!this.state.json.Taxonomy.Fungi[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
-						this.state.json.Taxonomy.Fungi[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					if (!this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Fungi[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
 					}
 				}
 			}
@@ -487,7 +487,7 @@ export default class Icicle extends Component {
 
 	render(){
 		if (this.props.Tfetching) {
-	      	return <LinearProgress color="primary" />
+	      	return <LinearProgress color="primary" mode="indeterminate"/>
 	    } else if (this.props.Tfetched) {
 	      	return( <svg ref={node => this.node = node}
 	    			width={this.state.windowWidth} height={250}> </svg>)

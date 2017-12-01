@@ -11,3 +11,4 @@ package-lock.json
 server/StructuralColour/webpack-stats-prod.json
 server/api/templates/index.html
 webpack.config.js
+npm-debug.log
