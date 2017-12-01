@@ -193,7 +193,7 @@ export default class ProfilePage extends Component {
 			});
 
 			return (
-				<div style = {{fontFamily: "Myriad",}}>
+				<div style = {{fontFamily: "Arial",}}>
 					<center>
 					<h1>
 					{this.props.detail.common_name}
@@ -210,7 +210,7 @@ export default class ProfilePage extends Component {
 								</p>
       						</Typography>
       					</CardContent>
-						<ul style = {{listStyleType: 'none', fontSize: "Larger"}} >
+						<ul style = {{listStyleType: 'none', textAlign:'Left'}} >
 							<CardContent>
 								 <Typography>
 									{data}
