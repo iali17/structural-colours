@@ -44,7 +44,7 @@ export default class Icicle extends Component {
 					 json: {
 					 	Kingdom:{
 					 		Animals:{
-					 			Vertabrates:{},
+					 			Vertebrates:{},
 					 			Invertebrates:{}
 					 		},
 					 		Bacteria:{
@@ -152,20 +152,20 @@ export default class Icicle extends Component {
 				var tempSpeciesId = this.state.info[i].speciesId;
 
 				if(this.state.info[i].kingdom == "Ve"){
-					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum]){
-						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum] = {};
+					if (!this.state.json.Kingdom.Animals.Vertebrates[tempPhylum]){
+						this.state.json.Kingdom.Animals.Vertabretes[tempPhylum] = {};
 					}
-					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass]){
-						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass]= {}
+					if (!this.state.json.Kingdom.Animals.Vertebrates[tempPhylum][tempClass]){
+						this.state.json.Kingdom.Animals.Vertabretes[tempPhylum][tempClass]= {}
 					}
-					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]= {}
+					if (!this.state.json.Kingdom.Animals.Vertebrates[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Kingdom.Animals.Vertabretes[tempPhylum][tempClass][tempOrder]= {}
 					}
-					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]){
-						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					if (!this.state.json.Kingdom.Animals.Vertebrates[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Kingdom.Animals.Vertabretes[tempPhylum][tempClass][tempOrder][tempFamily]= {}
 					}
-					if (!this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
-						this.state.json.Kingdom.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					if (!this.state.json.Kingdom.Animals.Vertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Kingdom.Animals.Vertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
 					}
 				} else if(this.state.info[i].kingdom == "In"){
 					if (!this.state.json.Kingdom.Animals.Invertebrates[tempPhylum]){
