@@ -21,6 +21,12 @@ const styles = theme => ({
   appBar: {
     backgroundColor: '#f1f1f1',
   },
+  button: {
+    marginTop: '15px',
+  },
+  title: {
+    flex: '1',
+  },
 });
 
 
@@ -42,9 +48,9 @@ class TitleBar extends Component {
       <div className={classes.root}>
         <AppBar className={classes.appBar} position="static" color="default" >
           <Toolbar>
-            <h1 style={{flex: 1}} onClick = {this.resetIcicle.bind(this)}>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
+            <h1 className={classes.title} onClick = {this.resetIcicle.bind(this)}>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
             <SearchBar/>
-            <Button disabled className={classes.Button}>
+            <Button disabled className={classes.button}>
               Edit/Contribute
             </Button>
           </Toolbar>
