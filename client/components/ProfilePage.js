@@ -193,14 +193,14 @@ export default class ProfilePage extends Component {
 			});
 
 			return (
-				<div>
+				<div style = {{fontFamily: "Arial"}}>
 					<center>
 					<h1>
 					{this.props.detail.common_name}
 					</h1>
                     <WordCloud id = {this.props.picture.species}/>
 
-					<Card className={this.props.card} color="default">
+					<Card className={this.props.card} style = {{backgroundColor: "#A9A9A9"}}>
 						<CardMedia
 							image =  {this.props.detail.sillouette}
 							title = {this.props.detail.common_name}
@@ -215,16 +215,15 @@ export default class ProfilePage extends Component {
 								</p>
       						</Typography>
       					</CardContent>
-      				</Card>
-					<ul style = {{listStyleType: 'none'}} font-family = "Arial">
-						<Card className={this.props.card} color="default">
+						<ul style = {{listStyleType: 'none'}}>
 							<CardContent>
 								 <Typography>
 										{data}
 								</Typography>
 	        				</CardContent>
-	        			</Card>
-        			</ul>
+	        			</ul>
+	        		</Card>
+        			
 					</center>
 				</div>
 			)
