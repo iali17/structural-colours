@@ -39,11 +39,11 @@ export default class Icicle extends Component {
 		super(props);
 		this.createIcicle = this.createIcicle.bind(this)
 		this.state = {phylum: false, family: false, order: false, species: false, building: true,
-					 vertabrates: null, invertebrates: null, info: null, 
+					 Vertebrates: null, invertebrates: null, info: null, 
 					 json: {
 					 	Taxonomy:{
 					 		Animals:{
-					 			Vertabrates:{},
+					 			Vertebrates:{},
 					 			Invertebrates:{}
 					 		},
 					 		Bacteria:{
@@ -152,20 +152,20 @@ export default class Icicle extends Component {
 				var tempSpeciesId = this.state.info[i].speciesId;
 				
 				if(this.state.info[i].kingdom == "Ve"){
-					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum]){
-						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum] = {};
+					if (!this.state.json.Taxonomy.Animals.Vertebrates[tempPhylum]){
+						this.state.json.Taxonomy.Animals.Vertebrates[tempPhylum] = {};
 					}
-					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass]){
-						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass]= {} 
+					if (!this.state.json.Taxonomy.Animals.Vertebrates[tempPhylum][tempClass]){
+						this.state.json.Taxonomy.Animals.Vertebrates[tempPhylum][tempClass]= {} 
 					}					
-					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]= {} 
+					if (!this.state.json.Taxonomy.Animals.Vertebrates[tempPhylum][tempClass][tempOrder]){
+						this.state.json.Taxonomy.Animals.Vertebrates[tempPhylum][tempClass][tempOrder]= {} 
 					}
-					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]){
-						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
+					if (!this.state.json.Taxonomy.Animals.Vertebrates[tempPhylum][tempClass][tempOrder][tempFamily]){
+						this.state.json.Taxonomy.Animals.Vertebrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
 					}
-					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
-						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
+					if (!this.state.json.Taxonomy.Animals.Vertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies]){
+						this.state.json.Taxonomy.Animals.Vertebrates[tempPhylum][tempClass][tempOrder][tempFamily][tempSpecies] = tempSpeciesId;
 					}
 				} else if(this.state.info[i].kingdom == "In"){
 					if (!this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum]){
