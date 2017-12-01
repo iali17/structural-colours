@@ -249,8 +249,7 @@ export default class Icicle extends Component {
 				}
 			}
 			this.state.building = false;
-		}
-
+		} 
 		var colorLum = this.colorLuminance.bind(this);
 
 		var x = d3.scaleLinear().range([0, this.state.windowWidth]);
