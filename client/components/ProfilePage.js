@@ -208,13 +208,13 @@ export default class ProfilePage extends Component {
 							<Typography type="headline" component="h3">
 								{this.props.detail.family},
 								{this.props.detail.species}
-								<p>
-  								<img src = {this.props.detail.sillouette}/>
-  								<img src = {this.props.picture.picture}/>
-								</p>
-      						</Typography>
-      					</CardContent>
-						<ul style = {{listStyleType: 'none'}}>
+      				</Typography>
+              <p>
+                <img src = {this.props.detail.sillouette}/>
+                <img src = {this.props.picture.picture}/>
+              </p>
+      			</CardContent>
+						<ul style = {{listStyleType: 'none', fontSize: "Larger"}} >
 							<CardContent>
 								 <Typography>
 										{data}
