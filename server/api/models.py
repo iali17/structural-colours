@@ -32,6 +32,8 @@ class SpeciesClass(models.Model):
     speciesClass = models.CharField(max_length=50, primary_key=True, default='Unknown')
     phylum = models.ForeignKey(Phylum)
 
+    class Meta:
+        verbose_name_plural="Classes"
     def __str__(self):
         return self.speciesClass
 
@@ -50,6 +52,8 @@ class Family(models.Model):
     family = models.CharField(max_length=50, primary_key=True)
     order = models.ForeignKey(Order)
 
+    class Meta:
+        verbose_name_plural="Families"
     def __str__(self):
         return self.family
 
@@ -121,7 +125,8 @@ class Species(models.Model):
     geography = MultiSelectField(choices=GEOGRAPHY, blank=True)
     ecosystem = MultiSelectField(choices=ECOSYSTEM, blank=True)
 
-
+    class Meta:
+        verbose_name_plural="Species"
     def __str__(self):
         return str(self.speciesId) + ' ' + self.common_name
 
@@ -140,6 +145,8 @@ class LandingPicture(models.Model):
     picture = models.ImageField(upload_to='landingPictures/', blank=True)
     species = models.ForeignKey(Species)
 
+    class Meta:
+        verbose_name_plural="Landing Pictures"
     def __str__(self):
         return self.species.common_name
 

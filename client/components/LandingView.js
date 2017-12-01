@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import { GridList, GridListTile } from 'material-ui/GridList';
 
-import MainPic from './MainPic';
+import LandingPic from './LandingPic';
 
 import {
   fetchRandomPicture,
@@ -53,7 +53,7 @@ class LandingView extends Component {
     if (this.props.fetched) {
       return (
         <div className={classes.root}>
-          <MainPic pic={this.props.picture} getProfile={this.props.getProfile}/>
+          <LandingPic pic={this.props.picture} getProfile={this.props.getProfile}/>
         </div>
       );
     }

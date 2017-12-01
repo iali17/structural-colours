@@ -6,6 +6,7 @@ import { expect } from 'chai';
 import { spy } from 'sinon';
 import Icicle from '../components/Icicle.js';
 import Adapter from 'enzyme-adapter-react-15';
+
 import { createMockStore } from 'redux-test-utils';
 import { createMockDispatch } from 'redux-test-utils';
 import thunk from 'redux-thunk'
