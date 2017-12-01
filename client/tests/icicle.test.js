@@ -43,10 +43,9 @@ describe('Test the actions', () => {
 	})
 })
 
-describe('test the reducer for icicle', () => {
+describe('test the reducers for icicle', () => {
 	it('should return to intial state', () => {
-		console.log("first call", reducer(undefined,{}));
-		expect(reducer(undefined, {})).to.equal(
+		expect(reducer(undefined, {})).to.deep.equal(
 		{
 			taxonomy: {},
 			Tfetching: false,
@@ -54,13 +53,41 @@ describe('test the reducer for icicle', () => {
 		})
 	})
 
+
 	it('should handle FETCH_TAXONOMY', () => {
 		expect(
-			reducer({}, {
+			reducer(undefined, {
 				type: "FETCH_TAXONOMY"
-			})).to.equal(
+			})).to.deep.equal(
 		{
 			Tfetching: true,
+			Tfetched: false,
+			taxonomy: {}
+		})
+	})
+
+	it('should handle FETCH_TAXONOMY_REJECTED', () => {
+		expect(
+			reducer(undefined, {
+				type: "FETCH_TAXONOMY_REJECTED"
+			})).to.deep.equal(
+		{
+			Tfetching: false,
+			Tfetched: false,
+			taxonomy: {},
+			error: undefined
+		})
+	})
+
+	it('should handle FETCH_TAXONOMY_FULFILLED', () => {
+		expect(
+			reducer(undefined, {
+				type: "FETCH_TAXONOMY_FULFILLED"
+			})).to.deep.equal(
+		{
+			Tfetching: false,
+			Tfetched: true,
+			taxonomy: undefined
 		})
 	})
 })
