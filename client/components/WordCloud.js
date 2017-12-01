@@ -29,6 +29,8 @@ import {
     };
 })
 
+
+// TagCloud from https://www.npmjs.com/package/react-tagcloud
 export default class WordCloud extends Component {
     // Set state and define handle functions.
     constructor(props) {
@@ -77,7 +79,8 @@ export default class WordCloud extends Component {
 
         // Gets the articles related to the clicked author
         this.handleClickButton = (name, obj) => {
-            this.props.dispatch(fetchArticle(name.value, this.props.id));
+
+            this.props.dispatch(fetchArticle([name.value, this.props.id]));
             this.setState({
                 open: true,
                 dialogTitle: 'loading...',

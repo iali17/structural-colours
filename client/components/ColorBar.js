@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 
 //https://reactjs.org/docs/conditional-rendering.html
 //https://appendto.com/2017/01/react-events-101/
-//this.state = { big: null};
+
 const size1 = 60;
 const size2 = 80;
 

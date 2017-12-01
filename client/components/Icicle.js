@@ -39,7 +39,7 @@ export default class Icicle extends Component {
 		super(props);
 		this.createIcicle = this.createIcicle.bind(this)
 		this.state = {phylum: false, family: false, order: false, species: false, building: true,
-					 vertabrates: null, invertebrates: null, info: null, 
+					 vertabrates: null, invertebrates: null, info: null,
 					 json: {
 					 	Taxonomy:{
 					 		Animals:{
@@ -108,7 +108,7 @@ export default class Icicle extends Component {
 			hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
 		}
 		lum = lum || 0;
-		
+
 		// convert to decimal and change luminosity
 		var rgb = "#", c, i;
 		for (i = 0; i < 3; i++) {
@@ -140,9 +140,8 @@ export default class Icicle extends Component {
 		if (this.props.Tfetched) {
 			this.state.info = this.props.taxonomy;
 		}
-		
+
 		if (this.state.info != null && this.state.building) {
-			console.log("info2", this.state.info)
 			for (var i = this.state.info.length-1; i >= 0; i--) {
 				var tempOrder = this.state.info[i].order;
 				var tempClass = this.state.info[i].speciesClass;
@@ -150,16 +149,16 @@ export default class Icicle extends Component {
 				var tempFamily = this.state.info[i].family;
 				var tempSpecies = this.state.info[i].species;
 				var tempSpeciesId = this.state.info[i].speciesId;
-				
+
 				if(this.state.info[i].kingdom == "Ve"){
 					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum]){
 						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum] = {};
 					}
 					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass]){
-						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass]= {} 
-					}					
+						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass]= {}
+					}
 					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]= {} 
+						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder]= {}
 					}
 					if (!this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]){
 						this.state.json.Taxonomy.Animals.Vertabrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
@@ -172,10 +171,10 @@ export default class Icicle extends Component {
 						this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum] = {};
 					}
 					if (!this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass]){
-						this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass]= {} 
-					}					
+						this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass]= {}
+					}
 					if (!this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass][tempOrder]= {} 
+						this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass][tempOrder]= {}
 					}
 					if (!this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily]){
 						this.state.json.Taxonomy.Animals.Invertebrates[tempPhylum][tempClass][tempOrder][tempFamily]= {}
@@ -188,10 +187,10 @@ export default class Icicle extends Component {
 						this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum] = {};
 					}
 					if (!this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass]){
-						this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass]= {} 
-					}					
+						this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass]= {}
+					}
 					if (!this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder]= {} 
+						this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder]= {}
 					}
 					if (!this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily]){
 						this.state.json.Taxonomy.Bacteria.Eubacteria[tempPhylum][tempClass][tempOrder][tempFamily]= {}
@@ -204,10 +203,10 @@ export default class Icicle extends Component {
 						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum] = {};
 					}
 					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass]){
-						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass]= {} 
-					}					
+						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass]= {}
+					}
 					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder]= {} 
+						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder]= {}
 					}
 					if (!this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily]){
 						this.state.json.Taxonomy.Bacteria.Archaebacteria[tempPhylum][tempClass][tempOrder][tempFamily]= {}
@@ -220,10 +219,10 @@ export default class Icicle extends Component {
 						this.state.json.Taxonomy.Plants[tempPhylum] = {};
 					}
 					if (!this.state.json.Taxonomy.Plants[tempPhylum][tempClass]){
-						this.state.json.Taxonomy.Plants[tempPhylum][tempClass]= {} 
-					}					
+						this.state.json.Taxonomy.Plants[tempPhylum][tempClass]= {}
+					}
 					if (!this.state.json.Taxonomy.Plants[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Taxonomy.Plants[tempPhylum][tempClass][tempOrder]= {} 
+						this.state.json.Taxonomy.Plants[tempPhylum][tempClass][tempOrder]= {}
 					}
 					if (!this.state.json.Taxonomy.Plants[tempPhylum][tempClass][tempOrder][tempFamily]){
 						this.state.json.Taxonomy.Plants[tempPhylum][tempClass][tempOrder][tempFamily]= {}
@@ -236,10 +235,10 @@ export default class Icicle extends Component {
 						this.state.json.Taxonomy.Fungi[tempPhylum] = {};
 					}
 					if (!this.state.json.Taxonomy.Fungi[tempPhylum][tempClass]){
-						this.state.json.Taxonomy.Fungi[tempPhylum][tempClass]= {} 
-					}					
+						this.state.json.Taxonomy.Fungi[tempPhylum][tempClass]= {}
+					}
 					if (!this.state.json.Taxonomy.Fungi[tempPhylum][tempClass][tempOrder]){
-						this.state.json.Taxonomy.Fungi[tempPhylum][tempClass][tempOrder]= {} 
+						this.state.json.Taxonomy.Fungi[tempPhylum][tempClass][tempOrder]= {}
 					}
 					if (!this.state.json.Taxonomy.Fungi[tempPhylum][tempClass][tempOrder][tempFamily]){
 						this.state.json.Taxonomy.Fungi[tempPhylum][tempClass][tempOrder][tempFamily]= {}
@@ -261,7 +260,7 @@ export default class Icicle extends Component {
 		var partition = d3.partition().size([this.state.windowWidth, height]).padding(0).round(true);
 
 		var svg = d3.select(this.node);
-		svg.selectAll("*").remove(); 
+		svg.selectAll("*").remove();
 
 		var rect = svg.selectAll("rect")
 		var fo  = svg.selectAll("foreignObject")
@@ -288,9 +287,9 @@ export default class Icicle extends Component {
 	   		.data(root.descendants())
 	   		.enter().append("rect")
 	   		.attr("x", function(d) { return d.x0; })
-	   		.attr("y", function(d) { 
+	   		.attr("y", function(d) {
 	   			if (d.depth == 0){
-	   				return d.y0; 
+	   				return d.y0;
 	   			} else {
 	   				return d.y0 - 15;
 	   			} 
@@ -303,7 +302,7 @@ export default class Icicle extends Component {
 	   				return 35;
 	   			}
 	   		})
-	   		.attr("fill", function(d) { 
+	   		.attr("fill", function(d) {
 	   			if (d.depth ==0) {
 	   				return "#E5E5E5"
 	   			} else if (d.depth == 1 && d.data.key == "Animals") {
@@ -341,7 +340,7 @@ export default class Icicle extends Component {
 	   				   .attr("y", d.y0);
 	   			toolDiv.html(function(d){
 	   				return "<span>" + data + "</span>"
-	   			}).style("left", (d3.event.pageX) + "px")		
+	   			}).style("left", (d3.event.pageX) + "px")
                 .style("top", (d3.event.pageY - 28) + "px");
 	   		})
 	   		.on("mouseout", function(d){
@@ -354,9 +353,9 @@ export default class Icicle extends Component {
 			.data(root.descendants())
 			.enter().append("foreignObject")
 	      	.attr("x", function(d) { return d.x0; })
-	      	.attr("y", function(d) { 
+	      	.attr("y", function(d) {
 	      		if (d.depth == 0){
-	   				return d.y0; 
+	   				return d.y0;
 	   			} else {
 	   				return d.y0 - 15;
 	   			}
@@ -365,7 +364,13 @@ export default class Icicle extends Component {
 	      	.attr("height", function(d) { return d.y1 - d.y0; })
 	     	.style("cursor", "pointer")
 	     	.text(function(d) { 
-	     		if((11 * d.data.key.length) >= (d.x1 - d.x0)){
+
+	     		if (d.depth > 3) {
+	     			return ""
+	     		}
+
+	     		if((11 * d.data.key.length) >= (d.x1 - d.x0)) {
+
 	     			var upTo = Math.ceil(((11* d.data.key.length) - (d.x1 - d.x0)) / 11);
 	     			upTo = d.data.key.length - upTo;
 	     		 	return d.data.key.slice(0, upTo) + "...";
@@ -383,7 +388,24 @@ export default class Icicle extends Component {
 	     		return "#302f2f"
 	     		//return "#0000d8"
 	     		//return "#000000"
-	     	});
+	     	})
+	     	.on("mouseover", function(d) {
+	   			var data = d.data.key;
+	   			toolDiv.transition()
+	   				   .duration(200)
+	   				   .style("opacity", .9)
+	   				   .attr("x", d.x0)
+	   				   .attr("y", d.y0);
+	   			toolDiv.html(function(d){
+	   				return "<span>" + data + "</span>"
+	   			}).style("left", (d3.event.pageX) + "px")		
+                .style("top", (d3.event.pageY - 28) + "px");
+	   		})
+	   		.on("mouseout", function(d){
+	   			toolDiv.transition()
+	   				   .duration(500)
+	   				   .style("opacity", 0);
+	   		});
 
 	    var needProfile = this.getProfile.bind(this);
 	    var dispatch = this.props.dispatch.bind(this);
@@ -402,14 +424,15 @@ export default class Icicle extends Component {
 			    .attr("y", function(d) {
 			    	if (clickedDep == 0) {
 			   			if(d.depth == 0){
-			   				return y(d.y0) ; 
+
+			   				return y(d.y0);
 			   			}
 			    		return y(d.y0) - 15
 			    	}
-			    	return y(d.y0); 
+			    	return y(d.y0);
 			 	})
 			    .attr("width", function(d) {
-			    	return x(d.x1) - x(d.x0); 
+			    	return x(d.x1) - x(d.x0);
 			    })
 			    .attr("height", function(d) {
 			    	if (clickedDep == 0 && !flag){
@@ -417,8 +440,8 @@ export default class Icicle extends Component {
 	   					return 20;
 		   			} else {
 		   				return y(d.y1) - y(d.y0);
-		   			} 
-			    	return y(d.y1) - y(d.y0); 
+		   			}
+			    	return y(d.y1) - y(d.y0);
 			    });
 
    			fo.transition()
@@ -427,7 +450,7 @@ export default class Icicle extends Component {
       			.attr("y", function(d) {
       				if (clickedDep == 0) {
       					if(d.depth == 0){
-			   				return y(d.y0); 
+			   				return y(d.y0);
 			   			}
 			    		return y(d.y0) - 15
 			    	} 
@@ -436,9 +459,14 @@ export default class Icicle extends Component {
       			.attr("width", function(d) { return x(d.x1) - x(d.x0); })
       			.attr("height", function(d) { return y(d.y1) - y(d.y0);})
       			.text(function(d) { 
-      				if (clickedDep > d.depth) {
+          
+      				if (clickedDep > d.depth ) {
       					return ""
       				}
+      				if (d.depth > 3 && clickedDep < 2) {
+	     				return ""
+	     			}
+
 		     		var dataX = Math.ceil(x(d.x1) - x(d.x0))
 		     		if((11 * d.data.key.length) >= dataX){
 		     			var upTo = Math.ceil(((11* d.data.key.length) - dataX) / 11);

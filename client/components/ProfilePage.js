@@ -5,8 +5,8 @@ import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import { blueGrey, brown } from 'material-ui/colors';
 import WordCloud from './WordCloud';
-import {LinearProgress} from 'material-ui/Progress';
 
+import {LinearProgress} from 'material-ui/Progress';
 
 import {
   fetchDetail,
@@ -49,13 +49,11 @@ export default class ProfilePage extends Component {
 	}
 
 	componentWillMount() {
-    /*this.props.dispatch(fetchPicture())*/
 		this.props.dispatch(fetchDetail(this.props.id))
 		this.props.dispatch(fetchOnePicture(this.props.id))
   	}
 
 	render() {
-
 		if (this.props.dfetched && this.props.pfetched && this.props.id == this.props.picture.species) {
 			var imgURL;
 			var datalist
@@ -201,6 +199,7 @@ export default class ProfilePage extends Component {
 					{this.props.detail.common_name}
 					</h1>
                     <WordCloud id = {this.props.picture.species}/>
+
 					<Card className={this.props.card} color="default">
 						<CardMedia
 							image =  {this.props.detail.sillouette}

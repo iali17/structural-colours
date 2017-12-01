@@ -4,7 +4,8 @@ import { withStyles } from 'material-ui/styles';
 
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
+
+import SearchBar from './SearchBar';
 
 const styles = theme => ({
   root: {
@@ -27,7 +28,8 @@ class TitleBar extends Component {
       <div className={classes.root}>
         <AppBar className={classes.appBar} position="static" color="default">
           <Toolbar>
-            <h1>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
+            <h1 style={{flex: 1}}>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
+            <SearchBar/>
           </Toolbar>
         </AppBar>
       </div>
