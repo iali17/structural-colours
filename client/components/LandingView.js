@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import { GridList, GridListTile } from 'material-ui/GridList';
 
+import LandingPic from './LandingPic';
+
 import {
-  fetchRandomPictures,
+  fetchRandomPicture,
 } from '../actions/pictureActions';
 
 const styles = theme => ({
@@ -15,20 +17,13 @@ const styles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    background: theme.palette.background.paper,
-  },
-  gridList: {
-    width: '100%',
-    height: '100%',
-  },
-  subheader: {
-    width: '100%',
+    backgroundColor: '#ececec',
   },
 });
 
 @connect((store) => {
   return {
-    pictures: store.landingView.pictures,
+    picture: store.landingView.picture,
     fetching: store.landingView.fetching,
     fetched: store.landingView.fetched
   };
@@ -41,7 +36,7 @@ class LandingView extends Component {
   }
 
   getPictures() {
-    this.props.dispatch(fetchRandomPictures())
+    this.props.dispatch(fetchRandomPicture())
   }
 
   componentWillMount() {
@@ -58,19 +53,13 @@ class LandingView extends Component {
     if (this.props.fetched) {
       return (
         <div className={classes.root}>
-          <GridList cellHeight={'auto'} className={classes.gridList} cols={2}>
-            {this.props.pictures.map((picture, index) => (
-              <GridListTile key={index}>
-                <img src={picture.picture} />
-              </GridListTile>
-            ))}
-          </GridList>
+          <LandingPic pic={this.props.picture} getProfile={this.props.getProfile}/>
         </div>
       );
     }
     else {
       return (
-        <h1>NO PICTURES :(</h1>
+        <div></div>
       )
     }
   }

@@ -25,6 +25,13 @@ In /structural-colour/server
 > python manage.py runserver
 ```
 
+## Running Tests
+```
+In /structural-colour
+> npm install
+> npm test
+```
+
 # Host
 [http://localhost:8000](http://localhost:8000)
 
