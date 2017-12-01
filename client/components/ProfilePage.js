@@ -210,7 +210,7 @@ export default class ProfilePage extends Component {
                 <img src = {this.props.picture.picture}/>
               </p>
       			</CardContent>
-						<ul style = {{listStyleType: 'none', fontSize: "Larger"}} >
+						<ul style = {{listStyleType: 'none', textAlign:'Left}} >
 							<CardContent>
 								 <Typography>
 									{data}
