@@ -5,6 +5,9 @@ import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import { blueGrey, brown } from 'material-ui/colors';
 import WordCloud from './WordCloud';
+
+import {LinearProgress} from 'material-ui/Progress';
+
 import {
   fetchDetail,
 } from '../actions/detailActions';
@@ -15,11 +18,15 @@ import {
 
 const styles = theme => ({
   card: {
-  	primary: blueGrey[100],
+  	palette: '#f1f1f1',
     maxWidth: 45,
+    fontfamily: 'Helvetica'
   },
   media: {
     height: 40,
+  },
+  root: {
+    width: '100%',
   },
 });
 
@@ -33,6 +40,8 @@ const styles = theme => ({
     pfetched: store.profileView.fetched
   };
 })
+
+
 /* Main component of this page loads two other components  */
 export default class ProfilePage extends Component {
 	constructor(props) {
@@ -49,9 +58,135 @@ export default class ProfilePage extends Component {
 			var imgURL;
 			var datalist
 			const { classes } = this.props;
+			console.log(classes)
+			var eco = [];
+			var geo = [];
+			var fun = [];
+			var mec = [];
+			var inv = [];
+			var tun;
+			
 
 			const info = this.props.detail
-			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure + "D"]
+			var i;
+			
+			for (i = 0; i < info.ecosystem.length; i++) {
+				
+				switch (info.ecosystem[i]) {
+
+					case "Fo":
+						eco.push("Forest");
+						break;
+					case 'Mo':
+						eco.push("Mountain");
+						break;
+					case 'De':
+						eco.push("Desert");
+						break;
+					case 'Gr':
+						eco.push("Grassland");
+						break;
+					case 'Fr':
+						eco.push("Freshwater");
+						break;
+					case 'Ma':
+						eco.push("Marine");
+						break;
+					default:
+						eco = null; 
+					}
+			}
+			for (i = 0; i < info.geography.length; i++) {
+				
+				switch (info.geography[i]) {
+
+					case "As":
+						geo.push("Asia");
+						break;
+					case 'Am':
+						geo.push("America");
+						break;
+					case 'Eu':
+						geo.push("Europe");
+						break;
+					case 'Af':
+						geo.push("Africa");
+						break;
+					case 'Oc':
+						geo.push("Oceania");
+						break;
+					default:
+						eco = null; 
+					}
+			}
+
+			for (i = 0; i < info.mechanism.length; i++) {
+				
+				switch (info.mechanism[i]) {
+
+					case "I":
+						mec.push("Interference");
+						break;
+					case 'S':
+						mec.push("Scattering");
+						break;
+					case 'D':
+						mec.push("Diffraction");
+						break;
+					
+					default:
+						eco = null; 
+					}
+			}
+			for (i = 0; i < info.presumable_Functions.length; i++) {
+				
+				switch (info.presumable_Functions[i]) {
+
+					case "A":
+						fun.push("Aposematism");
+						break;
+					case 'C':
+						fun.push("Crypsis");
+						break;
+					case 'S':
+						fun.push("Sexual");
+						break;
+					case 'O':
+						fun.push("Other");
+						break;
+					
+					default:
+						eco = null; 
+					}
+			}
+
+			for (i = 0; i < info.invisable_Signals.length; i++) {
+				
+				switch (info.invisable_Signals[i]) {
+
+					case "I": 
+						inv.push("Infrared");
+						break;
+					case 'U':
+						inv.push("Ultraviolet");
+						break;
+					default:
+						eco = null; 
+					}
+			}
+
+			if (info.tunable == "A") {
+				tun = "Active"
+			} else if (info.tunable == "P") {
+				tun = "Passive"
+			} else {
+				tun = ""
+			}
+
+			
+			datalist = [info.description, "Wavelength = " + info.wavelength, "Structure = " + info.structure + "D",
+			"Ecosystem: " + eco, "Geography: " + geo, "Mechanism: " + mec,
+			 "Presumable function: " + fun, "Tunable: " + tun, "Invisable Signals: " + inv]
 
 			var data = datalist.map(function(data,index) {
 				return (<li key={index}>{data}</li>);
@@ -64,9 +199,9 @@ export default class ProfilePage extends Component {
 					{this.props.detail.common_name}
 					</h1>
                     <WordCloud id = {this.props.picture.species}/>
-					<Card className={this.props.card}>
+
+					<Card className={this.props.card} color="default">
 						<CardMedia
-							className = {this.props.media}
 							image =  {this.props.detail.sillouette}
 							title = {this.props.detail.common_name}
 							/>
@@ -78,11 +213,11 @@ export default class ProfilePage extends Component {
   								<img src = {this.props.detail.sillouette}/>
   								<img src = {this.props.picture.picture}/>
 								</p>
-      					</Typography>
-      				</CardContent>
-      			</Card>
-					<ul style = {{listStyleType: 'none'}}>
-						<Card className={this.props.card}>
+      						</Typography>
+      					</CardContent>
+      				</Card>
+					<ul style = {{listStyleType: 'none'}} font-family = "Arial">
+						<Card className={this.props.card} color="default">
 							<CardContent>
 								 <Typography>
 										{data}
@@ -96,21 +231,23 @@ export default class ProfilePage extends Component {
 		} else if(this.props.dfetched) {
 			return(
 				<div>
-					Fetched detail, waiting on picture.
+					<LinearProgress mode="indeterminate" />
+					
 				</div>
 			);
 		}
     else if (this.props.pfetched) {
 			return (
 				<div>
-					Fetched picture waiting on detail.
+					<LinearProgress mode="indeterminate" />
+					
 				</div>
 			);
 		}
     else {
 			return (
 				<div>
-					{"Fetching name"}
+					<LinearProgress mode="indeterminate" />
 				</div>
 			);
 		}

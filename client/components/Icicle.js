@@ -76,7 +76,6 @@ export default class Icicle extends Component {
     // but this component has been called.
     // It dispatches a call to get the taxonomy so we can use it within the component.
     // This is a good place to call it because this will only happen once.
-
 	componentWillMount() {
 		this.props.dispatch(fetchTax());
 	}
@@ -365,6 +364,7 @@ export default class Icicle extends Component {
 	      	.attr("height", function(d) { return d.y1 - d.y0; })
 	     	.style("cursor", "pointer")
 	     	.text(function(d) { 
+
 	     		if (d.depth > 3) {
 	     			return ""
 	     		}
@@ -424,6 +424,7 @@ export default class Icicle extends Component {
 			    .attr("y", function(d) {
 			    	if (clickedDep == 0) {
 			   			if(d.depth == 0){
+
 			   				return y(d.y0);
 			   			}
 			    		return y(d.y0) - 15
@@ -458,12 +459,14 @@ export default class Icicle extends Component {
       			.attr("width", function(d) { return x(d.x1) - x(d.x0); })
       			.attr("height", function(d) { return y(d.y1) - y(d.y0);})
       			.text(function(d) { 
+          
       				if (clickedDep > d.depth ) {
       					return ""
       				}
       				if (d.depth > 3 && clickedDep < 2) {
 	     				return ""
 	     			}
+
 		     		var dataX = Math.ceil(x(d.x1) - x(d.x0))
 		     		if((11 * d.data.key.length) >= dataX){
 		     			var upTo = Math.ceil(((11* d.data.key.length) - dataX) / 11);
