@@ -200,7 +200,7 @@ export default class ProfilePage extends Component {
 					</h1>
                     <WordCloud id = {this.props.picture.species}/>
 
-					<Card className={this.props.card} style = {{backgroundColor: "#A9A9A9"}}>
+					<Card className={this.props.card} style = {{backgroundColor: "#A9A9A9", width: '550px'}}>
 						<CardMedia
 							image =  {this.props.detail.sillouette}
 							title = {this.props.detail.common_name}
