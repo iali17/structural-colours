@@ -25,10 +25,7 @@ const styles = theme => ({
 
 
 @connect((store) => {
-
 })
-
-
 class TitleBar extends Component {
   constructor(props) {
     super(props);

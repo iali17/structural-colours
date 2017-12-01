@@ -28,8 +28,6 @@ import {
         article_fetched: store.wordCloud.article_fetched,
     };
 })
-
-
 // TagCloud from https://www.npmjs.com/package/react-tagcloud
 export default class WordCloud extends Component {
     // Set state and define handle functions.
