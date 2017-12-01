@@ -74,12 +74,12 @@ export default class App extends Component {
           </Grid>
         </Grid>
         <Grid container spacing={0}>
-          <Grid item xs = {0}>
+          <Grid item xs={0}>
            <ColorBar colour={this.props.colour} updateColour={this.updateColour}/>
           </Grid>
-            <Grid item xs>
-              <Container getProfile={this.getProfile}/>
-            </Grid>
+          <Grid item xs>
+            <Container getProfile={this.getProfile}/>
+          </Grid>
         </Grid>
       </div>
     );
