@@ -5,6 +5,9 @@ import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import { blueGrey, brown } from 'material-ui/colors';
 import WordCloud from './WordCloud';
+
+
+
 import {
   fetchDetail,
 } from '../actions/detailActions';
@@ -15,11 +18,14 @@ import {
 
 const styles = theme => ({
   card: {
-  	primary: blueGrey[100],
+  	backgroundColor: '#f1f1f1',
     maxWidth: 45,
   },
   media: {
     height: 40,
+  },
+  root: {
+    width: '100%',
   },
 });
 
@@ -47,33 +53,138 @@ export default class ProfilePage extends Component {
 
 	render() {
 
-		//if (this.props.dfetched && this.props.pfetched && (this.props.id != this.props.picture.species) && !this.props.dfetching && !this.props.pfetching) {
-			//this.props.dispatch(fetchDetail(this.props.id))
-			//this.props.dispatch(fetchOnePicture(this.props.id))
-		//}//else if (this.props.dfetched && this.props.pfetched && !this.props.dfetching && !this.props.pfetching) {
-
-		// if (this.props.dfetched && this.props.pfetched && this.props.id != this.props.picture.species && !this.props.dfetching && !this.props.pfetching){
-		// 	this.props.dispatch(fetchDetail(this.props.id))
-		// 	this.props.dispatch(fetchOnePicture(this.props.id))
-		// 	//this.setState({needToReFetch: true})
-		// } //else if(this.props.dfetched && this.props.pfetched && this.props.id == this.props.picture.species && !this.props.dfetching && !this.props.pfetching && this.state.needToReFetch) {
-			//this.setState({needToReFetch: false})
-		//}
-
-		// if (this.prevId != id){
-		// 	this.props.dispatch(fetchDetail(this.props.id))
-		// 	this.props.dispatch(fetchOnePicture(this.props.id))
-		// 	this.prevId = id
-		// }
-
 		if (this.props.dfetched && this.props.pfetched && this.props.id == this.props.picture.species) {
 			var imgURL;
 			var datalist
 			const { classes } = this.props;
+			var eco = [];
+			var geo = [];
+			var fun = [];
+			var mec = [];
+			var inv = [];
+			var tun;
+			
 
-			console.log("picture and id: ", this.props.picture, this.props.id)
 			const info = this.props.detail
-			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure + "D"]
+			var i;
+			
+			for (i = 0; i < info.ecosystem.length; i++) {
+				
+				switch (info.ecosystem[i]) {
+
+					case "Fo":
+						eco.push("Forest");
+						break;
+					case 'Mo':
+						eco.push("Mountain");
+						break;
+					case 'De':
+						eco.push("Desert");
+						break;
+					case 'Gr':
+						eco.push("Grassland");
+						break;
+					case 'Fr':
+						eco.push("Freshwater");
+						break;
+					case 'Ma':
+						eco.push("Marine");
+						break;
+					default:
+						eco = null; 
+					}
+			}
+			for (i = 0; i < info.geography.length; i++) {
+				
+				switch (info.geography[i]) {
+
+					case "As":
+						geo.push("Asia");
+						break;
+					case 'Am':
+						geo.push("America");
+						break;
+					case 'Eu':
+						geo.push("Europe");
+						break;
+					case 'Af':
+						geo.push("Africa");
+						break;
+					case 'Oc':
+						geo.push("Oceania");
+						break;
+					default:
+						eco = null; 
+					}
+			}
+
+			for (i = 0; i < info.mechanism.length; i++) {
+				
+				switch (info.mechanism[i]) {
+
+					case "I":
+						mec.push("Interference");
+						break;
+					case 'S':
+						mec.push("Scattering");
+						break;
+					case 'D':
+						mec.push("Diffraction");
+						break;
+					
+					default:
+						eco = null; 
+					}
+			}
+			for (i = 0; i < info.presumable_Functions.length; i++) {
+				
+				switch (info.presumable_Functions[i]) {
+
+					case "A":
+						fun.push("Aposematism");
+						break;
+					case 'C':
+						fun.push("Crypsis");
+						break;
+					case 'S':
+						fun.push("Sexual");
+						break;
+					case 'O':
+						fun.push("Other");
+						break;
+					
+					default:
+						eco = null; 
+					}
+			}
+
+			for (i = 0; i < info.invisable_Signals.length; i++) {
+				
+				switch (info.invisable_Signals[i]) {
+
+					case "I": 
+						inv.push("Infrared");
+						break;
+					case 'U':
+						inv.push("Ultraviolet");
+						break;
+					default:
+						eco = null; 
+					}
+			}
+
+			if (info.tunable == "A") {
+				tun = "Active"
+			} else if (info.tunable == "P") {
+				tun = "Passive"
+			} else {
+				tun = ""
+			}
+
+			
+			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure + "D",
+			"Ecosystem: " + eco, "Geography: " + geo, "Mechanism: " + mec,
+			 "Presumable function: " + fun, "Tunable: " + tun, "Invisable Signals: " + inv]
 
 			var data = datalist.map(function(data,index) {
 				return (<li key={index}>{data}</li>);
@@ -86,9 +197,8 @@ export default class ProfilePage extends Component {
 					{this.props.detail.common_name}
 					</h1>
                     <WordCloud id = {this.props.picture.species}/>
-					<Card className={this.props.card}>
+					<Card className={this.props.card} color="default">
 						<CardMedia
-							className = {this.props.media}
 							image =  {this.props.detail.sillouette}
 							title = {this.props.detail.common_name}
 							/>
@@ -104,7 +214,7 @@ export default class ProfilePage extends Component {
       				</CardContent>
       			</Card>
 					<ul style = {{listStyleType: 'none'}}>
-						<Card className={this.props.card}>
+						<Card className={this.props.card} color="default">
 							<CardContent>
 								 <Typography>
 										{data}
