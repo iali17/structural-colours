@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import * as d3 from 'd3';
 import { connect } from 'react-redux';
-import {LinearProgress} from 'material-ui/Progress';
+import { LinearProgress } from 'material-ui/Progress';
 
 import {
   fetchTax,
@@ -487,7 +487,7 @@ export default class Icicle extends Component {
 
 	render(){
 		if (this.props.Tfetching) {
-	      	return <LinearProgress mode="indeterminate" />
+	      	return <LinearProgress color="primary" mode="indeterminate"/>
 	    } else if (this.props.Tfetched) {
 	      	return( <svg ref={node => this.node = node}
 	    			width={this.state.windowWidth} height={250}> </svg>)
