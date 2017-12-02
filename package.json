@@ -43,6 +43,16 @@
     "array-shuffle": "^1.0.1",
     "axios": "^0.16.2",
     "d3": "^4.12.0",
+    "d3-dsv": "^1.0.8",
+    "d3-format": "^1.2.1",
+    "d3-geo": "^1.9.0",
+    "d3-interpolate": "^1.1.6",
+    "d3-scale": "^1.0.7",
+    "d3-selection": "^1.2.0",
+    "d3-time": "^1.0.8",
+    "d3-time-format": "^2.1.1",
+    "d3-transition": "^1.1.1",
+    "d3-zoom": "^1.7.1",
     "fetch-mock": "^5.13.1",
     "history": "^1.17.0",
     "material-ui": "^1.0.0-beta.18",
@@ -62,5 +72,6 @@
     "redux-promise-middleware": "^4.4.1",
     "redux-test-utils": "^0.2.2",
     "redux-thunk": "^2.2.0"
+
   }
 }
