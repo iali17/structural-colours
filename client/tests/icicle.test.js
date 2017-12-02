@@ -10,12 +10,14 @@ import reducer from '../reducers/icicleViewReducer'
 import promise from 'redux-promise-middleware';
 import { applyMiddleware } from 'redux';
 
-
+// configure adapter
 Enzyme.configure({ adapter: new Adapter() });
 
+// setup middleware and store.
 const middlewares = applyMiddleware(promise(), thunk)
 const mockStore = configureMockStore(reducer, middlewares)
 
+// taken from https://medium.com/@visualskyrim/test-your-redux-container-with-enzyme-a0e10c0574ec
 const shallowWithStore = (component, store) => {
 	const context = {
     	store,
@@ -23,7 +25,7 @@ const shallowWithStore = (component, store) => {
   	return shallow(component, { context });
 };
 
-
+// checks to see if the icicle renders
 describe('<Icicle />', () => {
 	it('Renders icicle', () => {
 		const store = mockStore({icicleView: {
@@ -38,7 +40,7 @@ describe('<Icicle />', () => {
 	})
 })
 
-
+// tests if reducers return what is expected.
 describe('Reducers for Icicle', () => {
 	it('should return to intial state', () => {
 		expect(reducer(undefined, {})).to.deep.equal(

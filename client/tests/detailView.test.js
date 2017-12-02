@@ -10,12 +10,14 @@ import { createMockDispatch } from 'redux-test-utils';
 import thunk from 'redux-thunk'
 import reducer from '../reducers/detailViewReducer'
 
-
+// configure adapter
 Enzyme.configure({ adapter: new Adapter() });
 
+// setup middleware and store.
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
 
+// tests all the functions of the detailView reducer
 describe('test the reducer for DetailView', () => {
     it('should return to intial state', () => {
         expect(reducer(undefined, {})).to.deep.equal(

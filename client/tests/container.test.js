@@ -10,12 +10,14 @@ import Container from '../components/Container'
 import { applyMiddleware } from 'redux';
 import promise from 'redux-promise-middleware';
 
-
+// configure adapter
 Enzyme.configure({ adapter: new Adapter() });
 
+// setup middleware and store.
 const middlewares = applyMiddleware(promise(), thunk)
 const mockStore = configureMockStore(reducer, middlewares)
 
+// taken from https://medium.com/@visualskyrim/test-your-redux-container-with-enzyme-a0e10c0574ec
 const shallowWithStore = (component, store) => {
     const context = {
         store,
@@ -23,7 +25,7 @@ const shallowWithStore = (component, store) => {
     return shallow(component, { context });
 };
 
-
+// Checks to see if the container renders
 describe('<Container />', () => {
     it('Renders the Container', () => {
         const store = mockStore(

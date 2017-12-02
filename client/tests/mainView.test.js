@@ -10,12 +10,14 @@ import MainView from '../components/MainView'
 import { applyMiddleware } from 'redux';
 import promise from 'redux-promise-middleware';
 
-
+// configure adapter
 Enzyme.configure({ adapter: new Adapter() });
 
+// setup middleware and store.
 const middlewares = applyMiddleware(promise(), thunk)
 const mockStore = configureMockStore(reducer, middlewares)
 
+// taken from https://medium.com/@visualskyrim/test-your-redux-container-with-enzyme-a0e10c0574ec
 const shallowWithStore = (component, store) => {
     const context = {
         store,
@@ -23,7 +25,7 @@ const shallowWithStore = (component, store) => {
     return shallow(component, { context });
 };
 
-
+// Checks to see if MainView renders.
 describe('<MainView />', () => {
     it('Renders the MainView', () => {
         const store = mockStore(
@@ -48,6 +50,7 @@ describe('<MainView />', () => {
     })
 })
 
+// tests if reducers return what is expected.
 describe('test the reducer for MainView', () => {
     it('should return to intial state', () => {
         expect(reducer(undefined, {})).to.deep.equal(

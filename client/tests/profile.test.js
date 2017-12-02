@@ -10,8 +10,10 @@ import ProfilePage from '../components/ProfilePage'
 import { applyMiddleware } from 'redux';
 import promise from 'redux-promise-middleware';
 
+// configure adapter
 Enzyme.configure({ adapter: new Adapter() });
 
+// setup middleware and store.
 const middlewares = applyMiddleware(promise(), thunk)
 const mockStore = configureMockStore(reducer, middlewares)
 
@@ -22,6 +24,7 @@ const shallowWithStore = (component, store) => {
     return shallow(component, { context });
 };
 
+// taken from https://medium.com/@visualskyrim/test-your-redux-container-with-enzyme-a0e10c0574ec
 describe('<ProfilePage />', () => {
     it('Renders profilepage', () => {
         const pic = spy();
@@ -45,6 +48,7 @@ describe('<ProfilePage />', () => {
     })
 })
 
+// Checks to see if app renders.
 describe('test the reducer for ProfilePage', () => {
     it('should return to intial state', () => {
         expect(reducer(undefined, {})).to.deep.equal(

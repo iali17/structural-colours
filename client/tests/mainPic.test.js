@@ -4,6 +4,7 @@ import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import MainPic from '../components/MainPic.js'
 
+// Checks to see if MainPic renders
 describe('<MainPic />', () => {
 	it('Component should render', () => {
 		const fakeId = sinon.spy();

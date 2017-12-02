@@ -10,12 +10,14 @@ import SearchBar from '../components/SearchBar'
 import { applyMiddleware } from 'redux';
 import promise from 'redux-promise-middleware';
 
-
+// configure adapter
 Enzyme.configure({ adapter: new Adapter() });
 
+// setup middleware and store.
 const middlewares = applyMiddleware(promise(), thunk)
 const mockStore = configureMockStore(reducer, middlewares)
 
+// taken from https://medium.com/@visualskyrim/test-your-redux-container-with-enzyme-a0e10c0574ec
 const shallowWithStore = (component, store) => {
     const context = {
         store,
@@ -23,7 +25,7 @@ const shallowWithStore = (component, store) => {
     return shallow(component, { context });
 };
 
-
+// checks to see if search bar is rendered
 describe('<SearchBar />', () => {
     it('Renders the SearchBar', () => {
         const store = mockStore({});
