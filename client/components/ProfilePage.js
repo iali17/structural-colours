@@ -16,6 +16,7 @@ import {
 	fetchOnePicture,
 } from '../actions/pictureActions';
 
+// The styles that will be used in this component.
 const styles = theme => ({
   card: {
   	palette: '#f1f1f1',
@@ -30,6 +31,7 @@ const styles = theme => ({
   },
 });
 
+// What we will be using from the dispatch calls.
 @connect((store) => {
   return {
     detail: store.detailView.detail,
@@ -42,7 +44,11 @@ const styles = theme => ({
 })
 
 
-/* Main component of this page loads two other components  */
+/** 
+* This is the profile page. It first fetches all the stuff we need from the id that
+* is supplied to it. It then takes the information of of that and call two components
+* which will help display the information. 
+**/
 export default class ProfilePage extends Component {
 	constructor(props) {
 		super(props);

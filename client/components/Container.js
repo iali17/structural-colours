@@ -8,15 +8,18 @@ import ProfilePage from './ProfilePage';
 import LandingPage from './LandingView';
 import ColorBar from './ColorBar';
 
-const styles = theme => ({
-});
-
+/**
+* What we will be getting from dispatch calls.
+**/
 @connect((store) => {
   return {
     activeTab: store.app.activeTab,
     id: store.app.id,
   };
 })
+/**
+* This loads the tab into the component.
+**/
 export default class LandingView extends Component {
   constructor(props) {
     super(props);
