@@ -6,6 +6,8 @@ const styles = theme => ({
   container: {
   },
   img: {
+    height: '500px',
+    opacity: '.7',
   },
 });
 

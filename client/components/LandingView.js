@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // Material ui
 import { withStyles } from 'material-ui/styles';
 import { GridList, GridListTile } from 'material-ui/GridList';
+import Typography from 'material-ui/Typography';
 
 import LandingPic from './LandingPic';
 
@@ -18,7 +19,15 @@ const styles = theme => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: '#ececec',
+    alignItems: 'center',
+    marginTop: '40px',
   },
+  title: {
+    fontSize: '3.5rem',
+    color: '#565656',
+    borderRight: 'medium solid #565656',
+    paddingRight: '85px',
+  }
 });
 
 @connect((store) => {
@@ -53,6 +62,14 @@ class LandingView extends Component {
     if (this.props.fetched) {
       return (
         <div className={classes.root}>
+          <Typography type="headline" component="h3" className={classes.title}>
+             Explore<br/>
+             Structural<br/>
+             Colour<br/>
+             to Inform<br/>
+             Biomimetic<br/>
+             Design
+           </Typography>
           <LandingPic pic={this.props.picture} getProfile={this.props.getProfile}/>
         </div>
       );
