@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 
 import { withStyles } from 'material-ui/styles';
 
+/**
+* The styles we will be using in this component
+**/
 const styles = theme => ({
   container: {
   },
@@ -11,6 +14,9 @@ const styles = theme => ({
   },
 });
 
+/**
+* This is the landing pic. When clicked on it goes to its profile page.
+**/
 class LandingPic extends Component {
   constructor(props) {
     super(props);

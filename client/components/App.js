@@ -23,13 +23,21 @@ import {
   fetchPictures,
 } from '../actions/pictureActions';
 
-
+/**
+* This is what we get from dispatch calls.
+**/
 @connect((store) => {
   return {
     activeTab: store.app.activeTab,
     colour: store.app.colour,
   };
 })
+
+/**
+* This is the main view, it holds all the base components
+* and puts them in grids. There is also some dispatch
+* calls that wait on promises, to get to certain species.
+**/
 export default class App extends Component {
   constructor(props) {
     super(props);

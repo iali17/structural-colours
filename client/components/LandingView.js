@@ -12,6 +12,7 @@ import {
   fetchRandomPicture,
 } from '../actions/pictureActions';
 
+// The styles that will be used in this component.
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -30,6 +31,7 @@ const styles = theme => ({
   }
 });
 
+// What we will be using from the dispatch calls.
 @connect((store) => {
   return {
     picture: store.landingView.picture,
@@ -37,6 +39,12 @@ const styles = theme => ({
     fetched: store.landingView.fetched
   };
 })
+
+/**
+* This is the landing page. It loads a random picture with a dispatch call
+* every 10 seconds. If you click on a picture it will take you to that 
+* pictures profile page.
+**/
 class LandingView extends Component {
   constructor(props) {
     super(props);
