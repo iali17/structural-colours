@@ -199,7 +199,7 @@ export default class ProfilePage extends Component {
 			});
 
 			return (
-				<div style = {{fontFamily: "Arial",}}>
+				<div>
 					<center>
 					<h1>
 					{this.props.detail.common_name}
