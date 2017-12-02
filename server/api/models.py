@@ -28,11 +28,20 @@ class Phylum(models.Model):
     def __str__(self):
         return self.phylum
 
+class SpeciesClass(models.Model):
+    speciesClass = models.CharField(max_length=50, primary_key=True, default='Unknown')
+    phylum = models.ForeignKey(Phylum)
+
+    class Meta:
+        verbose_name_plural="Classes"
+    def __str__(self):
+        return self.speciesClass
+
 # Order class to hold valid class values
 # Foreign key to Phylum
 class Order(models.Model):
     order   = models.CharField(max_length=50, primary_key=True)
-    phylum = models.ForeignKey(Phylum)
+    speciesClass = models.ForeignKey(SpeciesClass, default='Unknown')
 
     def __str__(self):
         return self.order
@@ -43,24 +52,10 @@ class Family(models.Model):
     family = models.CharField(max_length=50, primary_key=True)
     order = models.ForeignKey(Order)
 
+    class Meta:
+        verbose_name_plural="Families"
     def __str__(self):
         return self.family
-
-# Colour class to hold valid colour values
-class Colour(models.Model):
-    COLOUR = (
-        ('R', 'Red'),
-        ('O', 'Orange'),
-        ('Y', 'Yellow'),
-        ('G', 'Green'),
-        ('B', 'Blue'),
-        ('I', 'Indigo'),
-        ('V', 'Violet'),
-    )
-    colour = models.CharField(primary_key=True, max_length=1, choices=COLOUR)
-
-    def __str__(self):
-        return self.get_colour_display()
 
 # Species class to hold data about each species
 class Species(models.Model):
@@ -103,11 +98,21 @@ class Species(models.Model):
         ('Ma', 'Marine'),
         ('Fr', 'Freshwater'),
     )
+    COLOUR = (
+        ('R', 'Red'),
+        ('O', 'Orange'),
+        ('Y', 'Yellow'),
+        ('G', 'Green'),
+        ('B', 'Blue'),
+        ('I', 'Indigo'),
+        ('V', 'Violet'),
+    )
     speciesId = models.AutoField(primary_key=True)
     common_name = models.CharField(max_length=50)
     species = models.CharField(max_length=50, blank=True)
     family = models.ForeignKey(Family, blank=True, null=True)
     sillouette = models.ImageField(upload_to='sillouettes/', blank=True)
+    colour = MultiSelectField(choices=COLOUR, blank=True)
     mechanism = MultiSelectField(choices=MECHANISM, blank=True)
     description = models.TextField(blank=True)
     structure = models.CharField(max_length=1, choices=STRUCTURE, blank=True)
@@ -120,18 +125,10 @@ class Species(models.Model):
     geography = MultiSelectField(choices=GEOGRAPHY, blank=True)
     ecosystem = MultiSelectField(choices=ECOSYSTEM, blank=True)
 
-
+    class Meta:
+        verbose_name_plural="Species"
     def __str__(self):
         return str(self.speciesId) + ' ' + self.common_name
-
-# Class to connect species with colours (n-to-n)
-# Foreign keys to Colour and Species
-class SpeciesColour(models.Model):
-    colour = models.ForeignKey(Colour)
-    species = models.ForeignKey(Species)
-
-    def __str__(self):
-        return str(self.species) + ", " + str(self.colour)
 
 # Picture class to hold images for species (1-to-n)
 # Foreign key to Species
@@ -148,5 +145,23 @@ class LandingPicture(models.Model):
     picture = models.ImageField(upload_to='landingPictures/', blank=True)
     species = models.ForeignKey(Species)
 
+    class Meta:
+        verbose_name_plural="Landing Pictures"
     def __str__(self):
         return self.species.common_name
+
+class Author(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+class Article(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.ManyToManyField(Author)
+    abstract = models.TextField(blank=True)
+    detail = models.TextField(blank=True)
+    species = models.ForeignKey(Species)
+
+    def __str__(self):
+        return self.title

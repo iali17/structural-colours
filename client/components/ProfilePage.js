@@ -1,12 +1,12 @@
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-import Typography from 'material-ui/Typography'; 
+import Typography from 'material-ui/Typography';
 import { blueGrey, brown } from 'material-ui/colors';
+import WordCloud from './WordCloud';
 
-
+import {LinearProgress} from 'material-ui/Progress';
 
 import {
   fetchDetail,
@@ -15,18 +15,23 @@ import {
 import {
 	fetchOnePicture,
 } from '../actions/pictureActions';
- 
+
+// The styles that will be used in this component.
 const styles = theme => ({
-  
   card: {
-  	primary: blueGrey[100],
+  	palette: '#f1f1f1',
     maxWidth: 45,
+    fontfamily: 'Helvetica'
   },
   media: {
     height: 40,
   },
+  root: {
+    width: '100%',
+  },
 });
 
+// What we will be using from the dispatch calls.
 @connect((store) => {
   return {
     detail: store.detailView.detail,
@@ -35,118 +40,209 @@ const styles = theme => ({
     picture: store.profileView.picture,
     pfetching: store.profileView.fetching,
     pfetched: store.profileView.fetched
-
   };
 })
-
-/* Main component of this page loads two other components  */
+/**
+* This is the profile page. It first fetches all the stuff we need from the id that
+* is supplied to it. It then takes the information of of that and call two components
+* which will help display the information.
+**/
 export default class ProfilePage extends Component {
 	constructor(props) {
 		super(props);
-		
 	}
-	
+
 	componentWillMount() {
-    	/*this.props.dispatch(fetchPicture())*/
 		this.props.dispatch(fetchDetail(this.props.id))
 		this.props.dispatch(fetchOnePicture(this.props.id))
   	}
- 
-	render(){
 
-		var imgURL;
-		
-		var id = this.props.id
+	render() {
+		if (this.props.dfetched && this.props.pfetched && this.props.id == this.props.picture.species) {
+			var imgURL;
+			var datalist
+			const { classes } = this.props;
+			console.log(classes)
+			var eco = [];
+			var geo = [];
+			var fun = [];
+			var mec = [];
+			var inv = [];
+			var tun;
 
-		
-		var datalist
-		const { classes } = this.props;
-		
-		if (this.props.dfetched && this.props.pfetched) {
 			const info = this.props.detail
-			datalist = [info.description, "wavelength = " + info.wavelength, "structure = " + info.structure + "D"]
-			
-			var data = datalist.map(function(data,index){
+			var i;
+
+			for (i = 0; i < info.ecosystem.length; i++) {
+
+				switch (info.ecosystem[i]) {
+
+					case "Fo":
+						eco.push("Forest");
+						break;
+					case 'Mo':
+						eco.push("Mountain");
+						break;
+					case 'De':
+						eco.push("Desert");
+						break;
+					case 'Gr':
+						eco.push("Grassland");
+						break;
+					case 'Fr':
+						eco.push("Freshwater");
+						break;
+					case 'Ma':
+						eco.push("Marine");
+						break;
+					default:
+						eco = null;
+					}
+			}
+			for (i = 0; i < info.geography.length; i++) {
+
+				switch (info.geography[i]) {
+
+					case "As":
+						geo.push("Asia");
+						break;
+					case 'Am':
+						geo.push("America");
+						break;
+					case 'Eu':
+						geo.push("Europe");
+						break;
+					case 'Af':
+						geo.push("Africa");
+						break;
+					case 'Oc':
+						geo.push("Oceania");
+						break;
+					default:
+						eco = null;
+					}
+			}
+
+			for (i = 0; i < info.mechanism.length; i++) {
+
+				switch (info.mechanism[i]) {
+
+					case "I":
+						mec.push("Interference");
+						break;
+					case 'S':
+						mec.push("Scattering");
+						break;
+					case 'D':
+						mec.push("Diffraction");
+						break;
+
+					default:
+						eco = null;
+					}
+			}
+			for (i = 0; i < info.presumable_Functions.length; i++) {
+
+				switch (info.presumable_Functions[i]) {
+
+					case "A":
+						fun.push("Aposematism");
+						break;
+					case 'C':
+						fun.push("Crypsis");
+						break;
+					case 'S':
+						fun.push("Sexual");
+						break;
+					case 'O':
+						fun.push("Other");
+						break;
+
+					default:
+						eco = null;
+					}
+			}
+
+			for (i = 0; i < info.invisable_Signals.length; i++) {
+
+				switch (info.invisable_Signals[i]) {
+
+					case "I":
+						inv.push("Infrared");
+						break;
+					case 'U':
+						inv.push("Ultraviolet");
+						break;
+					default:
+						eco = null;
+					}
+			}
+
+			if (info.tunable == "A") {
+				tun = "Active"
+			} else if (info.tunable == "P") {
+				tun = "Passive"
+			} else {
+				tun = ""
+			}
+
+			datalist = [info.description, "Wavelength = " + info.wavelength, "Structure = " + info.structure + "D",
+			"Ecosystem: " + eco, "Geography: " + geo, "Mechanism: " + mec,
+			"Presumable function: " + fun, "Tunable: " + tun, "Invisable Signals: " + inv]
+
+			var data = datalist.map(function(data,index) {
 				return (<li key={index}>{data}</li>);
 			});
-			return (
 
+			return (
 				<div>
 					<center>
 					<h1>
 					{this.props.detail.common_name}
 					</h1>
-
-					<Card className={this.props.card}>
-
-						<CardMedia
-							className = {this.props.media}
-							image =  {this.props.detail.sillouette}
-							title = {this.props.detail.common_name}
-							/>
+          <WordCloud id = {this.props.picture.species}/>
+					<Card className={this.props.card} style = {{width: '550px'}}>
 						<CardContent>
-							<Typography type="headline" component=
-							"h3">
+							<Typography type="headline" component="h3">
 								{this.props.detail.family},
 								{this.props.detail.species}
-								<p>
-								<img src = {this.props.detail.sillouette}/>	
-								<img src = {this.props.picture.picture}/>
-								</p>
-          					</Typography>
-        				</CardContent>
-        			</Card>
-					
-					<ul style = {{listStyleType: 'none'}}>
-						<Card className={this.props.card}>
+      				</Typography>
+              <p>
+                <img src = {this.props.detail.sillouette}/>
+                <img src = {this.props.picture.picture}/>
+              </p>
+      			</CardContent>
+						<ul style = {{listStyleType: 'none', textAlign:'Left'}} >
 							<CardContent>
 								 <Typography>
-										{data}
+									{data}
 								</Typography>
 	        				</CardContent>
-	        			</Card>
-        			</ul>
+	        			</ul>
+	        		</Card>
 					</center>
-
 				</div>
 			)
-		} else if(this.props.defetched) {
+		} else if(this.props.dfetched) {
 			return(
 				<div>
-					
-					{this.props.detail.common_name}
-					<p>
-						<img src = "http://localhost:8000/media/pictures/BogbaneBeetleP_MG0pOn5.png/"/>
-					</p>
-					
+					<LinearProgress mode="indeterminate" color="primary"/>
 				</div>
-			)
-		} else if(this.props.pfetched) {
-			return(
-				<div>
-					
-					Fetching
-
-					<img src = {this.props.picture[id].picture}/>
-
-					/>
-				</div>
-			)
-		} else {
-			return(
-				<div>
-						
-					{"Fetching name"}
-
-					<img src = "http://localhost:8000/media/pictures/BogbaneBeetleP_MG0pOn5.png/"/>
-					/>
-				</div>
-			)
+			);
 		}
-
-		
+    else if (this.props.pfetched) {
+			return (
+				<div>
+					<LinearProgress mode="indeterminate" color="primary"/>
+				</div>
+			);
+		}
+    else {
+			return (
+				<div>
+					<LinearProgress mode="indeterminate" color="primary"/>
+				</div>
+			);
+		}
 	}
-
 }
-
-

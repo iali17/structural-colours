@@ -4,35 +4,46 @@ import { connect } from 'react-redux';
 // Material ui
 import { withStyles } from 'material-ui/styles';
 import { GridList, GridListTile } from 'material-ui/GridList';
+import Typography from 'material-ui/Typography';
+
+import LandingPic from './LandingPic';
 
 import {
-  fetchRandomPictures,
+  fetchRandomPicture,
 } from '../actions/pictureActions';
 
+// The styles that will be used in this component.
 const styles = theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    background: theme.palette.background.paper,
+    backgroundColor: '#ececec',
+    alignItems: 'center',
+    marginTop: '40px',
   },
-  gridList: {
-    width: '100%',
-    height: '100%',
-  },
-  subheader: {
-    width: '100%',
-  },
+  title: {
+    fontSize: '3.5rem',
+    color: '#565656',
+    borderRight: 'medium solid #565656',
+    paddingRight: '85px',
+  }
 });
 
+// What we will be using from the dispatch calls.
 @connect((store) => {
   return {
-    pictures: store.landingView.pictures,
+    picture: store.landingView.picture,
     fetching: store.landingView.fetching,
     fetched: store.landingView.fetched
   };
 })
+/**
+* This is the landing page. It loads a random picture with a dispatch call
+* every 10 seconds. If you click on a picture it will take you to that
+* pictures profile page.
+**/
 class LandingView extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +52,7 @@ class LandingView extends Component {
   }
 
   getPictures() {
-    this.props.dispatch(fetchRandomPictures())
+    this.props.dispatch(fetchRandomPicture())
   }
 
   componentWillMount() {
@@ -54,23 +65,25 @@ class LandingView extends Component {
 
   render() {
     const { classes } = this.props;
-    
+
     if (this.props.fetched) {
       return (
         <div className={classes.root}>
-          <GridList cellHeight={'auto'} className={classes.gridList} cols={2}>
-            {this.props.pictures.map((picture, index) => (
-              <GridListTile key={index}>
-                <img src={picture.picture} />
-              </GridListTile>
-            ))}
-          </GridList>
+          <Typography type="headline" component="h3" className={classes.title}>
+             Explore<br/>
+             Structural<br/>
+             Colour<br/>
+             to Inform<br/>
+             Biomimetic<br/>
+             Design
+           </Typography>
+          <LandingPic pic={this.props.picture} getProfile={this.props.getProfile}/>
         </div>
-      )
+      );
     }
     else {
       return (
-        <h1>NO PICTURES :(</h1>
+        <div></div>
       )
     }
   }
