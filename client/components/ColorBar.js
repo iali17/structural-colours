@@ -125,7 +125,7 @@ class ColorBar extends Component {
 
 	render() {
 		return (
-			<svg width="1.23cm" height="5cm" viewBox="0 0 350 1400">
+			<svg width="1.23cm" height="4.9cm" viewBox="0 0 350 1400">
 				<rect x="1" y="1" height="1398" width="348" fill="grey" />
 				<text x="40" y="70" fontFamily="Roboto" fontSize="75" fill="white"> Choose </text>
 				<circle cx = "175" cy= "200" r= {this.state.red} fill = "red" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
