@@ -18,6 +18,10 @@ import {
   fetchNextPictures,
 } from '../actions/pictureActions';
 
+/**
+* Styles that will be used for some of the
+* components we render
+**/
 const styles = theme => ({
   root: {
     display: 'flex',
@@ -43,6 +47,9 @@ const styles = theme => ({
   },
 });
 
+/**
+* The items we will be getting from the dispatch calls.
+**/
 @connect((store) => {
   return {
     pictures: store.mainView.pictures,
@@ -52,6 +59,15 @@ const styles = theme => ({
     colour: store.app.colour,
   };
 })
+
+/**
+* This is the component right underneath the icicle.
+* It handles paginiation, so when you scroll to the bottom
+* it loads more pictures. 
+*
+* There is a loading bar from material-ui. We also use grids
+* to make sure everything stays aligned.
+**/
 class MainView extends Component {
   constructor(props) {
     super(props);

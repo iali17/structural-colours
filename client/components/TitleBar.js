@@ -13,7 +13,10 @@ import {
   fetchTax,
 } from '../actions/taxonomyActions';
 
-
+/**
+* Styles that will be used for some of the
+* components we render
+**/
 const styles = theme => ({
   root: {
     width: '100%',
@@ -29,9 +32,18 @@ const styles = theme => ({
   },
 });
 
-
+/**
+* Empty store so we can dispatch.
+**/
 @connect((store) => {
 })
+
+/**
+* Creates a title bar that will reset the icicle when clicked.
+* There is a disabled button for edit and contribute for later progress.
+* 
+* We are using material-ui next for these components.
+**/
 class TitleBar extends Component {
   constructor(props) {
     super(props);

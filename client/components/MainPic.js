@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 
 import { withStyles } from 'material-ui/styles';
 
+/**
+* Styles that will be used for some of the
+* components we render
+**/
 const styles = theme => ({
   img: {
     position: 'absolute',
@@ -15,6 +19,10 @@ const styles = theme => ({
   },
 });
 
+/**
+* This is a picture component, that will send to the profile page
+* when the picture is clicked.
+**/
 class MainPic extends Component {
   constructor(props) {
     super(props);
