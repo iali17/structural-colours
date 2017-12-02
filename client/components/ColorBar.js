@@ -4,9 +4,15 @@ import ReactDOM from 'react-dom'
 //https://reactjs.org/docs/conditional-rendering.html
 //https://appendto.com/2017/01/react-events-101/
 
+// The 2 sizes, 1 for normal, 2 for hover
 const size1 = 60;
 const size2 = 80;
 
+/**
+* Renders a colorbar with the 8 different colors.
+* When moused over one of the circles, it becomes bigger(size2)
+* when the mouse goes out it will go back to size1
+**/
 class ColorBar extends Component {
 	constructor(props) {
 		super(props);
@@ -119,7 +125,7 @@ class ColorBar extends Component {
 
 	render() {
 		return (
-			<svg /*style={{position: 'fixed'}}*/ width="1.5cm" height="5cm" viewBox="0 0 350 1400">
+			<svg width="1.5cm" height="5cm" viewBox="0 0 350 1400">
 				<rect x="1" y="1" height="1398" width="348" fill="grey" />
 				<text x="40" y="70" fontFamily="Verdana" fontSize="75" fill="white"> Choose </text>
 				<circle cx = "175" cy= "200" r= {this.state.red} fill = "red" onMouseOver= {this.mouseOver.bind(this)} onMouseOut = {this.mouseOut.bind(this)} onClick = {this.setColour.bind(this)}/>
