@@ -11,6 +11,7 @@ const styles = theme => ({
   img: {
     height: '500px',
     opacity: '.7',
+    cursor: 'pointer',
   },
 });
 

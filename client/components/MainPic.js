@@ -16,6 +16,7 @@ const styles = theme => ({
     right: '-100%',
     top: '-100%',
     bottom: '-100%',
+    cursor: 'pointer',
   },
 });
 
