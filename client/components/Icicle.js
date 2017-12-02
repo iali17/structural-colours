@@ -269,7 +269,7 @@ export default class Icicle extends Component {
 					.style("position", "absolute")
 					.style("text-align", "center")
 					.style("padding", "2px")
-					.style("font", "12px sans-serif")
+					.style("font", "12px Roboto")
 					.style("background", "lightsteelblue")
 					.style("border", "0px")
 					.style("border-radius", "8px")
@@ -378,7 +378,7 @@ export default class Icicle extends Component {
 	     		return d.data.key
 	     	})
 	     	.on("click", clicked)
-	     	.style("font", "15px 'Helvetica Neue'")
+	     	.style("font", "15px 'Roboto'")
 	     	.style("color", function(d){
 	     		if (d.data.key == "Fungi"){
 	     			return "#ffffff"
