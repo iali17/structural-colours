@@ -3,12 +3,12 @@ import Enzyme, { shallow, mount } from 'enzyme';
 import configureMockStore from 'redux-mock-store'
 import { expect } from 'chai';
 import { spy } from 'sinon';
-import Icicle from '../components/Icicle.js';
 import Adapter from 'enzyme-adapter-react-15';
 import thunk from 'redux-thunk'
-import reducer from '../reducers/icicleViewReducer'
-import promise from 'redux-promise-middleware';
+import reducer from '../reducers/appReducer'
+import App from '../components/App'
 import { applyMiddleware } from 'redux';
+import promise from 'redux-promise-middleware';
 
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -24,66 +24,71 @@ const shallowWithStore = (component, store) => {
 };
 
 
-describe('<Icicle />', () => {
-	it('Renders icicle', () => {
-		const store = mockStore({icicleView: {
-			taxonomy: {}, Tfetching: false, Tfetched: false
+describe('<App />', () => {
+	it('Renders the whole app', () => {
+		const store = mockStore(
+		{
+			app:
+			{
+				activeTab: 0,
+	   			colour: "init"
 			}
 		});
 
 		const wrapper = shallowWithStore(
-   		<Icicle/>, store);
+   		<App />, store);
 
    		expect(wrapper).to.be.a('object');
 	})
 })
 
-
-describe('Reducers for Icicle', () => {
+describe('Reducers for App', () => {
 	it('should return to intial state', () => {
 		expect(reducer(undefined, {})).to.deep.equal(
 		{
-			taxonomy: {},
-			Tfetching: false,
-			Tfetched: false
+			activeTab: 0,
+  			colour: "init",
+  			id: "init",
 		})
 	})
 
 
-	it('should handle FETCH_TAXONOMY', () => {
+	it('should handle SWITCH_TABS', () => {
 		expect(
 			reducer(undefined, {
-				type: "FETCH_TAXONOMY"
+				type: "SWITCH_TABS",
+				tab: 1
 			})).to.deep.equal(
 		{
-			Tfetching: true,
-			Tfetched: false,
-			taxonomy: {}
+			activeTab: 1,
+  			colour: "init",
+  			id: "init",
 		})
 	})
 
-	it('should handle FETCH_TAXONOMY_REJECTED', () => {
+	it('should handle SET_CURRENT_COLOUR', () => {
 		expect(
 			reducer(undefined, {
-				type: "FETCH_TAXONOMY_REJECTED"
+				type: "SET_CURRENT_COLOUR",
+				colour: "red"
 			})).to.deep.equal(
 		{
-			Tfetching: false,
-			Tfetched: false,
-			taxonomy: {},
-			error: undefined
+			activeTab: 0,
+  			colour: "red",
+  			id: "init",
 		})
 	})
 
-	it('should handle FETCH_TAXONOMY_FULFILLED', () => {
+	it('should handle SET_CURRENT_ID', () => {
 		expect(
 			reducer(undefined, {
-				type: "FETCH_TAXONOMY_FULFILLED"
+				type: "SET_CURRENT_ID",
+				id: "1"
 			})).to.deep.equal(
 		{
-			Tfetching: false,
-			Tfetched: true,
-			taxonomy: undefined
+			activeTab: 0,
+  			colour: "init",
+  			id: "1",
 		})
 	})
 })

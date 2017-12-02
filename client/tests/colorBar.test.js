@@ -6,6 +6,11 @@ import sinon from 'sinon';
 import ColorBar from '../components/ColorBar';
 
 describe('<ColorBar />', () => {
+	it('Component should render', () => {
+		const wrapper = shallow(<ColorBar />);
+		expect(wrapper).to.be.a('object');
+	})
+
   	it('renders a svg components', () => {
 	    const wrapper = shallow(<ColorBar />);
 	    expect(wrapper.find("svg")).to.have.length(1);
