@@ -5,6 +5,7 @@ import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
 
 import Icicle from './Icicle';
 import SearchBar from './SearchBar';
@@ -29,6 +30,7 @@ const styles = theme => ({
   },
   title: {
     flex: '1',
+    fontSize: '2rem',
   },
 });
 
@@ -41,7 +43,7 @@ const styles = theme => ({
 /**
 * Creates a title bar that will reset the icicle when clicked.
 * There is a disabled button for edit and contribute for later progress.
-* 
+*
 * We are using material-ui next for these components.
 **/
 class TitleBar extends Component {
@@ -60,7 +62,9 @@ class TitleBar extends Component {
       <div className={classes.root}>
         <AppBar className={classes.appBar} position="static" color="default" >
           <Toolbar>
-            <h1 className={classes.title} onClick = {this.resetIcicle.bind(this)}>DTSC | Dynamic Taxonomy of Structural Colour in Life-forms</h1>
+            <Typography type="headline" component="h1" className={classes.title} onClick={this.resetIcicle.bind(this)}>
+              DTSC | Dynamic Taxonomy of Structural Colour in Life-forms
+            </Typography>
             <SearchBar/>
             <Button disabled className={classes.button}>
               Edit/Contribute
