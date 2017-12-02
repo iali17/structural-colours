@@ -4,10 +4,12 @@ import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import MainPic from '../components/MainPic.js'
 
+// Checks to see if MainPic renders
 describe('<MainPic />', () => {
-	it('Should have an img component', () => {
-		const fakeID = sinon.spy();
-		const wrapper = shallow(<MainPic pic = {fakeID}/>);
-		expect(wrapper.find("img")).to.have.length(1);
+	it('Component should render', () => {
+		const fakeId = sinon.spy();
+		const wrapper = shallow(<MainPic id={fakeId} />);
+
+		expect(wrapper).to.be.a('object');
 	})
 })

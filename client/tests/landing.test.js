@@ -1,22 +1,64 @@
 import React from 'react';
 import Enzyme, { shallow, mount } from 'enzyme';
 import configureMockStore from 'redux-mock-store'
-import fetchMock from 'fetch-mock'
 import { expect } from 'chai';
 import { spy } from 'sinon';
 import Adapter from 'enzyme-adapter-react-15';
-import { createMockStore } from 'redux-test-utils';
-import { createMockDispatch } from 'redux-test-utils';
 import thunk from 'redux-thunk'
 import reducer from '../reducers/landingViewReducer'
+import LandingPic from '../components/LandingPic'
+import LandingView from '../components/LandingView'
+import { applyMiddleware } from 'redux';
+import promise from 'redux-promise-middleware';
 
-
+// configure adapter
 Enzyme.configure({ adapter: new Adapter() });
 
-const middlewares = [thunk]
-const mockStore = configureMockStore(middlewares)
+// setup middleware and store.
+const middlewares = applyMiddleware(promise(), thunk)
+const mockStore = configureMockStore(reducer, middlewares)
 
-describe('test the reducer for ProfilePage', () => {
+// taken from https://medium.com/@visualskyrim/test-your-redux-container-with-enzyme-a0e10c0574ec
+const shallowWithStore = (component, store) => {
+    const context = {
+        store,
+    };
+    return shallow(component, { context });
+};
+
+// Checks to see if LandingView renders
+describe('<LandingView />', () => {
+    it('Renders the LandingView', () => {
+        const store = mockStore(
+        {
+            landingView:
+            {
+                picture: {},
+                fetching: false,
+                fetched: false
+            }
+        });
+
+        const wrapper = shallowWithStore(
+        <LandingView />, store);
+
+        expect(wrapper).to.be.a('object');
+    })
+})
+
+// Checks to see if LandingPic renders
+describe('<LandingPic />', () => {
+    it('Renders the LandingPic', () => {
+
+        const wrapper = shallow(
+        <LandingPic />);
+
+        expect(wrapper).to.be.a('object');
+    })
+})
+
+// tests if reducers return what is expected.
+describe('test the reducer for LandingView', () => {
     it('should return to intial state', () => {
         expect(reducer(undefined, {})).to.deep.equal(
         {
@@ -39,6 +81,12 @@ describe('test the reducer for ProfilePage', () => {
         expect(
             reducer({}, {
                 type: "FETCH_RANDOM_PICTURE_REJECTED"
+            }).fetching).to.deep.equal(false)
+    })
+    it('should handle FETCH_RANDOM_PICTURE_FULFILLED', () => {
+        expect(
+            reducer({}, {
+                type: "FETCH_RANDOM_PICTURE_FULFILLED"
             }).fetching).to.deep.equal(false)
     })
 })

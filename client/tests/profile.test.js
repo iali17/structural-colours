@@ -1,21 +1,54 @@
 import React from 'react';
 import Enzyme, { shallow, mount } from 'enzyme';
 import configureMockStore from 'redux-mock-store'
-import fetchMock from 'fetch-mock'
 import { expect } from 'chai';
 import { spy } from 'sinon';
 import Adapter from 'enzyme-adapter-react-15';
-import { createMockStore } from 'redux-test-utils';
-import { createMockDispatch } from 'redux-test-utils';
 import thunk from 'redux-thunk'
 import reducer from '../reducers/profileViewReducer'
+import ProfilePage from '../components/ProfilePage'
+import { applyMiddleware } from 'redux';
+import promise from 'redux-promise-middleware';
 
-
+// configure adapter
 Enzyme.configure({ adapter: new Adapter() });
 
-const middlewares = [thunk]
-const mockStore = configureMockStore(middlewares)
+// setup middleware and store.
+const middlewares = applyMiddleware(promise(), thunk)
+const mockStore = configureMockStore(reducer, middlewares)
 
+const shallowWithStore = (component, store) => {
+    const context = {
+        store,
+    };
+    return shallow(component, { context });
+};
+
+// taken from https://medium.com/@visualskyrim/test-your-redux-container-with-enzyme-a0e10c0574ec
+describe('<ProfilePage />', () => {
+    it('Renders profilepage', () => {
+        const pic = spy();
+        const store = mockStore({ 
+            detailView: {
+                detail: {},
+                dfetching: false,
+                dfetched: false
+            },
+            profileView:{
+                picture: {},
+                pfetching: false,
+                pfetched: false
+            }
+        });
+
+        const wrapper = shallowWithStore(
+        <ProfilePage />, store);
+
+        expect(wrapper).to.be.a('object');
+    })
+})
+
+// Checks to see if app renders.
 describe('test the reducer for ProfilePage', () => {
     it('should return to intial state', () => {
         expect(reducer(undefined, {})).to.deep.equal(

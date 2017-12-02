@@ -382,12 +382,8 @@ export default class Icicle extends Component {
 	     	.style("color", function(d){
 	     		if (d.data.key == "Fungi"){
 	     			return "#ffffff"
-	     		} //else if (d.depth == 2 && d.parent.data.key == "Fungi"){
-	     		//	return "#ffffff"
-	     		//}
+	     		}
 	     		return "#302f2f"
-	     		//return "#0000d8"
-	     		//return "#000000"
 	     	})
 	     	.on("mouseover", function(d) {
 	   			var data = d.data.key;
