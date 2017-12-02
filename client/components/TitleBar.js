@@ -39,7 +39,6 @@ const styles = theme => ({
 **/
 @connect((store) => {
 })
-
 /**
 * Creates a title bar that will reset the icicle when clicked.
 * There is a disabled button for edit and contribute for later progress.

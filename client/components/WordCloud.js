@@ -54,8 +54,8 @@ export default class WordCloud extends Component {
 
     // Gets the next article and sets the state
     this.handleNext = () => {
-      if (this.props.fetched){
-        if (this.state.index < this.state.articles.length-1){
+      if (this.props.fetched) {
+        if (this.state.index < this.state.articles.length-1) {
           this.setState({
             open: true,
             next: true,
@@ -100,22 +100,22 @@ export default class WordCloud extends Component {
     this.props.dispatch(fetchAuthor(this.props.id))
   }
 
-  render(){
+  render() {
     if (this.props.fetching) {
       return <LinearProgress color="primary" />
-    } else if (this.props.fetched){
+    } else if (this.props.fetched) {
       // Compile the list of authors. Each article the author has on the species adds 1 to its weight (thus increasing its size in the wordcloud)
       var data=[]
       var authors=[]
       var counts=[]
-      if (this.props.fetched){
+      if (this.props.fetched) {
         const info = this.props.author
         for (var i = 0; i < info.length; i++) {
           var author_list = info[i].author
-          for (var j = 0; j < author_list.length; j++){
+          for (var j = 0; j < author_list.length; j++) {
             var name = author_list[j].name;
             var loc = authors.indexOf(name);
-            if (loc != -1){
+            if (loc != -1) {
               counts[loc] = counts[loc] + 1
             } else {
               counts.push(1)
@@ -123,18 +123,18 @@ export default class WordCloud extends Component {
             }
           }
         }
-        for (var k = 0; k < authors.length; k++){
+        for (var k = 0; k < authors.length; k++) {
           data.push({value: authors[k], count: (counts[k])});
         }
       }
 
       // Get the article(s) for the clicked author
-      if (this.props.article_fetched){
+      if (this.props.article_fetched) {
         this.state.articles = this.props.article;
         this.state.dialogTitle = this.state.articles[this.state.index].title;
         this.state.dialogAbstract = this.state.articles[this.state.index].abstract;
         this.state.dialogDetail = this.state.articles[this.state.index].detail;
-        if (this.state.index < this.state.articles.length-1){
+        if (this.state.index < this.state.articles.length-1) {
           this.state.next = true;
         } else {
           this.state.next = false;

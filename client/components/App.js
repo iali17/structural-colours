@@ -32,7 +32,6 @@ import {
     colour: store.app.colour,
   };
 })
-
 /**
 * This is the main view, it holds all the base components
 * and puts them in grids. There is also some dispatch
@@ -57,7 +56,7 @@ export default class App extends Component {
       that.props.dispatch(fetchPictures(colour))
       return response;
     })
-    .then(function(response){
+    .then(function(response) {
       if (that.props.activeTab != TABS.main) {
         that.props.dispatch(switchTabs(TABS.main))
       }

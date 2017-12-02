@@ -39,10 +39,9 @@ const styles = theme => ({
     fetched: store.landingView.fetched
   };
 })
-
 /**
 * This is the landing page. It loads a random picture with a dispatch call
-* every 10 seconds. If you click on a picture it will take you to that 
+* every 10 seconds. If you click on a picture it will take you to that
 * pictures profile page.
 **/
 class LandingView extends Component {

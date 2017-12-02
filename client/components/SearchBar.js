@@ -28,7 +28,6 @@ const styles = theme => ({
 **/
 @connect((store) => {
 })
-
 /**
 * Search bar from material-ui.
 *

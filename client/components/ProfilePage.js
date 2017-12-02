@@ -42,12 +42,10 @@ const styles = theme => ({
     pfetched: store.profileView.fetched
   };
 })
-
-
-/** 
+/**
 * This is the profile page. It first fetches all the stuff we need from the id that
 * is supplied to it. It then takes the information of of that and call two components
-* which will help display the information. 
+* which will help display the information.
 **/
 export default class ProfilePage extends Component {
 	constructor(props) {
@@ -71,7 +69,6 @@ export default class ProfilePage extends Component {
 			var mec = [];
 			var inv = [];
 			var tun;
-
 
 			const info = this.props.detail
 			var i;
@@ -189,7 +186,6 @@ export default class ProfilePage extends Component {
 				tun = ""
 			}
 
-
 			datalist = [info.description, "Wavelength = " + info.wavelength, "Structure = " + info.structure + "D",
 			"Ecosystem: " + eco, "Geography: " + geo, "Mechanism: " + mec,
 			"Presumable function: " + fun, "Tunable: " + tun, "Invisable Signals: " + inv]
@@ -204,7 +200,7 @@ export default class ProfilePage extends Component {
 					<h1>
 					{this.props.detail.common_name}
 					</h1>
-          			<WordCloud id = {this.props.picture.species}/>
+          <WordCloud id = {this.props.picture.species}/>
 					<Card className={this.props.card} style = {{width: '550px'}}>
 						<CardContent>
 							<Typography type="headline" component="h3">
