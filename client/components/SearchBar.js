@@ -15,14 +15,26 @@ import {
   switchTabs
 } from '../actions/appActions'
 
+/**
+* Styles we use on the search bar
+**/
 const styles = theme => ({
   textField: {
     marginRight: '15px',
   },
 });
-
+/**
+* Empty store so we can use dispatch calls.
+**/
 @connect((store) => {
 })
+
+/**
+* Search bar from material-ui.
+*
+* Everytime they press a key, we set the value.
+* When the special key (13, enter) is clicked we go search
+**/
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
