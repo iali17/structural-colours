@@ -158,7 +158,9 @@ export default class WordCloud extends Component {
                         <DialogContent>
                             <DialogContentText>
                                 {this.state.dialogAbstract}
-                                <hr/>
+                            </DialogContentText>
+                            <hr/>
+                            <DialogContentText>
                                 {this.state.dialogDetail}
                             </DialogContentText>
                         </DialogContent>
