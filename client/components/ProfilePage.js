@@ -6,7 +6,7 @@ import Typography from 'material-ui/Typography';
 import { blueGrey, brown } from 'material-ui/colors';
 import WordCloud from './WordCloud';
 
-import {LinearProgress} from 'material-ui/Progress';
+import { LinearProgress } from 'material-ui/Progress';
 
 import {
   fetchDetail,
@@ -58,11 +58,9 @@ export default class ProfilePage extends Component {
   	}
 
 	render() {
-		if (this.props.dfetched && this.props.pfetched && this.props.id == this.props.picture.species) {
-			var imgURL;
+		if (this.props.dfetched) {
 			var datalist
 			const { classes } = this.props;
-			console.log(classes)
 			var eco = [];
 			var geo = [];
 			var fun = [];
@@ -74,9 +72,7 @@ export default class ProfilePage extends Component {
 			var i;
 
 			for (i = 0; i < info.ecosystem.length; i++) {
-
 				switch (info.ecosystem[i]) {
-
 					case "Fo":
 						eco.push("Forest");
 						break;
@@ -99,10 +95,9 @@ export default class ProfilePage extends Component {
 						eco = null;
 					}
 			}
+
 			for (i = 0; i < info.geography.length; i++) {
-
 				switch (info.geography[i]) {
-
 					case "As":
 						geo.push("Asia");
 						break;
@@ -124,9 +119,7 @@ export default class ProfilePage extends Component {
 			}
 
 			for (i = 0; i < info.mechanism.length; i++) {
-
 				switch (info.mechanism[i]) {
-
 					case "I":
 						mec.push("Interference");
 						break;
@@ -141,10 +134,9 @@ export default class ProfilePage extends Component {
 						eco = null;
 					}
 			}
+
 			for (i = 0; i < info.presumable_Functions.length; i++) {
-
 				switch (info.presumable_Functions[i]) {
-
 					case "A":
 						fun.push("Aposematism");
 						break;
@@ -164,9 +156,7 @@ export default class ProfilePage extends Component {
 			}
 
 			for (i = 0; i < info.invisable_Signals.length; i++) {
-
 				switch (info.invisable_Signals[i]) {
-
 					case "I":
 						inv.push("Infrared");
 						break;
@@ -194,49 +184,65 @@ export default class ProfilePage extends Component {
 				return (<li key={index}>{data}</li>);
 			});
 
-			return (
-				<div>
-					<center>
-					<h1>
-					{this.props.detail.common_name}
-					</h1>
-          <WordCloud id = {this.props.picture.species}/>
-					<Card className={this.props.card} style = {{width: '550px'}}>
-						<CardContent>
-							<Typography type="headline" component="h3">
-								{this.props.detail.family},
-								{this.props.detail.species}
-      				</Typography>
-              <p>
-                <img src = {this.props.detail.sillouette}/>
-                <img src = {this.props.picture.picture}/>
-              </p>
-      			</CardContent>
-						<ul style = {{listStyleType: 'none', textAlign:'Left'}} >
-							<CardContent>
-								 <Typography>
-									{data}
-								</Typography>
-	        				</CardContent>
-	        			</ul>
-	        		</Card>
-					</center>
-				</div>
-			)
-		} else if(this.props.dfetched) {
-			return(
-				<div>
-					<LinearProgress mode="indeterminate" color="primary"/>
-				</div>
-			);
-		}
-    else if (this.props.pfetched) {
-			return (
-				<div>
-					<LinearProgress mode="indeterminate" color="primary"/>
-				</div>
-			);
-		}
+      if (this.props.pfetched && this.props.id == this.props.picture.species) {
+        return (
+          <div>
+            <center>
+            <h1>
+            {this.props.detail.common_name}
+            </h1>
+            <WordCloud id = {this.props.picture.species}/>
+            <Card className={this.props.card} style = {{width: '550px'}}>
+              <CardContent>
+                <Typography type="headline" component="h3">
+                  {this.props.detail.family},
+                  {this.props.detail.species}
+                </Typography>
+                <p>
+                  <img src = {this.props.detail.sillouette}/>
+                  <img src = {this.props.picture.picture}/>
+                </p>
+              </CardContent>
+              <ul style = {{listStyleType: 'none', textAlign:'Left'}} >
+                <CardContent>
+                   <Typography>
+                    {data}
+                  </Typography>
+                    </CardContent>
+                  </ul>
+                </Card>
+            </center>
+          </div>
+        );
+      }
+      else {
+        return (
+          <div>
+  					<center>
+  					<h1>
+  					{this.props.detail.common_name}
+  					</h1>
+            <WordCloud id = {this.props.picture.species}/>
+  					<Card className={this.props.card} style = {{width: '550px'}}>
+  						<CardContent>
+  							<Typography type="headline" component="h3">
+  								{this.props.detail.family},
+  								{this.props.detail.species}
+        				</Typography>
+        			</CardContent>
+  						<ul style = {{listStyleType: 'none', textAlign:'Left'}} >
+  							<CardContent>
+  								 <Typography>
+  									{data}
+  								</Typography>
+  	        				</CardContent>
+  	        			</ul>
+  	        		</Card>
+  					</center>
+  				</div>
+  			);
+      }
+    }
     else {
 			return (
 				<div>

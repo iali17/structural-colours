@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import { connect } from 'react-redux';
 import { TagCloud } from "react-tagcloud";
 import Typography from 'material-ui/Typography';
+import { LinearProgress } from 'material-ui/Progress';
 import Dialog, {
   DialogActions,
   DialogContent,
@@ -102,12 +103,15 @@ export default class WordCloud extends Component {
 
   render() {
     if (this.props.fetching) {
-      return <LinearProgress color="primary" />
+      return (
+        <LinearProgress mode="indeterminate" color="primary"/>
+      );
     } else if (this.props.fetched) {
       // Compile the list of authors. Each article the author has on the species adds 1 to its weight (thus increasing its size in the wordcloud)
       var data=[]
       var authors=[]
       var counts=[]
+
       if (this.props.fetched) {
         const info = this.props.author
         for (var i = 0; i < info.length; i++) {
@@ -141,7 +145,7 @@ export default class WordCloud extends Component {
         }
       }
 
-      return(
+      return (
         <div>
           <TagCloud
             minSize={15}
@@ -176,7 +180,9 @@ export default class WordCloud extends Component {
         </div>
       );
     } else {
-      return <h2> WordCloud failed to load </h2>
+      return (
+        <h2> WordCloud failed to load </h2>
+      );
     }
   }
 }
