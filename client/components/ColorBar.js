@@ -1,30 +1,31 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import {
+	COLOR_BAR_SIZE_1,
+	COLOR_BAR_SIZE_2,
+} from '../constants';
+
 //https://reactjs.org/docs/conditional-rendering.html
 //https://appendto.com/2017/01/react-events-101/
 
-// The 2 sizes, 1 for normal, 2 for hover
-const size1 = 60;
-const size2 = 80;
-
 /**
 * Renders a colorbar with the 8 different colors.
-* When moused over one of the circles, it becomes bigger(size2)
-* when the mouse goes out it will go back to size1
+* When moused over one of the circles, it becomes bigger(COLOR_BAR_SIZE_2)
+* when the mouse goes out it will go back to COLOR_BAR_SIZE_1
 **/
 class ColorBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			red: size1,
-			orange: size1,
-			yellow: size1,
-			greenyellow: size1,
-			dodgerblue: size1,
-			fuchsia: size1,
-			darkviolet: size1,
-			white: size1,
+			red: COLOR_BAR_SIZE_1,
+			orange: COLOR_BAR_SIZE_1,
+			yellow: COLOR_BAR_SIZE_1,
+			greenyellow: COLOR_BAR_SIZE_1,
+			dodgerblue: COLOR_BAR_SIZE_1,
+			fuchsia: COLOR_BAR_SIZE_1,
+			darkviolet: COLOR_BAR_SIZE_1,
+			white: COLOR_BAR_SIZE_1,
 		};
 	}
 
@@ -33,28 +34,28 @@ class ColorBar extends Component {
 
 		switch(change) {
 			case "red":
-        this.setState({red: size2});
+        this.setState({red: COLOR_BAR_SIZE_2});
         break;
 			case "orange":
-				this.setState({orange: size2});
+				this.setState({orange: COLOR_BAR_SIZE_2});
 				break;
 			case "yellow":
-        this.setState({yellow: size2});
+        this.setState({yellow: COLOR_BAR_SIZE_2});
         break;
 			case "greenyellow":
-				this.setState({greenyellow: size2});
+				this.setState({greenyellow: COLOR_BAR_SIZE_2});
 				break;
 			case "dodgerblue":
-				this.setState({dodgerblue: size2});
+				this.setState({dodgerblue: COLOR_BAR_SIZE_2});
 				break;
 			case "fuchsia":
-				this.setState({fuchsia: size2});
+				this.setState({fuchsia: COLOR_BAR_SIZE_2});
 				break;
 			case "darkviolet":
-				this.setState({darkviolet: size2});
+				this.setState({darkviolet: COLOR_BAR_SIZE_2});
 				break;
 			case "white":
-				this.setState({white: size2})
+				this.setState({white: COLOR_BAR_SIZE_2})
 				break;
 			}
 		}
@@ -64,28 +65,28 @@ class ColorBar extends Component {
 
 		switch(change) {
 			case "red":
-				this.setState({red: size1});
+				this.setState({red: COLOR_BAR_SIZE_1});
 				break;
 			case "orange":
-				this.setState({orange: size1});
+				this.setState({orange: COLOR_BAR_SIZE_1});
 				break;
 			case "yellow":
-				this.setState({yellow: size1});
+				this.setState({yellow: COLOR_BAR_SIZE_1});
 				break;
 			case "greenyellow":
-				this.setState({greenyellow: size1});
+				this.setState({greenyellow: COLOR_BAR_SIZE_1});
 				break;
 			case "dodgerblue":
-				this.setState({dodgerblue: size1});
+				this.setState({dodgerblue: COLOR_BAR_SIZE_1});
 				break;
 			case "fuchsia":
-				this.setState({fuchsia: size1});
+				this.setState({fuchsia: COLOR_BAR_SIZE_1});
 				break;
 			case "darkviolet":
-				this.setState({darkviolet: size1});
+				this.setState({darkviolet: COLOR_BAR_SIZE_1});
 				break;
 			case "white":
-				this.setState({white: size1});
+				this.setState({white: COLOR_BAR_SIZE_1});
 		}
 	}
 
