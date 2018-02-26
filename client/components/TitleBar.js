@@ -10,10 +10,6 @@ import Typography from 'material-ui/Typography';
 import Icicle from './Icicle';
 import SearchBar from './SearchBar';
 
-import {
-  fetchTax,
-} from '../actions/taxonomyActions';
-
 /**
 * Styles that will be used for some of the
 * components we render
@@ -21,6 +17,7 @@ import {
 const styles = theme => ({
   root: {
     width: '100%',
+    cursor: "pointer",
   },
   appBar: {
     backgroundColor: '#f1f1f1',
@@ -35,11 +32,6 @@ const styles = theme => ({
 });
 
 /**
-* Empty store so we can dispatch.
-**/
-@connect((store) => {
-})
-/**
 * Creates a title bar that will reset the icicle when clicked.
 * There is a disabled button for edit and contribute for later progress.
 *
@@ -50,10 +42,6 @@ class TitleBar extends Component {
     super(props);
   }
 
-  resetIcicle() {
-    this.props.dispatch(fetchTax())
-  }
-
   render() {
     const { classes } = this.props;
 
@@ -61,7 +49,7 @@ class TitleBar extends Component {
       <div className={classes.root}>
         <AppBar className={classes.appBar} position="static" color="default" >
           <Toolbar>
-            <Typography type="headline" component="h1" className={classes.title} onClick={this.resetIcicle.bind(this)}>
+            <Typography type="headline" component="h1" className={classes.title} onClick={this.props.resetIcicle}>
               DTSC | Dynamic Taxonomy of Structural Colour in Life-forms
             </Typography>
             <SearchBar/>

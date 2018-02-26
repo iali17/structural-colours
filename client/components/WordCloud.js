@@ -106,6 +106,7 @@ export default class WordCloud extends Component {
       return (
         <LinearProgress mode="indeterminate" color="primary"/>
       );
+  
     } else if (this.props.fetched) {
       // Compile the list of authors. Each article the author has on the species adds 1 to its weight (thus increasing its size in the wordcloud)
       var data=[]
