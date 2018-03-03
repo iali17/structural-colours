@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from 'material-ui/styles';
-import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
-import Typography from 'material-ui/Typography';
-import { blueGrey, brown } from 'material-ui/colors';
-import WordCloud from './WordCloud';
 
+// Material ui
+import { withStyles } from 'material-ui/styles';
 import { LinearProgress } from 'material-ui/Progress';
+import Typography from 'material-ui/Typography';
+import Card, { CardActions, CardContent, CardMedia } from 'material-ui/Card';
+
+import WordCloud from './WordCloud';
 
 import {
   fetchDetail,
@@ -18,16 +19,12 @@ import {
 
 // The styles that will be used in this component.
 const styles = theme => ({
-  card: {
-  	palette: '#f1f1f1',
-    maxWidth: 45,
-    fontfamily: 'Helvetica'
-  },
-  media: {
-    height: 40,
-  },
-  root: {
-    width: '100%',
+  img: {
+    width: 'auto',
+    maxWidth: '100px',
+    height: 'auto',
+    maxHeight: '150px',
+    padding: '10px'
   },
 });
 
@@ -47,7 +44,7 @@ const styles = theme => ({
 * is supplied to it. It then takes the information of of that and call two components
 * which will help display the information.
 **/
-export default class ProfilePage extends Component {
+class ProfilePage extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -192,18 +189,18 @@ export default class ProfilePage extends Component {
             {this.props.detail.common_name}
             </h1>
             <WordCloud id = {this.props.picture.species}/>
-            <Card className={this.props.card} style = {{width: '550px'}}>
+            <Card style={{width: '550px'}}>
               <CardContent>
                 <Typography type="headline" component="h3">
                   {this.props.detail.family},
                   {this.props.detail.species}
                 </Typography>
-                <p>
-                  <img src = {this.props.detail.sillouette}/>
-                  <img src = {this.props.picture.picture}/>
-                </p>
+                <div>
+                  <img className={classes.img} src={this.props.detail.sillouette}/>
+                  <img className={classes.img} src={this.props.picture.picture}/>
+                </div>
               </CardContent>
-              <ul style = {{listStyleType: 'none', textAlign:'Left'}} >
+              <ul style={{listStyleType: 'none', textAlign:'Left'}} >
                 <CardContent>
                    <Typography>
                     {data}
@@ -219,27 +216,27 @@ export default class ProfilePage extends Component {
         return (
           <div>
   					<center>
-  					<h1>
-  					{this.props.detail.common_name}
-  					</h1>
-            <WordCloud id = {this.props.picture.species}/>
-  					<Card className={this.props.card} style = {{width: '550px'}}>
-  						<CardContent>
-  							<Typography type="headline" component="h3">
-  								{this.props.detail.family},
-  								{this.props.detail.species}
-        				</Typography>
-        			</CardContent>
-  						<ul style = {{listStyleType: 'none', textAlign:'Left'}} >
-  							<CardContent>
-  								 <Typography>
-  									{data}
-  								</Typography>
-  	        				</CardContent>
-  	        			</ul>
-  	        		</Card>
-  					</center>
-  				</div>
+    					<h1>
+    					{this.props.detail.common_name}
+    					</h1>
+              <WordCloud id = {this.props.picture.species}/>
+    					<Card className={this.props.card} style = {{width: '550px'}}>
+    						<CardContent>
+    							<Typography type="headline" component="h3">
+    								{this.props.detail.family},
+    								{this.props.detail.species}
+          				</Typography>
+          			</CardContent>
+    						<ul style = {{listStyleType: 'none', textAlign:'Left'}} >
+    							<CardContent>
+    								 <Typography>
+    									{data}
+    								</Typography>
+          				</CardContent>
+          			</ul>
+          		</Card>
+				   </center>
+          </div>
   			);
       }
     }
@@ -252,3 +249,5 @@ export default class ProfilePage extends Component {
 		}
 	}
 }
+
+export default withStyles(styles)(ProfilePage);
