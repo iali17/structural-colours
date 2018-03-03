@@ -72,6 +72,5 @@
     "redux-promise-middleware": "^4.4.1",
     "redux-test-utils": "^0.2.2",
     "redux-thunk": "^2.2.0"
-
   }
 }
