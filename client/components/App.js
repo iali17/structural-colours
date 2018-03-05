@@ -23,6 +23,10 @@ import {
   fetchPictures,
 } from '../actions/pictureActions';
 
+import {
+  fetchTax,
+} from '../actions/taxonomyActions';
+
 /**
 * This is what we get from dispatch calls.
 **/
@@ -42,8 +46,10 @@ export default class App extends Component {
     super(props);
     this.updateColour = this.updateColour.bind(this);
     this.getProfile = this.getProfile.bind(this);
+    this.resetIcicle = this.resetIcicle.bind(this);
   }
-    // Override base syles on body
+
+  // Override base syles on body
   componentDidMount() {
     document.body.style.margin = 0;
     document.body.style.background = "#ECECEC";
@@ -63,6 +69,10 @@ export default class App extends Component {
     })
   }
 
+  resetIcicle() {
+    this.props.dispatch(fetchTax())
+  }
+
   getProfile(id) {
     var that = this;
     Promise.resolve(that.props.dispatch(setCurrentId(id)))
@@ -76,13 +86,13 @@ export default class App extends Component {
       <div style={{overflowX:'hidden'}}>
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <TitleBar />
+            <TitleBar resetIcicle={this.resetIcicle}/>
             <Icicle getProfile={this.getProfile}/>
           </Grid>
         </Grid>
         <Grid container spacing={0}>
-          <Grid item xs={0}>
-           <ColorBar colour={this.props.colour} updateColour={this.updateColour}/>
+          <Grid item>
+            <ColorBar colour={this.props.colour} updateColour={this.updateColour}/>
           </Grid>
           <Grid item xs>
             <Container getProfile={this.getProfile}/>

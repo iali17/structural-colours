@@ -27,6 +27,7 @@ const styles = theme => ({
 * Empty store so we can use dispatch calls.
 **/
 @connect((store) => {
+  return {}
 })
 /**
 * Search bar from material-ui.

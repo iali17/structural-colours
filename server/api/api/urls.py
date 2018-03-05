@@ -8,7 +8,5 @@ urlpatterns = [
     url(r'^pictures/species/(?P<id>[0-9]+)/$', PictureSpeciesDetailAPIView.as_view(), name='picture-species'),
     url(r'^pictures/random/$', RandomLandingPictureListAPIView.as_view(), name='pictures-random'),
     url(r'^taxonomy/all/$', TaxonomyListAPIView.as_view(), name='taxonomy-all'),
-    url(r'^articles/all/$', ArticleBySpeciesListAPIView.as_view(), name='articles'),
-    url(r'^articles/author/$', ArticleByAuthorListAPIView.as_view(), name='articles'),
-
+    url(r'^articles/all/$', ArticleBySpeciesAndAuthorListAPIView.as_view(), name='articles-all'),
 ]

@@ -12,4 +12,12 @@ let TABS = Object.freeze(
   }
 );
 
-export { URL_PREFIX, TABS };
+let COLOR_BAR_SIZE_1 = 60;
+let COLOR_BAR_SIZE_2 = 80;
+
+export {
+  URL_PREFIX,
+  TABS,
+  COLOR_BAR_SIZE_1,
+  COLOR_BAR_SIZE_2,
+};
