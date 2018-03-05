@@ -112,7 +112,7 @@ class MainView extends Component {
           <div className={classes.root}>
             <GridList cellHeight={'auto'} className={classes.gridList} cols={'auto'} spacing={2}>
               {this.props.pictures.results.map((picture, index) => (
-                <GridListTile key={index} >
+                <GridListTile key={index}>
                   <div className={classes.setWidth}>
                     <MainPic pic={picture} getProfile={this.props.getProfile}/>
                   </div>

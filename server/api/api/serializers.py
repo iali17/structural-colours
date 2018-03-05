@@ -45,11 +45,10 @@ class TaxonomySerializer(ModelSerializer):
 class AuthorSerializer(ModelSerializer):
     class Meta(object):
         model = Author
-        fields = ['name']
+        fields = '__all__'
 
 class ArticleSerializer(ModelSerializer):
     author = AuthorSerializer(read_only=True, many=True)
     class Meta(object):
-
         model = Article
-        fields = ['title', 'author', 'abstract', 'species', 'detail']
+        fields = '__all__'
