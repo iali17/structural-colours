@@ -22,7 +22,7 @@ pygobject==3.12.0
 pyjsonselect==0.2.2
 python-apt==0.9.3.5ubuntu2
 pytz==2017.2
-requests==2.2.1
+requests==2.20.0
 six==1.5.2
 sockjs-tornado==1.0.3
 tornado==4.5.2
