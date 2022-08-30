@@ -11,7 +11,7 @@ djangorestframework==3.6.4
 html5lib==0.999
 jss==0.1.0
 language-selector==0.1
-mod-wsgi==4.5.20
+mod-wsgi==4.9.3
 node==0.9.22
 odict==1.6.2
 olefile==0.44
